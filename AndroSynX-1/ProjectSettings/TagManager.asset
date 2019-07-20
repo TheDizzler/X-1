@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GraviticObject
+  - PlayerSpawnPoint
   layers:
   - Default
   - TransparentFX

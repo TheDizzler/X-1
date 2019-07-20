@@ -1,4 +1,4 @@
-﻿using AtomosZ.AndroSyn.Actor;
+﻿using AtomosZ.AndroSyn.Actors;
 using AtomosZ.AndroSyn.Physics;
 using TMPro;
 using UnityEngine;

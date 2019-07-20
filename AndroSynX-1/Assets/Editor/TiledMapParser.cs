@@ -18,7 +18,7 @@ namespace AtomosZ.Editor.Tiled
 	/// </summary>
 	public class TiledMapParser
 	{
-		private const string TILED_GID_TAG = "Tiled GID: ";
+		private const string TILED_GID_TAG = "TiledGID - ";
 		private const float PIXELS_PER_UNIT = 100;
 		private static TiledMapParser instance = new TiledMapParser();
 		private XmlDocument tmxDoc;
@@ -34,6 +34,8 @@ namespace AtomosZ.Editor.Tiled
 		private Vector2 mapStartPos = Vector2.zero;
 		private float mapTileWidth;
 		private float mapTileHeight;
+		private bool importAssetsOnly;
+		private bool importColliderLayers;
 
 		public static void ParseMap(string tiledMapPath)
 		{
@@ -51,6 +53,8 @@ namespace AtomosZ.Editor.Tiled
 			tmxDoc.Load(tiledMapPath);
 
 			ImportImageAssets();
+			if(importAssetsOnly)
+				return;
 			ImportLayerData();
 
 			//File.Copy(tiledMapPath, TiledMapWindow.rootTiledPath + filename); // don't need this?
@@ -118,8 +122,9 @@ namespace AtomosZ.Editor.Tiled
 					}
 					else
 					{
-						newTile = new TileType();
-						newTile.name = name;
+						newTile = new TileType {
+							name = name
+						};
 						newTile.ids.Add(id);
 						nameToType.Add(name, newTile);
 					}
@@ -150,7 +155,8 @@ namespace AtomosZ.Editor.Tiled
 						}
 						else
 						{
-							metadata.pivot = new Vector2(1,1);
+							metadata.pivot = new Vector2(1, 1);
+							metadata.alignment = 1;
 							sprites.Add(metadata);
 							spriteDict.Add(tiledGIDName, "Assets/TiledImports/TMXAssets/" + filename);
 						}
@@ -162,9 +168,10 @@ namespace AtomosZ.Editor.Tiled
 				foreach (KeyValuePair<string, TileType> tile in nameToType)
 				{
 					TileType tt = tile.Value;
-					SpriteMetaData bigsprite = new SpriteMetaData();
-					bigsprite.name = tile.Key;
-					bigsprite.rect = tt.metaDatas[0].rect;
+					SpriteMetaData bigsprite = new SpriteMetaData {
+						name = tile.Key,
+						rect = tt.metaDatas[0].rect,
+					};
 					foreach (SpriteMetaData smd in tt.metaDatas)
 					{
 						if (bigsprite.rect.xMax < smd.rect.xMax)
@@ -177,7 +184,7 @@ namespace AtomosZ.Editor.Tiled
 							bigsprite.rect.height += smd.rect.height;
 						}
 					}
-					bigsprite.pivot = Vector2.zero;
+
 					sprites.Add(bigsprite);
 					spriteDict.Add(tile.Key, "Assets/TiledImports/TMXAssets/" + filename);
 					gidToSpriteName.Add(tt.metaDatas[0].name, tile.Key);
@@ -185,7 +192,6 @@ namespace AtomosZ.Editor.Tiled
 
 				texImp.spritesheet = sprites.ToArray();
 				texImp.SaveAndReimport();
-				AssetDatabase.Refresh();
 			}
 		}
 
@@ -210,7 +216,7 @@ namespace AtomosZ.Editor.Tiled
 						ParseAndCreateLayer(node, scene, orderInLayer++);
 						break;
 					case "objectgroup":
-						if (node.Attributes["name"].InnerText == "ColliderLayer")
+						if (importColliderLayers && node.Attributes["name"].InnerText == "ColliderLayer")
 							ParseAndCreateColliderLayer(node, scene);
 						break;
 				}
@@ -288,7 +294,7 @@ namespace AtomosZ.Editor.Tiled
 			if (rootObject == null)
 				rootObject = new GameObject(layerName);
 
-			
+
 			XmlNode nodes = layerNode.FirstChild;
 			if (nodes.Attributes["encoding"] != null && nodes.Attributes["encoding"].InnerText == "csv")
 			{

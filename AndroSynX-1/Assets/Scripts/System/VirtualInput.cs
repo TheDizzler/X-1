@@ -4,26 +4,27 @@ using UnityEngine;
 
 namespace AtomosZ.AndroSyn.InputProcessing
 {
-	public class VirtualController
+	public class VirtualInput
 	{
 		const float DeadZone = 0.1f;
 
 		public int ControllerIndex { get; set; }
 
-		private VirtualControllerCommand[] allVirtualControllerCommands;
+		private VirtualInputCommand[] allVirtualInputCommands;
 		private readonly KeyCode[] commandToKeycode;
 		private string axisX;
 		private string axisY;
 
 		Vector2 currentInput = Vector2.zero;
 
-		public VirtualController()
+		public VirtualInput()
 		{
-			allVirtualControllerCommands = (VirtualControllerCommand[])System.Enum.GetValues(typeof(VirtualControllerCommand));
-			commandToKeycode = new KeyCode[allVirtualControllerCommands.Length];
+			allVirtualInputCommands = (VirtualInputCommand[])
+				System.Enum.GetValues(typeof(VirtualInputCommand));
+			commandToKeycode = new KeyCode[allVirtualInputCommands.Length];
 		}
 		
-		public void SetBinding(VirtualControllerCommand command, KeyCode code)
+		public void SetBinding(VirtualInputCommand command, KeyCode code)
 		{
 			commandToKeycode[(int)command] = code;
 		}
@@ -34,17 +35,14 @@ namespace AtomosZ.AndroSyn.InputProcessing
 			axisY = y;
 		}
 
-		public KeyCode GetBinding(VirtualControllerCommand command)
+		public KeyCode GetBinding(VirtualInputCommand command)
 		{
 			return commandToKeycode[(int)command];
 		}
 
-		public void InputUpdate()
-		{
-		}
 
 		/// <summary>
-		/// Must be called every FixedUpdfate
+		/// Must be called every FixedUpdate
 		/// </summary>
 		public void InputFixedUpdate()
 		{
@@ -67,7 +65,7 @@ namespace AtomosZ.AndroSyn.InputProcessing
 			return Vector2.zero;
 		}
 
-		public bool IsInput(VirtualControllerCommand command)
+		public bool IsInput(VirtualInputCommand command)
 		{
 			return Input.GetKey(GetBinding(command));
 		}
@@ -77,7 +75,7 @@ namespace AtomosZ.AndroSyn.InputProcessing
 		/// </summary>
 		/// <param name="command"></param>
 		/// <returns></returns>
-		public bool IsInputDown(VirtualControllerCommand command)
+		public bool IsInputDown(VirtualInputCommand command)
 		{
 			return Input.GetKeyDown(GetBinding(command));
 		}
@@ -85,7 +83,7 @@ namespace AtomosZ.AndroSyn.InputProcessing
 		/// <summary>
 		/// Note: this is only valid during Update. Buttons will be missed in fixed update
 		/// </summary>
-		public bool IsInputUp(VirtualControllerCommand command)
+		public bool IsInputUp(VirtualInputCommand command)
 		{
 			return Input.GetKeyUp(GetBinding(command));
 		}
@@ -105,11 +103,11 @@ namespace AtomosZ.AndroSyn.InputProcessing
 			float horizontalAxis = currentInput.x;
 			if (horizontalAxis == 0f)
 			{
-				if (IsInput(VirtualControllerCommand.Left))
+				if (IsInput(VirtualInputCommand.Left))
 				{
 					horizontalAxis = -1f;
 				}
-				else if (IsInput(VirtualControllerCommand.Right))
+				else if (IsInput(VirtualInputCommand.Right))
 				{
 					horizontalAxis = 1f;
 				}
@@ -123,11 +121,11 @@ namespace AtomosZ.AndroSyn.InputProcessing
 			float verticalAxis = currentInput.y;
 			if (verticalAxis == 0f)
 			{
-				if (IsInput(VirtualControllerCommand.Down))
+				if (IsInput(VirtualInputCommand.Down))
 				{
 					verticalAxis = -1f;
 				}
-				else if (IsInput(VirtualControllerCommand.Up))
+				else if (IsInput(VirtualInputCommand.Up))
 				{
 					verticalAxis = 1f;
 				}

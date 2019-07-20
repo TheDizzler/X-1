@@ -2,7 +2,7 @@
 using AtomosZ.AndroSyn.Physics;
 using UnityEngine;
 
-namespace AtomosZ.AndroSyn.Actor
+namespace AtomosZ.AndroSyn.Actors
 {
 	/// <summary>
 	/// Class to manage interactions with physics for a player character

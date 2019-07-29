@@ -1,5 +1,5 @@
-﻿using AtomosZ.AndroSyn.Gimmick;
-using AtomosZ.AndroSyn.Physics;
+﻿using AtomosZ.AndroSyn.GamePhysics;
+using AtomosZ.AndroSyn.Gimmick;
 using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors
@@ -14,6 +14,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		static readonly float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 47f); // Just over 45 degrees...
 
+		[SerializeField] private float moveCollisionDistance = .1f;
 		/// <summary>
 		/// Gravity to be applied to actor from external forces NOT including Area Gravity. 
 		/// </summary>
@@ -42,25 +43,23 @@ namespace AtomosZ.AndroSyn.Actors
 		// Shared array for putting contacts into to avoid allocs
 		private int contactCount = 0;
 		private ContactPoint2D[] contactPoints = new ContactPoint2D[10];
+		private RaycastHit2D[] results;
 		private Vector3 footOffset;
 		private Vector2 contactNormal;
-		private float contactNormalDotUp;
-
-
+		private Vector3 slopeVector;
+		
 
 		public void Awake()
 		{
 			rb2d = GetComponent<Rigidbody2D>();
 			mainCollider = GetComponent<BoxCollider2D>();
-
+			results = new RaycastHit2D[2];
 			isFacingRight = true;
 			up = transform.up;
 			right = transform.right;
 			footOffset = new Vector3(0, -mainCollider.bounds.size.y / 2);
 		}
-		/// <summary>
-		/// dsfsad
-		/// </summary>
+
 		public void OnDrawGizmos()
 		{
 			Gizmos.color = Color.magenta;
@@ -77,6 +76,10 @@ namespace AtomosZ.AndroSyn.Actors
 			}
 		}
 
+		/// <summary>
+		/// For informational purposes (such as the gravity rose). Not for scientific use.
+		/// </summary>
+		/// <returns></returns>
 		public Vector3 GetTotalAffectingGravity()
 		{
 			return lastAffectingGravity;
@@ -125,6 +128,7 @@ namespace AtomosZ.AndroSyn.Actors
 				if (dot > Cos45)
 				{
 					contactNormal = contact.normal;
+					slopeVector = Vector3.Cross(contact.normal, Vector3.down);
 					isGrounded = true;
 					break;
 				}
@@ -133,15 +137,34 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void ApplyToPhysics()
 		{
+			Vector2 grav = affectingGravity;
 			Vector2 v = Vector2.zero;
 			var forward = isGrounded ? Vector2.Perpendicular(-contactNormal) : Vector2.Perpendicular(-up);
 			v += forward * desiredVelocity.x;
-			v += up * desiredVelocity.y + affectingGravity;
+
+			if (isGrounded)
+			{
+				grav.y = 0;
+				if (mainCollider.Cast(v.normalized, results, moveCollisionDistance) > 0)
+				{
+					v.x = 0;
+					v.y = 0;
+				}
+			}
+			else if (mainCollider.Cast(new Vector2(v.x, 0).normalized, results, moveCollisionDistance) > 0)
+			{
+				v.x = 0;
+			}
+
+			v += up * desiredVelocity.y + grav;
+
 			rb2d.velocity = v;
 
 			lastAffectingGravity = affectingGravity;
 			affectingGravity = Vector2.zero;
+			desiredVelocity = Vector2.zero;
 		}
+
 
 		private void OnTriggerStay2D(Collider2D collision)
 		{

@@ -2,6 +2,8 @@
 {
 	public enum CommandType
 	{
+		MoveLeft,
+		MoveRight,
 		Duck,
 		Jetpack,
 		Attack,

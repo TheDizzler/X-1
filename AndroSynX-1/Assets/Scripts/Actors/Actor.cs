@@ -7,33 +7,62 @@ namespace AtomosZ.AndroSyn.Actors
 {
 	public class Actor : MonoBehaviour
 	{
-		[NonSerialized] public List<CommandType> commandList = new List<CommandType>();
-		public Vector2 inputVelocity = Vector2.zero;
+		public static readonly int IsDuckingHash = Animator.StringToHash("isDucking");
+
+		public float groundMovementSpeed = 2.4f;
+		public float airMovementSpeed = 3.3f;
+		/// <summary>
+		/// List of Controller device inputs to consume on an actor's movement updates.
+		/// </summary>
+		[NonSerialized] public Dictionary<CommandType, bool> commandList = new Dictionary<CommandType, bool>();
+		[NonSerialized] public Vector2 inputVelocity = Vector2.zero;
+		[NonSerialized] public Animator animator;
+		/// <summary>
+		/// Public for debugging purposes.
+		/// </summary>
 		public MovementStateType currentState;
 
 		internal ActorPhysics actorPhysics;
 		[SerializeField] private GroundedState groundedState = null;
 		[SerializeField] private DuckingState duckingState = null;
 		[SerializeField] private AirbornState airbornState = null;
+		[SerializeField] private JetpackState jetpackState = null;
 		private IActorController actorController;
-		//Stack<IMovementState> movementStates;
 		private IMovementState movementState;
-		
+
 		private Dictionary<MovementStateType, IMovementState> movementStateLookup;
+
 
 		public void Awake()
 		{
 			actorPhysics = GetComponent<ActorPhysics>();
-
-			groundedState.SetActor(this);
-			duckingState.SetActor(this);
-			airbornState.SetActor(this);
-
 			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
-			movementStateLookup.Add(MovementStateType.AIRBORN, airbornState);
-			movementStateLookup.Add(MovementStateType.DUCK, duckingState);
-			movementStateLookup.Add(MovementStateType.GROUNDED, groundedState);
+			animator = GetComponent<Animator>();
 
+			if (groundedState)
+			{
+				groundedState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.GROUNDED, groundedState);
+			}
+
+			if (duckingState)
+			{
+				duckingState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.DUCK, duckingState);
+			}
+
+			if (airbornState)
+			{
+				airbornState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.AIRBORN, airbornState);
+			}
+
+			if (jetpackState)
+			{
+				jetpackState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.JETPACK, jetpackState);
+			}
+			
 			currentState = MovementStateType.AIRBORN;
 			movementState = airbornState;
 		}
@@ -61,7 +90,7 @@ namespace AtomosZ.AndroSyn.Actors
 			if (nextState != MovementStateType.NONE)
 			{
 				if (!movementStateLookup.TryGetValue(nextState, out IMovementState newMovement))
-					Debug.LogWarning("Could not find movementState for " + nextState.ToString());
+					Debug.Log(this.name + " could not find movementState for " + nextState.ToString());
 				else
 				{
 					MovementStateType previousState = movementState.ExitState(nextState);
@@ -70,17 +99,6 @@ namespace AtomosZ.AndroSyn.Actors
 					currentState = nextState;
 				}
 			}
-
-			//currentHorizontalSpeed = actorPhysics.isGrounded ? groundHorizontalSpeed : airHorizontalSpeed;
-			//Vector2 inputVelocity = input.GetLeftAnalogue();
-			//jetpackOn = inputVelocity.y >= jetpackThreshold;
-
-			//inputVelocity.x *= currentHorizontalSpeed;
-			//if (jetpackOn)
-			//	inputVelocity.y *= jetpackPower;
-			//else
-			//	inputVelocity.y = 0;
-			//actorPhysics.desiredVelocity = inputVelocity;
 
 			actorPhysics.ApplyToPhysics();
 		}

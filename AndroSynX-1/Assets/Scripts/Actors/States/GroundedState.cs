@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors.State
 {
 	public class GroundedState : MonoBehaviour, IMovementState
 	{
-		private const MovementStateType movementStateType = MovementStateType.GROUNDED;
-		[SerializeField] private float movementSpeed = 2.4f;
 		private Actor actor;
 
+		public MovementStateType movementStateType
+		{
+			get => MovementStateType.GROUNDED;
+			set => throw new System.NotImplementedException();
+		}
 
 		public void SetActor(Actor owner)
 		{
@@ -17,12 +19,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public void EnterState(MovementStateType previousState)
 		{
-			Debug.Log("Entering StandingState");
+			//Debug.Log("Entering StandingState");
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			Debug.Log("Exiting StandingState");
+			//Debug.Log("Exiting StandingState");
 			return movementStateType;
 		}
 
@@ -31,23 +33,24 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (!actor.actorPhysics.isGrounded)
 				return MovementStateType.AIRBORN;
 
-			Vector2 inputVelocity = actor.inputVelocity;
-			inputVelocity.x *= movementSpeed;
-			actor.actorPhysics.desiredVelocity = inputVelocity;
-			if (inputVelocity.y < 0)
+			if (actor.commandList[CommandType.Duck])
+			{
+				actor.commandList[CommandType.Duck] = false;
 				return MovementStateType.DUCK;
-			if (inputVelocity.y > 0)
-				return MovementStateType.AIRBORN;
+			}
 
+			if (actor.commandList[CommandType.MoveLeft]
+				|| actor.commandList[CommandType.MoveRight])
+			{
+				Vector2 inputVelocity = actor.inputVelocity;
+				inputVelocity.x *= actor.groundMovementSpeed;
+				actor.actorPhysics.desiredVelocity = inputVelocity;
+			}
 
-			//jetpackOn = inputVelocity.y >= jetpackThreshold;
-
-			//inputVelocity.x *= currentHorizontalSpeed;
-			//if (jetpackOn)
-			//	inputVelocity.y *= jetpackPower;
-			//else
-			//	inputVelocity.y = 0;
-			//actorPhysics.desiredVelocity = inputVelocity;
+			if (actor.commandList[CommandType.Jetpack])
+			{
+				return MovementStateType.JETPACK;
+			}
 
 			return MovementStateType.NONE;
 		}

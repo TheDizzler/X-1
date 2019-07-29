@@ -1,6 +1,6 @@
 ﻿using AtomosZ.AndroSyn.InputProcessing;
 
-namespace AtomosZ.AndroSyn
+namespace AtomosZ.AndroSyn.Actors
 {
 	public interface IActorController
 	{

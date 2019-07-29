@@ -1,5 +1,5 @@
 ﻿using AtomosZ.AndroSyn.Actors;
-using AtomosZ.AndroSyn.Physics;
+using AtomosZ.AndroSyn.GamePhysics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

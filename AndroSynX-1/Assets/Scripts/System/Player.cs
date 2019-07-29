@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AtomosZ.AndroSyn.Actors;
+using AtomosZ.AndroSyn.GameSystem;
 using AtomosZ.AndroSyn.InputProcessing;
 using UnityEngine;
 
@@ -15,13 +16,14 @@ namespace AtomosZ.AndroSyn.Player
 		}
 
 		public VirtualInput inputDevice;
+		public CameraController cameraController;
 
 		[SerializeField] private InputType inputType = InputType.Keyboard;
 
 		/// <summary>
 		/// List of actor prefabs to spawn at game start that the player can control.
 		/// </summary>
-		[SerializeField] private List<Actor> playerPrefabs;
+		[SerializeField] private List<Actor> playerPrefabs = new List<Actor>();
 		private List<Actor> playerActors = new List<Actor>();
 		private PlayerController playerActorController;
 
@@ -39,10 +41,12 @@ namespace AtomosZ.AndroSyn.Player
 			playerActorController = new PlayerController();
 			playerActorController.input = inputDevice;
 			playerActors[0].SetActorController(playerActorController);
-
 		}
 
-
+		public void Start()
+		{
+			cameraController.followTarget = playerActors[0].gameObject.transform;
+		}
 
 
 

@@ -4,13 +4,16 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2761895910393684929
-    second: dude00
+    second: dude_stand_00
   - first:
       213: -1474793844698367839
     second: GravityRose
   - first:
       213: -6745558556388345809
     second: GraviticObject00
+  - first:
+      213: -3976425906919154649
+    second: dude_duck_00
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -93,22 +96,32 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dude00
+      name: dude_stand_00
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 128
         width: 64
         height: 128
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
       spriteID: fcc84374e06561b43833e2100e3b53eb
       internalID: 2761895910393684929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: GravityRose
       rect:
         serializedVersion: 2
         x: 69
-        y: 0
+        y: 128
         width: 49
         height: 128
       alignment: 0
@@ -129,11 +142,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 88
+        y: 216
         width: 42
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,6 +154,27 @@ TextureImporter:
       bones: []
       spriteID: fea7c4066b33730488109877e4ab471b
       internalID: -6745558556388345809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_duck_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d14fff5406d8d46b22fee9f967d4ee
+      internalID: -3976425906919154649
       vertices: []
       indices: 
       edges: []

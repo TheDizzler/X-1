@@ -2,10 +2,18 @@
 
 namespace AtomosZ.AndroSyn.Actors.State
 {
+	/// <summary>
+	/// Sub-state of Grounded.
+	/// </summary>
 	public class DuckingState : MonoBehaviour, IMovementState
 	{
-		private const MovementStateType movementStateType = MovementStateType.DUCK;
 		private Actor actor;
+
+		public MovementStateType movementStateType
+		{
+			get => MovementStateType.DUCK;
+			set => throw new System.NotImplementedException();
+		}
 
 
 		public void SetActor(Actor owner)
@@ -15,12 +23,14 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public void EnterState(MovementStateType previousState)
 		{
-			Debug.Log("Entering DuckingState");
+			actor.animator.SetBool(Actor.IsDuckingHash, true);
+			//Debug.Log("Entering DuckingState");
 		}
 
-		public MovementStateType ExitState(MovementStateType exitState)
+		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			Debug.Log("Exiting DuckingState");
+			actor.animator.SetBool(Actor.IsDuckingHash, false);
+			//Debug.Log("Exiting DuckingState");
 			return movementStateType;
 		}
 
@@ -28,8 +38,10 @@ namespace AtomosZ.AndroSyn.Actors.State
 		{
 			if (!actor.actorPhysics.isGrounded)
 				return MovementStateType.AIRBORN;
-			if (actor.inputVelocity.y >= 0)
+
+			if (!actor.commandList[CommandType.Duck])
 				return MovementStateType.GROUNDED; // I feel this should change to Standing and Grounded is the superstate
+
 			return MovementStateType.NONE;
 		}
 	}

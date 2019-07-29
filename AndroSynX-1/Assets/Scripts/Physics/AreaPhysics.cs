@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AtomosZ.AndroSyn.Physics
+namespace AtomosZ.AndroSyn.GamePhysics
 {
 	public class AreaPhysics : MonoBehaviour
 	{

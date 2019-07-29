@@ -45,7 +45,6 @@ namespace AtomosZ.AndroSyn.Gimmick
 		/// <returns></returns>
 		public float GetGravitationalPull(float distance)
 		{
-
 			if (isConstantForce)
 			{
 				//return direction / distance * gravityPower;

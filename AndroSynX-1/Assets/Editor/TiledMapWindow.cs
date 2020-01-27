@@ -16,7 +16,7 @@ namespace AtomosZ.Editor.Tiled
 		public static string tiledAssetsPath;
 
 
-		[MenuItem("Tiled/Load Map")]
+		[MenuItem("Tools/Load Tiled Map")]
 		public static void ShowWindow()
 		{
 			//	TiledMapWindow window = EditorWindow.GetWindow<TiledMapWindow>("Tiled Maps");

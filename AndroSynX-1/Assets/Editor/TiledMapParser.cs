@@ -37,6 +37,7 @@ namespace AtomosZ.Editor.Tiled
 		private bool importAssetsOnly;
 		private bool importColliderLayers;
 
+
 		public static void ParseMap(string tiledMapPath)
 		{
 			instance.Parse(tiledMapPath);

@@ -8,6 +8,7 @@ namespace AtomosZ.AndroSyn.Actors
 	public class Actor : MonoBehaviour
 	{
 		public static readonly int IsDuckingHash = Animator.StringToHash("isDucking");
+		public static readonly int IsShooting = Animator.StringToHash("isShooting");
 
 		public float groundMovementSpeed = 2.4f;
 		public float airMovementSpeed = 3.3f;
@@ -20,24 +21,32 @@ namespace AtomosZ.AndroSyn.Actors
 		/// <summary>
 		/// Public for debugging purposes.
 		/// </summary>
-		public MovementStateType currentState;
+		public MovementStateType currentMovementState;
+		/// <summary>
+		/// Public for debugging purposes.
+		/// </summary>
+		public ActionStateType currentActionState;
 
-		internal ActorPhysics actorPhysics;
+
+		public ActorPhysics actorPhysics;
 		[SerializeField] private GroundedState groundedState = null;
 		[SerializeField] private DuckingState duckingState = null;
 		[SerializeField] private AirbornState airbornState = null;
 		[SerializeField] private JetpackState jetpackState = null;
+		[SerializeField] private ShootingState shootingState = null;
+
 		private IActorController actorController;
 		private IMovementState movementState;
-
 		private Dictionary<MovementStateType, IMovementState> movementStateLookup;
+		private IActionState actionState;
+		private Dictionary<ActionStateType, IActionState> actionStateLookup;
 
 
 		public void Awake()
 		{
 			actorPhysics = GetComponent<ActorPhysics>();
-			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 			animator = GetComponent<Animator>();
+			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 
 			if (groundedState)
 			{
@@ -62,9 +71,20 @@ namespace AtomosZ.AndroSyn.Actors
 				jetpackState.SetActor(this);
 				movementStateLookup.Add(MovementStateType.JETPACK, jetpackState);
 			}
-			
-			currentState = MovementStateType.AIRBORN;
+
+			actionStateLookup = new Dictionary<ActionStateType, IActionState>();
+			actionStateLookup.Add(ActionStateType.None, null);
+
+			if (shootingState)
+			{
+				shootingState.SetActor(this);
+				actionStateLookup.Add(ActionStateType.Shoot, shootingState);
+			}
+
+			currentMovementState = MovementStateType.AIRBORN;
 			movementState = airbornState;
+			currentActionState = ActionStateType.None;
+			actionState = null;
 		}
 
 
@@ -96,7 +116,21 @@ namespace AtomosZ.AndroSyn.Actors
 					MovementStateType previousState = movementState.ExitState(nextState);
 					movementState = newMovement;
 					movementState.EnterState(previousState);
-					currentState = nextState;
+					currentMovementState = nextState;
+				}
+			}
+
+			ActionStateType nextAction = actionState.FixedUpdateState();
+			if (nextAction != ActionStateType.None)
+			{
+				if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
+					Debug.Log(this.name + " could not find movementState for " + nextState.ToString());
+				else
+				{
+					ActionStateType prevAction = actionState.ExitState(nextAction);
+					actionState = newAction;
+					actionState.EnterState(prevAction);
+					currentActionState = nextAction;
 				}
 			}
 

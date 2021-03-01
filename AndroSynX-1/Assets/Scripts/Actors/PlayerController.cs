@@ -12,7 +12,7 @@ namespace AtomosZ.AndroSyn.Actors
 			actor = actr;
 			actor.commandList.Add(CommandType.MoveLeft, false);
 			actor.commandList.Add(CommandType.MoveRight, false);
-			actor.commandList.Add(CommandType.Attack, false);
+			actor.commandList.Add(CommandType.Shoot, false);
 			actor.commandList.Add(CommandType.Duck, false);
 			actor.commandList.Add(CommandType.Jetpack, false);
 		}
@@ -28,7 +28,7 @@ namespace AtomosZ.AndroSyn.Actors
 			actor.inputVelocity = input.GetLeftAnalogue();
 			actor.commandList[CommandType.MoveLeft] = actor.inputVelocity.x < 0;
 			actor.commandList[CommandType.MoveRight] = actor.inputVelocity.x > 0;
-			actor.commandList[CommandType.Attack] = input.IsInputDown(VirtualInputCommand.Attack);
+			actor.commandList[CommandType.Shoot] = input.IsInputDown(VirtualInputCommand.Attack);
 			actor.commandList[CommandType.Duck] = actor.inputVelocity.y < 0;
 			actor.commandList[CommandType.Jetpack] = actor.inputVelocity.y > 0;
 		}

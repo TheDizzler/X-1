@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace AtomosZ.AndroSyn.InputProcessing
+﻿namespace AtomosZ.AndroSyn.InputProcessing
 {
 	/// <summary>
 	/// A button that a single button on a controller can be bound to

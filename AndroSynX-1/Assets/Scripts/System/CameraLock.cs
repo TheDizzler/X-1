@@ -2,6 +2,9 @@
 
 namespace AtomosZ.AndroSyn.GameSystem
 {
+	/// <summary>
+	/// FIX THIS. I stupidly wanted to make camera clamping to non-rectangular shapes.
+	/// </summary>
 	public class CameraLock : MonoBehaviour
 	{
 		private Camera mainCamera;

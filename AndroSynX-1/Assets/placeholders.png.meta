@@ -16,9 +16,36 @@ TextureImporter:
     second: hal_duck_00
   - first:
       213: 1280798471816401605
+    second: hal_arm_long
+  - first:
+      213: -390643852296499974
+    second: hal_upper_leg_left
+  - first:
+      213: -4610095291254700513
+    second: hal_lower_leg_left
+  - first:
+      213: -3681358628939458489
+    second: hal_foot_left
+  - first:
+      213: 2692213600992305134
     second: hal_arm
+  - first:
+      213: 1248131900576974420
+    second: hal_hand
+  - first:
+      213: 4684472329363427507
+    second: hal_head
+  - first:
+      213: 2527726657912434656
+    second: hal_upper_leg_right
+  - first:
+      213: -7992795511455963435
+    second: hal_lower_leg_right
+  - first:
+      213: -699365749871840130
+    second: hal_foot_right
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -72,8 +99,9 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -84,7 +112,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -95,6 +124,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -175,9 +205,203 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
+      bones:
+      - name: head
+        position: {x: 165.04543, y: 138.46936, z: 0}
+        rotation: {x: 0, y: 0, z: 0.6792077, w: 0.73394614}
+        length: 37.479855
+        parentId: -1
+      - name: upper_arm_right
+        position: {x: 93.0239, y: -124.40709, z: 7}
+        rotation: {x: 0, y: 0, z: -0.70509785, w: 0.70911}
+        length: 38.661465
+        parentId: 4
+      - name: hand_right
+        position: {x: 52.82802, y: -0.5581572, z: 8}
+        rotation: {x: 0, y: 0, z: -0.042746775, w: 0.99908596}
+        length: 9.3640785
+        parentId: 1
+      - name: leg_pivot
+        position: {x: 117.369576, y: 74.364655, z: 0}
+        rotation: {x: 0, y: 0, z: -0.7123636, w: 0.70181066}
+        length: 21.58539
+        parentId: -1
+      - name: body
+        position: {x: 32.004017, y: 2.8508704, z: 5}
+        rotation: {x: 0, y: 0, z: 0.71098113, w: 0.70321107}
+        length: 58.63196
+        parentId: -1
+      - name: leg_thigh_right
+        position: {x: 90.63244, y: 60.835022, z: 6}
+        rotation: {x: 0, y: 0, z: -0.63726926, w: 0.77064127}
+        length: 22.30183
+        parentId: -1
+      - name: leg_lower_right
+        position: {x: 31.282118, y: -1.0608892, z: 5}
+        rotation: {x: 0, y: 0, z: -0.18552953, w: 0.9826388}
+        length: 19.333416
+        parentId: 5
+      - name: foot_right
+        position: {x: 10.8797455, y: 15.463516, z: 6}
+        rotation: {x: 0, y: 0, z: 0.69486046, w: 0.7191447}
+        length: 11.879722
+        parentId: 6
+      - name: leg_thigh_left
+        position: {x: 144.1067, y: 60.512886, z: 0}
+        rotation: {x: 0, y: 0, z: -0.61541206, w: 0.78820556}
+        length: 22.579288
+        parentId: -1
+      - name: leg_lower_left
+        position: {x: 174.06519, y: 37.963493, z: 0}
+        rotation: {x: 0, y: 0, z: -0.7833356, w: 0.621599}
+        length: 19.847225
+        parentId: -1
+      - name: foot_left
+        position: {x: 188.88336, y: 24.755993, z: 0}
+        rotation: {x: 0, y: 0, z: -0.12902483, w: 0.9916414}
+        length: 11.329782
+        parentId: -1
       spriteID: 67d14fff5406d8d46b22fee9f967d4ee
       internalID: -3976425906919154649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_arm_long
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 91
+        width: 66
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones:
+      - name: body
+        position: {x: -35.351715, y: -89.11553, z: 5}
+        rotation: {x: 0, y: 0, z: 0.6898078, w: 0.7239926}
+        length: 59.987053
+        parentId: -1
+      - name: arm_right
+        position: {x: 101.296585, y: -120.55535, z: 8}
+        rotation: {x: 0, y: 0, z: -0.69596905, w: 0.7180718}
+        length: 37.695198
+        parentId: 0
+      - name: hand_right
+        position: {x: 50.573177, y: 0.54219955, z: 9}
+        rotation: {x: 0, y: 0, z: -0.0070757805, w: 0.99997497}
+        length: 10.313321
+        parentId: 1
+      - name: right_leg
+        position: {x: 15.4624405, y: -29.958475, z: 7}
+        rotation: {x: 0, y: 0, z: 0.14379346, w: 0.98960775}
+        length: 21.505928
+        parentId: 9
+      - name: bone_2
+        position: {x: 30.461502, y: -2.6586838, z: 5}
+        rotation: {x: 0, y: 0, z: -0.24550606, w: 0.9693951}
+        length: 18.764143
+        parentId: 3
+      - name: bone_3
+        position: {x: 10.319446, y: 16.65712, z: 7}
+        rotation: {x: 0, y: 0, z: 0.6688759, w: 0.7433741}
+        length: 11.511508
+        parentId: 4
+      - name: left_leg
+        position: {x: 14.818167, y: 24.482199, z: 4}
+        rotation: {x: 0, y: 0, z: 0.12571432, w: 0.99206656}
+        length: 21.954807
+        parentId: 9
+      - name: bone_5
+        position: {x: 28.212751, y: 23.004124, z: 3}
+        rotation: {x: 0, y: 0, z: -0.21501587, w: 0.9766106}
+        length: 19.650185
+        parentId: 6
+      - name: bone_6
+        position: {x: 11.845023, y: 17.564228, z: 4}
+        rotation: {x: 0, y: 0, z: 0.67042476, w: 0.7419776}
+        length: 10.3985
+        parentId: 7
+      - name: leg_pivot
+        position: {x: 51.946648, y: -15.668945, z: 0}
+        rotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+        length: 27.381397
+        parentId: -1
+      - name: head
+        position: {x: 98.33397, y: 45.536545, z: 7}
+        rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+        length: 39.300365
+        parentId: -1
+      spriteID: 1ee11fb6983c2bf449c5a14b0ed417ab
+      internalID: 1280798471816401605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_upper_leg_left
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 37
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc4d2e6c77249af0800000000000000
+      internalID: -390643852296499974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_lower_leg_left
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 18
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16001802c6a500c0800000000000000
+      internalID: -4610095291254700513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_foot_left
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 17
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7489e37e4df29ecc0800000000000000
+      internalID: -3681358628939458489
       vertices: []
       indices: 
       edges: []
@@ -186,19 +410,528 @@ TextureImporter:
       name: hal_arm
       rect:
         serializedVersion: 2
-        x: 68
-        y: 91
-        width: 66
-        height: 16
+        x: 152
+        y: 89
+        width: 45
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones:
+      - name: arm_bone
+        position: {x: 93.7037, y: -127.746605, z: 7}
+        rotation: {x: 0, y: 0, z: -0.71222043, w: 0.7019559}
+        length: 35.1141
+        parentId: 6
+      - name: hand_bone
+        position: {x: 48.634323, y: 1.0901668, z: 8}
+        rotation: {x: 0, y: 0, z: -0.011036885, w: 0.99993914}
+        length: 10.313321
+        parentId: 0
+      - name: upper_leg_left_bone
+        position: {x: 9.298481, y: 24.14673, z: 7}
+        rotation: {x: 0, y: 0, z: 0.11018318, w: 0.9939113}
+        length: 22.659588
+        parentId: 10
+      - name: lower_leg_left_bone
+        position: {x: 29.299908, y: 22.567976, z: 6}
+        rotation: {x: 0, y: 0, z: -0.21602347, w: 0.97638816}
+        length: 18.324873
+        parentId: 2
+      - name: foot_left_bone
+        position: {x: 10.861261, y: 17.97381, z: 7}
+        rotation: {x: 0, y: 0, z: 0.6977355, w: 0.7163555}
+        length: 11.182272
+        parentId: 3
+      - name: head_bone
+        position: {x: 15.516663, y: 50.132004, z: 6}
+        rotation: {x: 0, y: 0, z: 0.7172635, w: 0.696802}
+        length: 34.376923
+        parentId: -1
+      - name: body_bone
+        position: {x: -119.99591, y: -86.471306, z: 5}
+        rotation: {x: 0, y: 0, z: 0.7089955, w: 0.705213}
+        length: 60.239986
+        parentId: -1
+      - name: upper_leg_right_bone
+        position: {x: 5.659778, y: -29.227903, z: 4}
+        rotation: {x: 0, y: 0, z: 0.086006664, w: 0.99629456}
+        length: 24.703726
+        parentId: 10
+      - name: lower_leg_right_bone
+        position: {x: 31.74813, y: -2.4909475, z: 3}
+        rotation: {x: 0, y: 0, z: -0.17979586, w: 0.983704}
+        length: 19.22577
+        parentId: 7
+      - name: foot_right_bone
+        position: {x: 11.3130865, y: 17.692888, z: 4}
+        rotation: {x: 0, y: 0, z: 0.64110506, w: 0.76745313}
+        length: 11.918965
+        parentId: 8
+      - name: leg_pivot_bone
+        position: {x: -33.34189, y: -20.111626, z: 5}
+        rotation: {x: 0, y: 0, z: -0.6935607, w: 0.7203982}
+        length: 25.466946
+        parentId: -1
+      spriteID: eef1f92910aac5520800000000000000
+      internalID: 2692213600992305134
+      vertices:
+      - {x: 28, y: 0.0009994507}
+      - {x: 32.998993, y: 0.0019989014}
+      - {x: 37.998993, y: 0.028999329}
+      - {x: 42.936996, y: 0.2860031}
+      - {x: 45, y: 1}
+      - {x: 45, y: 8}
+      - {x: 45, y: 13}
+      - {x: 45, y: 17}
+      - {x: 40, y: 17}
+      - {x: 35, y: 17}
+      - {x: 29.998993, y: 17}
+      - {x: 24.998993, y: 17}
+      - {x: 20, y: 17}
+      - {x: 15, y: 17}
+      - {x: 10, y: 17}
+      - {x: 5, y: 17}
+      - {x: 0, y: 17}
+      - {x: 0.0019989014, y: 12}
+      - {x: 0.0289917, y: 7.0009995}
+      - {x: 0.28599548, y: 2.0630035}
+      - {x: 1, y: 0}
+      - {x: 8, y: 0}
+      - {x: 13.001007, y: 0}
+      - {x: 18.001007, y: 0}
+      - {x: 23, y: 0}
+      - {x: 12.207031, y: 5.9898987}
+      - {x: 22.479538, y: 11.228935}
+      - {x: 32.863205, y: 5.966713}
+      - {x: 7.5242615, y: 11.156342}
+      - {x: 5.7708282, y: 5.5187225}
+      - {x: 19.022858, y: 5.936783}
+      - {x: 25.998444, y: 5.978531}
+      - {x: 15.1063385, y: 11.343674}
+      - {x: 39.42914, y: 5.7315216}
+      - {x: 37.4507, y: 11.217552}
+      - {x: 29.879364, y: 11.336128}
+      indices: 1d0000001400000013000000230000001b0000001f000000000000001f0000001b0000001b00000001000000000000001f0000001a000000230000001b0000002100000002000000040000000300000021000000020000002100000003000000050000000400000021000000010000001b0000000200000022000000210000001b0000000a000000230000000b000000230000001a0000000b000000230000000a000000090000000900000022000000230000000600000005000000220000001b00000023000000220000000700000006000000080000002200000008000000060000000900000008000000220000001f000000000000001800000022000000050000002100000018000000170000001e0000001c0000000e000000200000001d000000120000001c00000013000000120000001d0000001d00000015000000140000001900000016000000150000001e00000017000000190000001600000019000000170000001f0000001e0000001a000000190000001d0000001c0000001d00000019000000150000001e00000019000000200000000f0000001c0000001100000012000000110000001c00000011000000100000000f0000000f0000000e0000001c0000000c0000001a00000020000000190000001c00000020000000200000000e0000000d000000200000000d0000000c0000000c0000000b0000001a000000200000001a0000001e000000180000001e0000001f000000
+      edges:
+      - {x: 1, y: 0}
+      - {x: 2, y: 1}
+      - {x: 3, y: 2}
+      - {x: 4, y: 3}
+      - {x: 5, y: 4}
+      - {x: 6, y: 5}
+      - {x: 7, y: 6}
+      - {x: 8, y: 7}
+      - {x: 9, y: 8}
+      - {x: 10, y: 9}
+      - {x: 11, y: 10}
+      - {x: 12, y: 11}
+      - {x: 13, y: 12}
+      - {x: 14, y: 13}
+      - {x: 15, y: 14}
+      - {x: 16, y: 15}
+      - {x: 17, y: 16}
+      - {x: 18, y: 17}
+      - {x: 19, y: 18}
+      - {x: 20, y: 19}
+      - {x: 21, y: 20}
+      - {x: 22, y: 21}
+      - {x: 23, y: 22}
+      - {x: 24, y: 23}
+      - {x: 0, y: 24}
+      weights:
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+      - weight[0]: 1
+        weight[1]: 0
+        weight[2]: 0
+        weight[3]: 0
+        boneIndex[0]: 0
+        boneIndex[1]: 0
+        boneIndex[2]: 0
+        boneIndex[3]: 0
+    - serializedVersion: 2
+      name: hal_hand
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 90
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ee11fb6983c2bf449c5a14b0ed417ab
-      internalID: 1280798471816401605
+      spriteID: 45649b6c951425110800000000000000
+      internalID: 1248131900576974420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_head
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 135
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b09adf93c6920140800000000000000
+      internalID: 4684472329363427507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_upper_leg_right
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 37
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0efe72eb00a441320800000000000000
+      internalID: 2527726657912434656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_lower_leg_right
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 10
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d6a45974d2e31190800000000000000
+      internalID: -7992795511455963435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hal_foot_right
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 9
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7470de4e8a5b46f0800000000000000
+      internalID: -699365749871840130
       vertices: []
       indices: 
       edges: []

@@ -6,6 +6,6 @@
 		MoveRight,
 		Duck,
 		Jetpack,
-		Attack,
+		Shoot,
 	}
 }

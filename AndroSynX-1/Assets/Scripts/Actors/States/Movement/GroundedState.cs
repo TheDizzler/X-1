@@ -24,7 +24,6 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			//Debug.Log("Exiting StandingState");
 			return movementStateType;
 		}
 

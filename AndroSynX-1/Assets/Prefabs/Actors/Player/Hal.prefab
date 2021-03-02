@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4089791223868424153}
   - component: {fileID: 2297746048915191831}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Hal
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937bb73f391a37140b219f720a22d670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jetpackDrain: 20
+  jetpackRecharge: 20
   maxJetpackEnergy: 100
   currentEnergy: 100
   jetpackPower: 3.3

@@ -119,7 +119,6 @@ namespace AtomosZ.AndroSyn.Actors
 
 			bool wasGrounded = isGrounded;
 			isGrounded = false;
-
 			contactCount = mainCollider.GetContacts(contactPoints);
 			for (int i = 0; i < contactCount; i++)
 			{

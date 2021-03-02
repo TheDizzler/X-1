@@ -24,21 +24,18 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public void EnterState(MovementStateType previousState)
 		{
 			actor.animator.SetBool(Actor.IsDuckingHash, true);
-			//Debug.Log("Entering DuckingState");
+			Debug.Log("Entering DuckingState");
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
 			actor.animator.SetBool(Actor.IsDuckingHash, false);
-			//Debug.Log("Exiting DuckingState");
+			Debug.Log("Exiting DuckingState");
 			return movementStateType;
 		}
 
 		public MovementStateType FixedUpdateState()
 		{
-			if (!actor.actorPhysics.isGrounded)
-				return MovementStateType.AIRBORN;
-
 			if (!actor.commandList[CommandType.Duck])
 				return MovementStateType.GROUNDED; // I feel this should change to Standing and Grounded is the superstate
 

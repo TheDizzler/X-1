@@ -100,9 +100,9 @@ TextureImporter:
       length: 3.3174117
       parentId: 0
     - name: head
-      position: {x: 11.060422, y: -0.27742723, z: 11}
-      rotation: {x: 0, y: 0, z: -0.059386656, w: 0.99823505}
-      length: 11.945007
+      position: {x: 11.302241, y: -0.37456578, z: 11}
+      rotation: {x: 0, y: 0, z: -0.056493375, w: 0.998403}
+      length: 11.693574
       parentId: 1
     - name: upper arm rear
       position: {x: 47.76633, y: -28.051481, z: 5}
@@ -151,12 +151,12 @@ TextureImporter:
       parentId: 0
     - name: lower body
       position: {x: 18.78532, y: 93.08978, z: 0}
-      rotation: {x: 0, y: 0, z: -0.70363224, w: 0.71056443}
-      length: 12.740663
+      rotation: {x: 0, y: 0, z: -0.70556533, w: 0.70864487}
+      length: 5.1963463
       parentId: -1
     - name: thigh front
-      position: {x: 2.261596, y: -11.38884, z: 14}
-      rotation: {x: 0, y: 0, z: 0.056297544, w: 0.99841404}
+      position: {x: 2.3235712, y: -11.37635, z: 14}
+      rotation: {x: 0, y: 0, z: 0.059017282, w: 0.998257}
       length: 16.359838
       parentId: 12
     - name: knee front
@@ -170,8 +170,8 @@ TextureImporter:
       length: 20.610413
       parentId: 14
     - name: thigh rear
-      position: {x: 2.7550614, y: 13.4630995, z: 7}
-      rotation: {x: 0, y: 0, z: 0.053400405, w: 0.99857324}
+      position: {x: 2.6816275, y: 13.477908, z: 7}
+      rotation: {x: 0, y: 0, z: 0.056120574, w: 0.998424}
       length: 16.096922
       parentId: 12
     - name: knee rear
@@ -185,8 +185,8 @@ TextureImporter:
       length: 20.7338
       parentId: 17
     - name: antenna
-      position: {x: 22.094223, y: 3.5641751, z: 12}
-      rotation: {x: 0, y: 0, z: 0.28543684, w: 0.9583975}
+      position: {x: 21.863232, y: 3.5052993, z: 12}
+      rotation: {x: 0, y: 0, z: 0.2826583, w: 0.95922065}
       length: 9.49587
       parentId: 2
     spriteID: 5e97eb03825dee720800000000000000

@@ -84,7 +84,7 @@ namespace AtomosZ.AndroSyn.Actors
 			currentMovementState = MovementStateType.AIRBORN;
 			movementState = airbornState;
 			currentActionState = ActionStateType.None;
-			actionState = null;
+			actionState = actionStateLookup[ActionStateType.None];
 		}
 
 
@@ -120,17 +120,20 @@ namespace AtomosZ.AndroSyn.Actors
 				}
 			}
 
-			ActionStateType nextAction = actionState.FixedUpdateState();
-			if (nextAction != ActionStateType.None)
+			if (actionState != null)
 			{
-				if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
-					Debug.Log(this.name + " could not find movementState for " + nextState.ToString());
-				else
+				ActionStateType nextAction = actionState.FixedUpdateState();
+				if (nextAction != ActionStateType.None)
 				{
-					ActionStateType prevAction = actionState.ExitState(nextAction);
-					actionState = newAction;
-					actionState.EnterState(prevAction);
-					currentActionState = nextAction;
+					if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
+						Debug.Log(this.name + " could not find movementState for " + nextState.ToString());
+					else
+					{
+						ActionStateType prevAction = actionState.ExitState(nextAction);
+						actionState = newAction;
+						actionState.EnterState(prevAction);
+						currentActionState = nextAction;
+					}
 				}
 			}
 

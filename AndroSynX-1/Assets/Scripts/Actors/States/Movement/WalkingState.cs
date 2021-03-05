@@ -60,7 +60,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 				if (wasFacingRight != isFacingRight)
 					actor.Flip();
 				timeSinceNoMovement = 0;
-				actor.animator.SetFloat(Actor.WalkSpeedHash, inputVelocity.x);
+				actor.animator.SetFloat(Actor.WalkSpeedHash, Mathf.Abs(inputVelocity.x));
 			}
 			else
 			{ // this prevents the standing animation from starting when switching directions

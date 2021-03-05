@@ -29,7 +29,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -45,7 +45,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -160,7 +160,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -176,7 +176,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -192,7 +192,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -208,7 +208,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -225,7 +225,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body
+    path: rig/lower body
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -241,7 +241,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: torso/hip
+    path: rig/torso/hip
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -346,7 +346,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: lower body
+    path: rig/lower body
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -365,7 +365,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: lower body
+    path: rig/lower body
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -384,7 +384,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: lower body
+    path: rig/lower body
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -403,7 +403,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -422,7 +422,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -441,7 +441,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -460,7 +460,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -479,7 +479,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -498,7 +498,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -616,7 +616,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -734,7 +734,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -852,7 +852,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -871,7 +871,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -890,7 +890,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -909,7 +909,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -928,7 +928,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -947,7 +947,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -966,7 +966,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -985,7 +985,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1004,7 +1004,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1023,7 +1023,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1042,7 +1042,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: torso/hip
+    path: rig/torso/hip
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1061,7 +1061,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: torso/hip
+    path: rig/torso/hip
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1080,7 +1080,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: torso/hip
+    path: rig/torso/hip
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -1091,7 +1091,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1101,7 +1101,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1111,7 +1111,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1121,7 +1121,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1131,7 +1131,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1141,7 +1141,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1151,7 +1151,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1161,7 +1161,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1171,7 +1171,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1181,7 +1181,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1191,7 +1191,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1201,7 +1201,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1211,7 +1211,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1221,7 +1221,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1231,7 +1231,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1241,7 +1241,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1251,7 +1251,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1261,7 +1261,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

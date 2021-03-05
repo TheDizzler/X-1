@@ -779,10 +779,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMovementSpeed: 2.4
   airMovementSpeed: 3.3
+  animator: {fileID: 4952907861344013011}
   currentMovementState: 0
   currentActionState: 0
   actorPhysics: {fileID: 4952907861917724028}
-  groundedState: {fileID: 4952907862094834840}
+  standingState: {fileID: 4952907862094834840}
+  walkingState: {fileID: 2397462040818699087}
   duckingState: {fileID: 4952907862094834843}
   airbornState: {fileID: 4952907862094834841}
   jetpackState: {fileID: 4952907862094834842}
@@ -861,10 +863,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4952907862094834854}
+  - component: {fileID: 4952907862094834842}
   - component: {fileID: 4952907862094834841}
   - component: {fileID: 4952907862094834840}
   - component: {fileID: 4952907862094834843}
-  - component: {fileID: 4952907862094834842}
+  - component: {fileID: 2397462040818699087}
   m_Layer: 0
   m_Name: MovementStates
   m_TagString: Untagged
@@ -886,6 +889,24 @@ Transform:
   m_Father: {fileID: 4952907861917724026}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4952907862094834842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952907862094834845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937bb73f391a37140b219f720a22d670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jetpackDrain: 20
+  jetpackRecharge: 20
+  maxJetpackEnergy: 100
+  currentEnergy: 100
+  jetpackPower: 3.3
+  rechargeDelay: 1
 --- !u!114 &4952907862094834841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5b36607ff8b034f96f3b58ca837095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4952907862094834842
+--- !u!114 &2397462040818699087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,15 +952,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4952907862094834845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937bb73f391a37140b219f720a22d670, type: 3}
+  m_Script: {fileID: 11500000, guid: 75ed31afaa595964cbc798ce6e40bdb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jetpackDrain: 20
-  jetpackRecharge: 20
-  maxJetpackEnergy: 100
-  currentEnergy: 100
-  jetpackPower: 3.3
-  rechargeDelay: 1
 --- !u!1 &4952907862103527066
 GameObject:
   m_ObjectHideFlags: 0

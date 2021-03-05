@@ -91,7 +91,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 			{
 				timeUntilRecharge = rechargeDelay;
 				actor.actorPhysics.desiredVelocity = inputVelocity;
-				return MovementStateType.AIRBORN;
+				return MovementStateType.FALLING;
 			}
 
 			if (currentEnergy <= 0)

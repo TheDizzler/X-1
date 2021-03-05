@@ -3,8 +3,9 @@
 	public enum MovementStateType
 	{
 		NONE,
-		GROUNDED, DUCK,
-		AIRBORN, JETPACK
+		STANDING, KNEELING,
+		WALKING,
+		FALLING, JETPACK,
 	}
 
 	public interface IMovementState

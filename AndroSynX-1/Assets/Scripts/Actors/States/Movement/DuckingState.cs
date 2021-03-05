@@ -11,7 +11,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public MovementStateType movementStateType
 		{
-			get => MovementStateType.DUCK;
+			get => MovementStateType.KNEELING;
 			set => throw new System.NotImplementedException();
 		}
 
@@ -37,7 +37,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public MovementStateType FixedUpdateState()
 		{
 			if (!actor.commandList[CommandType.Duck])
-				return MovementStateType.GROUNDED; // I feel this should change to Standing and Grounded is the superstate
+				return MovementStateType.STANDING;
 
 			return MovementStateType.NONE;
 		}

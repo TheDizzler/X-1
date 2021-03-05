@@ -2,13 +2,16 @@
 
 namespace AtomosZ.AndroSyn.Actors.State
 {
-	public class GroundedState : MonoBehaviour, IMovementState
+	public class StandingState : MonoBehaviour, IMovementState
 	{
 		private Actor actor;
+		private float timeInStandingState;
+		private float timeUntilIdle = 2f;
+		private bool isIdle;
 
 		public MovementStateType movementStateType
 		{
-			get => MovementStateType.GROUNDED;
+			get => MovementStateType.STANDING;
 			set => throw new System.NotImplementedException();
 		}
 
@@ -20,36 +23,54 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public void EnterState(MovementStateType previousState)
 		{
 			//Debug.Log("Entering StandingState");
+			timeInStandingState = 0;
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
+			actor.animator.SetBool(Actor.IsIdlingHash, false);
+			actor.animator.SetBool(Actor.IsLongIdlingHash, false);
+			isIdle = false;
 			return movementStateType;
 		}
 
 		public MovementStateType FixedUpdateState()
 		{
 			if (!actor.actorPhysics.isGrounded)
-				return MovementStateType.AIRBORN;
+				return MovementStateType.FALLING;
 
 			if (actor.commandList[CommandType.Duck])
 			{
 				actor.commandList[CommandType.Duck] = false;
-				return MovementStateType.DUCK;
+				return MovementStateType.KNEELING;
 			}
 
 			if (actor.commandList[CommandType.MoveLeft]
 				|| actor.commandList[CommandType.MoveRight])
 			{
-				Vector2 inputVelocity = actor.inputVelocity;
-				inputVelocity.x *= actor.groundMovementSpeed;
-				actor.actorPhysics.desiredVelocity = inputVelocity;
+				return MovementStateType.WALKING;
 			}
 
 			if (actor.commandList[CommandType.Jetpack])
 			{
 				return MovementStateType.JETPACK;
 			}
+
+			timeInStandingState += Time.deltaTime;
+			if (timeInStandingState >= timeUntilIdle)
+			{
+				if (isIdle)
+				{
+					actor.animator.SetBool(Actor.IsLongIdlingHash, true);
+				}
+				else
+				{
+					isIdle = true;
+					timeInStandingState = -timeInStandingState;
+					actor.animator.SetBool(Actor.IsIdlingHash, true);
+				}
+			}
+
 
 			return MovementStateType.NONE;
 		}

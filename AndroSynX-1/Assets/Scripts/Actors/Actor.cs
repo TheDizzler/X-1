@@ -7,17 +7,18 @@ namespace AtomosZ.AndroSyn.Actors
 {
 	public class Actor : MonoBehaviour
 	{
+		public static readonly int IsLongIdlingHash = Animator.StringToHash("isLongIdling");
+		public static readonly int IsShootingHash = Animator.StringToHash("isShooting");
 		public static readonly int IsDuckingHash = Animator.StringToHash("isDucking");
-		public static readonly int IsShooting = Animator.StringToHash("isShooting");
+		public static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
+		public static readonly int WalkSpeedHash = Animator.StringToHash("walkSpeed");
+		public static readonly int IsIdlingHash = Animator.StringToHash("isIdling");
+		
 
 		public float groundMovementSpeed = 2.4f;
 		public float airMovementSpeed = 3.3f;
-		/// <summary>
-		/// List of Controller device inputs to consume on an actor's movement updates.
-		/// </summary>
-		[NonSerialized] public Dictionary<CommandType, bool> commandList = new Dictionary<CommandType, bool>();
-		[NonSerialized] public Vector2 inputVelocity = Vector2.zero;
-		[NonSerialized] public Animator animator;
+
+		public Animator animator;
 		/// <summary>
 		/// Public for debugging purposes.
 		/// </summary>
@@ -26,12 +27,18 @@ namespace AtomosZ.AndroSyn.Actors
 		/// Public for debugging purposes.
 		/// </summary>
 		public ActionStateType currentActionState;
-
-
 		public ActorPhysics actorPhysics;
-		[SerializeField] private GroundedState groundedState = null;
+
+		/// <summary>
+		/// List of Controller device inputs to consume on an actor's movement updates.
+		/// </summary>
+		[NonSerialized] public Dictionary<CommandType, bool> commandList = new Dictionary<CommandType, bool>();
+		[NonSerialized] public Vector2 inputVelocity = Vector2.zero;
+
+		[SerializeField] private StandingState standingState = null;
+		[SerializeField] private WalkingState walkingState = null;
 		[SerializeField] private DuckingState duckingState = null;
-		[SerializeField] private AirbornState airbornState = null;
+		[SerializeField] private FallingState airbornState = null;
 		[SerializeField] private JetpackState jetpackState = null;
 		[SerializeField] private ShootingState shootingState = null;
 
@@ -45,25 +52,36 @@ namespace AtomosZ.AndroSyn.Actors
 		public void Awake()
 		{
 			actorPhysics = GetComponent<ActorPhysics>();
-			animator = GetComponent<Animator>();
+			if (!animator)
+			{
+				animator = GetComponent<Animator>();
+				if (!animator)
+					Debug.LogError("No animator found for " + gameObject.name);
+			}
 			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 
-			if (groundedState)
+			if (standingState)
 			{
-				groundedState.SetActor(this);
-				movementStateLookup.Add(MovementStateType.GROUNDED, groundedState);
+				standingState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.STANDING, standingState);
 			}
 
 			if (duckingState)
 			{
 				duckingState.SetActor(this);
-				movementStateLookup.Add(MovementStateType.DUCK, duckingState);
+				movementStateLookup.Add(MovementStateType.KNEELING, duckingState);
+			}
+
+			if (walkingState)
+			{
+				walkingState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.WALKING, walkingState);
 			}
 
 			if (airbornState)
 			{
 				airbornState.SetActor(this);
-				movementStateLookup.Add(MovementStateType.AIRBORN, airbornState);
+				movementStateLookup.Add(MovementStateType.FALLING, airbornState);
 			}
 
 			if (jetpackState)
@@ -81,7 +99,7 @@ namespace AtomosZ.AndroSyn.Actors
 				actionStateLookup.Add(ActionStateType.Shoot, shootingState);
 			}
 
-			currentMovementState = MovementStateType.AIRBORN;
+			currentMovementState = MovementStateType.FALLING;
 			movementState = airbornState;
 			currentActionState = ActionStateType.None;
 			actionState = actionStateLookup[ActionStateType.None];
@@ -92,6 +110,15 @@ namespace AtomosZ.AndroSyn.Actors
 		{
 			actorController = icontroller;
 			actorController.OnActorControl(this);
+		}
+
+
+		public void Flip()
+		{
+			actorPhysics.isFacingRight = !actorPhysics.isFacingRight;
+			Vector3 newScale = transform.localScale;
+			newScale.x *= -1;
+			transform.localScale = newScale;
 		}
 
 

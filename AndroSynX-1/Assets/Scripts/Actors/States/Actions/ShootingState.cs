@@ -20,7 +20,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void EnterState(ActionStateType previousState)
 		{
-			actor.animator.SetBool(Actor.IsShooting, true);
+			actor.animator.SetBool(Actor.IsShootingHash, true);
 		}
 
 		public ActionStateType ExitState(ActionStateType nextState)

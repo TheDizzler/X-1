@@ -5,12 +5,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 	/// <summary>
 	/// A free-falling state with no means of vertical propulsion.
 	/// </summary>
-	public class AirbornState : MonoBehaviour, IMovementState
+	public class FallingState : MonoBehaviour, IMovementState
 	{
 		private Actor actor;
 		public MovementStateType movementStateType
 		{
-			get => MovementStateType.AIRBORN;
+			get => MovementStateType.FALLING;
 			set => throw new System.NotImplementedException();
 		}
 
@@ -35,8 +35,8 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public MovementStateType FixedUpdateState()
 		{
 			if (actor.actorPhysics.isGrounded)
-			{
-				return MovementStateType.GROUNDED;
+			{ // if fall is "hard" go into a kneeling state
+				return MovementStateType.STANDING;
 			}
 
 			if (actor.commandList[CommandType.MoveLeft]

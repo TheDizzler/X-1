@@ -9,11 +9,16 @@ namespace AtomosZ.AndroSyn.Actors
 	{
 		public static readonly int IsLongIdlingHash = Animator.StringToHash("isLongIdling");
 		public static readonly int IsShootingHash = Animator.StringToHash("isShooting");
-		public static readonly int IsDuckingHash = Animator.StringToHash("isDucking");
+		public static readonly int IsKneelingHash = Animator.StringToHash("isKneeling");
 		public static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
 		public static readonly int WalkSpeedHash = Animator.StringToHash("walkSpeed");
+		public static readonly int IsFallingHash = Animator.StringToHash("isFalling");
 		public static readonly int IsIdlingHash = Animator.StringToHash("isIdling");
 		
+		
+		[Tooltip("This actor is for debugging and should not run any logic" +
+			" at runtime.")]
+		public bool isDummy = false;
 
 		public float groundMovementSpeed = 2.4f;
 		public float airMovementSpeed = 3.3f;
@@ -37,7 +42,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		[SerializeField] private StandingState standingState = null;
 		[SerializeField] private WalkingState walkingState = null;
-		[SerializeField] private DuckingState duckingState = null;
+		[SerializeField] private KneelingState duckingState = null;
 		[SerializeField] private FallingState airbornState = null;
 		[SerializeField] private JetpackState jetpackState = null;
 		[SerializeField] private ShootingState shootingState = null;
@@ -124,6 +129,8 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void Update()
 		{
+			if (isDummy)
+				return;
 			// update commandqueue commands
 			actorController.UpdateCommands();
 		}
@@ -131,6 +138,8 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void FixedUpdate()
 		{
+			if (isDummy)
+				return;
 			actorPhysics.UpdateInternalStateFromPhysicsResult();
 			actorController.FixedUpdateCommands();
 			MovementStateType nextState = movementState.FixedUpdateState();

@@ -5,7 +5,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 	/// <summary>
 	/// Sub-state of Grounded.
 	/// </summary>
-	public class DuckingState : MonoBehaviour, IMovementState
+	public class KneelingState : MonoBehaviour, IMovementState
 	{
 		private Actor actor;
 
@@ -23,14 +23,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public void EnterState(MovementStateType previousState)
 		{
-			actor.animator.SetBool(Actor.IsDuckingHash, true);
-			Debug.Log("Entering DuckingState");
+			actor.animator.SetBool(Actor.IsKneelingHash, true);
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			actor.animator.SetBool(Actor.IsDuckingHash, false);
-			Debug.Log("Exiting DuckingState");
+			actor.animator.SetBool(Actor.IsKneelingHash, false);
 			return movementStateType;
 		}
 

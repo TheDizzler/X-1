@@ -7,7 +7,13 @@ namespace AtomosZ.AndroSyn.Actors.State
 	/// </summary>
 	public class FallingState : MonoBehaviour, IMovementState
 	{
+		private const float TimeToFallAnimation = 2.5f;
+
 		private Actor actor;
+		private float timeFalling;
+		
+
+
 		public MovementStateType movementStateType
 		{
 			get => MovementStateType.FALLING;
@@ -22,12 +28,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public void EnterState(MovementStateType previousState)
 		{
-			//Debug.Log("Entering AirbornState");
+			timeFalling = 0;
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			//Debug.Log("Exiting AirbornState");
+			actor.animator.SetBool(Actor.IsFallingHash, false);
 			return movementStateType;
 		}
 
@@ -50,6 +56,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (actor.commandList[CommandType.Jetpack])
 			{
 				return MovementStateType.JETPACK;
+			}
+
+			timeFalling += Time.deltaTime;
+			if (timeFalling > TimeToFallAnimation)
+			{
+				actor.animator.SetBool(Actor.IsFallingHash, true);
 			}
 
 			return MovementStateType.NONE;

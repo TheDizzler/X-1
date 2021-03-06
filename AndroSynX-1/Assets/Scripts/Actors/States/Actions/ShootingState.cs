@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AtomosZ.AndroSyn.Weapons;
+using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors
 {
@@ -10,12 +11,16 @@ namespace AtomosZ.AndroSyn.Actors
 			set { throw new System.NotImplementedException(); }
 		}
 
-		private Actor actor;
+		public GameObject bulletPrefab;
+		public Transform bulletSpawnPoint;
+
 		public float MinTimeBetweenShots = .3f;
 		private float LowerWeaponTime = 2.5f;
 
 		private Actor actor;
 		private float timeSinceShoot;
+		private bool spawnBullet;
+		private bool firstShot;
 
 		public void SetActor(Actor owner)
 		{
@@ -25,6 +30,8 @@ namespace AtomosZ.AndroSyn.Actors
 		public void EnterState(ActionStateType previousState)
 		{
 			actor.animator.SetBool(Actor.IsShootingHash, true);
+			spawnBullet = true;
+			firstShot = true;
 			timeSinceShoot = 0f;
 		}
 
@@ -36,7 +43,18 @@ namespace AtomosZ.AndroSyn.Actors
 
 		void Update()
 		{
+			if (firstShot)
+			{ // the first shot will come out of the gun in resting position if there is no delay
+				firstShot = false;
+				return;
+			}
 
+			if (spawnBullet)
+			{
+				spawnBullet = false;
+				Bullet newBullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
+				newBullet.Fire(bulletSpawnPoint.position, actor.actorPhysics.Facing());
+			}
 		}
 
 		public ActionStateType FixedUpdateState()
@@ -48,6 +66,7 @@ namespace AtomosZ.AndroSyn.Actors
 				{
 					timeSinceShoot = 0;
 					actor.animator.Play(Actor.ShootHash, 2, 0);
+					spawnBullet = true;
 				}
 				else if (timeSinceShoot > LowerWeaponTime)
 					return ActionStateType.AwaitingAction;

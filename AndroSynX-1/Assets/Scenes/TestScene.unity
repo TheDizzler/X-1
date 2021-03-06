@@ -217,7 +217,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerSpawnPoint
   m_TagString: PlayerSpawnPoint
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -260,7 +260,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2761895910393684929, guid: 595299627bf765a49880c1d18f14dc71,
+  m_Sprite: {fileID: -3206663511080449389, guid: 431bf77e9d57f8d4fbd5b11d3ee8ed2a,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.22352941}
   m_FlipX: 0
@@ -898,7 +898,7 @@ GameObject:
   m_Layer: 0
   m_Name: GraviticObject
   m_TagString: GraviticObject
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1305,7 +1305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2068008684
 Light:
   m_ObjectHideFlags: 0
@@ -1446,7 +1446,7 @@ PrefabInstance:
     - target: {fileID: 4952907861917724017, guid: 7a00d107b82ce7141bfa07259ca8d285,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952907861917724026, guid: 7a00d107b82ce7141bfa07259ca8d285,
         type: 3}

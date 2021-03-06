@@ -56,22 +56,30 @@ namespace AtomosZ.AndroSyn.Actors.State
 				return MovementStateType.JETPACK;
 			}
 
-			timeInStandingState += Time.deltaTime;
-			if (timeInStandingState >= timeUntilIdle)
+			if (actor.currentActionState == ActionStateType.AwaitingAction)
 			{
-				if (isIdle)
+				timeInStandingState += Time.deltaTime;
+				if (timeInStandingState >= timeUntilIdle)
 				{
-					actor.animator.SetBool(Actor.IsLongIdlingHash, true);
-				}
-				else
-				{
-					isIdle = true;
-					timeInStandingState = -timeInStandingState;
-					actor.animator.SetBool(Actor.IsIdlingHash, true);
+					if (isIdle)
+					{
+						actor.animator.SetBool(Actor.IsLongIdlingHash, true);
+					}
+					else
+					{
+						isIdle = true;
+						timeInStandingState = -timeInStandingState;
+						actor.animator.SetBool(Actor.IsIdlingHash, true);
+					}
 				}
 			}
-
-
+			else
+			{
+				isIdle = false;
+				timeInStandingState = 0;
+				actor.animator.SetBool(Actor.IsIdlingHash, false);
+				actor.animator.SetBool(Actor.IsLongIdlingHash, false);
+			}
 			return MovementStateType.NONE;
 		}
 	}

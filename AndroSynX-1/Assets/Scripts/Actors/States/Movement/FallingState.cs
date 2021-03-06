@@ -7,11 +7,11 @@ namespace AtomosZ.AndroSyn.Actors.State
 	/// </summary>
 	public class FallingState : MonoBehaviour, IMovementState
 	{
-		private const float TimeToFallAnimation = 2.5f;
+		private const float TimeToFallAnimation = 1.1f;
 
 		private Actor actor;
 		private float timeFalling;
-		
+
 
 
 		public MovementStateType movementStateType
@@ -58,10 +58,18 @@ namespace AtomosZ.AndroSyn.Actors.State
 				return MovementStateType.JETPACK;
 			}
 
-			timeFalling += Time.deltaTime;
-			if (timeFalling > TimeToFallAnimation)
+			if (actor.actorPhysics.GetVelocity().y < 0)
 			{
-				actor.animator.SetBool(Actor.IsFallingHash, true);
+				timeFalling += Time.deltaTime;
+				if (timeFalling > TimeToFallAnimation)
+				{
+					actor.animator.SetBool(Actor.IsFallingHash, true);
+				}
+			}
+			else
+			{
+				timeFalling = 0;
+				actor.animator.SetBool(Actor.IsFallingHash, false);
 			}
 
 			return MovementStateType.NONE;

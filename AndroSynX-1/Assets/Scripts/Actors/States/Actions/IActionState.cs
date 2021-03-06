@@ -3,6 +3,7 @@
 	public enum ActionStateType
 	{
 		None,
+		AwaitingAction,
 		Shoot,
 	}
 

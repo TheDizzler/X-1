@@ -14,8 +14,9 @@ namespace AtomosZ.AndroSyn.Actors
 		public static readonly int WalkSpeedHash = Animator.StringToHash("walkSpeed");
 		public static readonly int IsFallingHash = Animator.StringToHash("isFalling");
 		public static readonly int IsIdlingHash = Animator.StringToHash("isIdling");
-		
-		
+		public static readonly int ShootHash = Animator.StringToHash("Shoot");
+
+
 		[Tooltip("This actor is for debugging and should not run any logic" +
 			" at runtime.")]
 		public bool isDummy = false;
@@ -96,7 +97,12 @@ namespace AtomosZ.AndroSyn.Actors
 			}
 
 			actionStateLookup = new Dictionary<ActionStateType, IActionState>();
-			actionStateLookup.Add(ActionStateType.None, null);
+
+
+			NoActionState awaitingState = new NoActionState();
+			awaitingState.SetActor(this);
+			actionStateLookup.Add(ActionStateType.AwaitingAction, awaitingState);
+
 
 			if (shootingState)
 			{
@@ -107,7 +113,7 @@ namespace AtomosZ.AndroSyn.Actors
 			currentMovementState = MovementStateType.FALLING;
 			movementState = airbornState;
 			currentActionState = ActionStateType.None;
-			actionState = actionStateLookup[ActionStateType.None];
+			actionState = actionStateLookup[ActionStateType.AwaitingAction];
 		}
 
 
@@ -133,6 +139,21 @@ namespace AtomosZ.AndroSyn.Actors
 				return;
 			// update commandqueue commands
 			actorController.UpdateCommands();
+
+			ActionStateType nextAction = actionState.FixedUpdateState();
+			if (nextAction != ActionStateType.None)
+			{
+				if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
+					Debug.Log(this.name + " could not find actionState for " + nextAction.ToString());
+				else
+				{
+					ActionStateType prevAction = actionState.ExitState(nextAction);
+					actionState = newAction;
+					actionState.EnterState(prevAction);
+					currentActionState = nextAction;
+				}
+			}
+
 		}
 
 
@@ -153,23 +174,6 @@ namespace AtomosZ.AndroSyn.Actors
 					movementState = newMovement;
 					movementState.EnterState(previousState);
 					currentMovementState = nextState;
-				}
-			}
-
-			if (actionState != null)
-			{
-				ActionStateType nextAction = actionState.FixedUpdateState();
-				if (nextAction != ActionStateType.None)
-				{
-					if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
-						Debug.Log(this.name + " could not find movementState for " + nextState.ToString());
-					else
-					{
-						ActionStateType prevAction = actionState.ExitState(nextAction);
-						actionState = newAction;
-						actionState.EnterState(prevAction);
-						currentActionState = nextAction;
-					}
 				}
 			}
 

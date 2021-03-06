@@ -19,7 +19,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void UpdateCommands()
 		{
-
+			actor.commandList[CommandType.Shoot] = input.IsInputDown(VirtualInputCommand.Attack);
 		}
 
 		public void FixedUpdateCommands()
@@ -28,7 +28,6 @@ namespace AtomosZ.AndroSyn.Actors
 			actor.inputVelocity = input.GetLeftAnalogue();
 			actor.commandList[CommandType.MoveLeft] = actor.inputVelocity.x < 0;
 			actor.commandList[CommandType.MoveRight] = actor.inputVelocity.x > 0;
-			actor.commandList[CommandType.Shoot] = input.IsInputDown(VirtualInputCommand.Attack);
 			actor.commandList[CommandType.Duck] = actor.inputVelocity.y < 0;
 			actor.commandList[CommandType.Jetpack] = actor.inputVelocity.y > 0;
 		}

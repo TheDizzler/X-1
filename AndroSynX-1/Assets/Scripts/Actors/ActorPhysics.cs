@@ -106,6 +106,11 @@ namespace AtomosZ.AndroSyn.Actors
 			return isFacingRight ? right : -right;
 		}
 
+		public Vector2 GetVelocity()
+		{
+			return rb2d.velocity;
+		}
+
 		/// <summary>
 		/// Look at physics and update internal state, in preparation for whatever manipulates this object
 		/// to be able to decide what to do next.

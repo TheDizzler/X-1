@@ -51,6 +51,10 @@ namespace AtomosZ.AndroSyn.Actors.State
 				Vector2 inputVelocity = Vector2.zero;
 				inputVelocity.x = actor.inputVelocity.x * actor.airMovementSpeed;
 				actor.actorPhysics.desiredVelocity = inputVelocity;
+				bool wasFacingRight = actor.actorPhysics.isFacingRight;
+				bool isFacingRight = inputVelocity.x > 0;
+				if (wasFacingRight != isFacingRight)
+					actor.Flip();
 			}
 
 			if (actor.commandList[CommandType.Jetpack])

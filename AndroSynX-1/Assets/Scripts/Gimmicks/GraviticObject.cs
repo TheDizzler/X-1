@@ -2,6 +2,9 @@
 
 namespace AtomosZ.AndroSyn.Gimmick
 {
+	/// <summary>
+	/// An object that emits a gravity field.
+	/// </summary>
 	[RequireComponent(typeof(CircleCollider2D))]
 	public class GraviticObject : MonoBehaviour
 	{

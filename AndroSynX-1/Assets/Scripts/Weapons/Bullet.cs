@@ -1,5 +1,4 @@
-﻿using System;
-using AtomosZ.AndroSyn.Gimmick;
+﻿using AtomosZ.AndroSyn.Gimmick;
 using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Weapons
@@ -8,7 +7,7 @@ namespace AtomosZ.AndroSyn.Weapons
 	{
 		public float speed = 5.0f;
 		[SerializeField] private Rigidbody2D rb2d = null;
-
+		private Vector2 affectingGravity;
 
 		public void Fire(Vector2 position, Vector2 normalizedDirection)
 		{
@@ -16,24 +15,26 @@ namespace AtomosZ.AndroSyn.Weapons
 			rb2d.velocity = speed * normalizedDirection;
 		}
 
+		void FixedUpdate()
+		{
+			Vector2 v = rb2d.velocity;
+			v += affectingGravity;
+			rb2d.velocity = v;
 
-		//void Update()
-		//{
+			affectingGravity = Vector2.zero;
+		}
 
-		//}
+		void OnTriggerStay2D(Collider2D collision)
+		{
+			if (collision.CompareTag(Tags.GRAVITIC_OBJECT))
+			{
+				float power = collision.GetComponent<GraviticObject>().GetGravitationalPull(
+					Vector2.Distance(transform.localPosition, collision.transform.localPosition));
 
+				Vector2 direction = collision.transform.localPosition - transform.localPosition;
 
-		//void OnTriggerStay2D(Collider2D collision)
-		//{
-		//	if (collision.CompareTag(Tags.GRAVITIC_OBJECT))
-		//	{
-		//		float power = collision.GetComponent<GraviticObject>().GetGravitationalPull(
-		//			Vector2.Distance(transform.localPosition, collision.transform.localPosition));
-
-		//		Vector2 direction = collision.transform.localPosition - transform.localPosition;
-
-		//		affectingGravity += direction * power * rb2d.mass;
-		//	}
-		//}
+				affectingGravity += direction * power * rb2d.mass;
+			}
+		}
 	}
 }

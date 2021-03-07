@@ -54,9 +54,13 @@ namespace AtomosZ.AndroSyn.GameSystem
 			Vector2 trackingPoint = followTarget.localPosition + followTarget.right + followLead;
 			Vector3 camPos = Vector3.SmoothDamp(transform.localPosition, trackingPoint, ref velocity, smoothTime);
 			camPos.z = cameraZ;
-			camPos = cameraLock.CheckIfInBounds(camPos);
+			camPos = cameraLock.LockToBounds(camPos);
 			mainCamera.transform.localPosition = camPos;
-			//mainCamera.transform.LookAt(followTarget, followTarget.up);
+		}
+
+		public void ChangeCameraUp()
+		{
+			mainCamera.transform.LookAt(followTarget, followTarget.up);
 		}
 	}
 }

@@ -135,9 +135,13 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void Update()
 		{
+#if UNITY_EDITOR
 			if (isDummy)
 				return;
-			// update commandqueue commands
+			if (actorController == null)
+				return; // prevents error spam after editing a script
+#endif
+
 			actorController.UpdateCommands();
 
 			ActionStateType nextAction = actionState.FixedUpdateState();
@@ -159,8 +163,12 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void FixedUpdate()
 		{
+#if UNITY_EDITOR
 			if (isDummy)
 				return;
+			if (actorController == null)
+				return; // prevents error spam after editing a script
+#endif
 			actorPhysics.UpdateInternalStateFromPhysicsResult();
 			actorController.FixedUpdateCommands();
 			MovementStateType nextState = movementState.FixedUpdateState();

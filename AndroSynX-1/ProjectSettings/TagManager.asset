@@ -7,6 +7,7 @@ TagManager:
   - GraviticObject
   - PlayerSpawnPoint
   - AreaPhysics
+  - Bullet
   layers:
   - Default
   - TransparentFX

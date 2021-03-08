@@ -5,41 +5,38 @@ namespace AtomosZ.AndroSyn.GameSystem
 	public class CameraLock : MonoBehaviour
 	{
 		private Camera mainCamera;
-		private BoxCollider2D areaBounds;
+		private Bounds areaBounds;
 
 
 		void Start()
 		{
 			mainCamera = GetComponent<Camera>();
-			areaBounds = GameObject.FindGameObjectWithTag(Tags.AREA_PHYSICS).GetComponentInChildren<BoxCollider2D>();
+			var collider = GameObject.FindGameObjectWithTag(Tags.AREA_PHYSICS).GetComponentInChildren<BoxCollider2D>();
 
-			Vector3 farPoint0 = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 10));
-			Vector3 farPoint1 = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, 10));
-			Vector3 farPoint2 = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 10));
-			Vector3 farPoint3 = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, 10));
-			Vector3 size = new Vector3();
-			size.x = farPoint1.x - farPoint0.x;
-			size.y = farPoint3.y - farPoint0.y;
-
+			areaBounds = new Bounds(collider.bounds.center, collider.size);
 		}
 
-		public Vector3 LockToBounds(Vector3 desiredPosition)
+		public Vector3 LockToBounds(Bounds cameraBounds)
 		{
-			if (areaBounds.bounds.Contains(desiredPosition))
-				return desiredPosition;
+			if (!cameraBounds.Intersects(areaBounds))
+			{
+				return cameraBounds.center;
+			}
 
-			var bounds = areaBounds.bounds;
-			
-			if (desiredPosition.x > bounds.max.x)
-				desiredPosition.x = bounds.max.x;
-			else if (desiredPosition.x < bounds.min.x)
-				desiredPosition.x = bounds.min.x;
-			if (desiredPosition.y > bounds.max.y)
-				desiredPosition.y = bounds.max.y;
-			else if (desiredPosition.y < bounds.min.y)
-				desiredPosition.y = bounds.min.y;
-
-			return desiredPosition;
+			Vector3 moveTo = cameraBounds.center;
+			float maxX = cameraBounds.max.x;
+			float maxY = cameraBounds.max.y;
+			float minX = cameraBounds.min.x;
+			float minY = cameraBounds.min.y;
+			if (maxX > areaBounds.max.x)
+				moveTo.x = areaBounds.max.x - cameraBounds.extents.x;
+			else if (minX < areaBounds.min.x)
+				moveTo.x = areaBounds.min.x + cameraBounds.extents.x;
+			if (maxY > areaBounds.max.y)
+				moveTo.y = areaBounds.max.y - cameraBounds.extents.y;
+			else if (minY < areaBounds.min.y)
+				moveTo.y = areaBounds.min.y + cameraBounds.extents.y;
+			return moveTo;
 		}
 	}
 }

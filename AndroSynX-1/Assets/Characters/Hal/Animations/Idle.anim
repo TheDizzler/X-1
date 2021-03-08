@@ -453,7 +453,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front
+    path: rig/lower body/thigh front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -469,7 +469,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front/knee front
+    path: rig/lower body/thigh front/knee front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -485,7 +485,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh front/knee front/calf front
+    path: rig/lower body/thigh front/knee front/calf front
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -501,7 +501,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear
+    path: rig/lower body/thigh rear
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -517,7 +517,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear/knee rear
+    path: rig/lower body/thigh rear/knee rear
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -533,7 +533,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: lower body/thigh rear/knee rear/calf rear
+    path: rig/lower body/thigh rear/knee rear/calf rear
   - curve:
       serializedVersion: 2
       m_Curve:

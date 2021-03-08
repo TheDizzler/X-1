@@ -19,7 +19,7 @@ TextureImporter:
     second: Starbase tileset_4
   - first:
       213: 2942419703424485235
-    second: Starbase tileset_5
+    second: Starbase door placeholder_0
   - first:
       213: 2161259151908922719
     second: Starbase tileset_6
@@ -37,7 +37,7 @@ TextureImporter:
     second: Starbase tileset_10
   - first:
       213: -5537042833042869269
-    second: Starbase tileset_11
+    second: Starbase door placeholder_1
   - first:
       213: 8999416057039284360
     second: Starbase tileset_12
@@ -55,7 +55,7 @@ TextureImporter:
     second: Starbase tileset_16
   - first:
       213: -2798322070631081554
-    second: Starbase tileset_17
+    second: Starbase DoorSpawner
   - first:
       213: 2288470667679683927
     second: Starbase tileset_18
@@ -73,7 +73,7 @@ TextureImporter:
     second: Starbase tileset_22
   - first:
       213: -3253575514982599705
-    second: Starbase tileset_23
+    second: Starbase door placeholder_2
   - first:
       213: 2724424781911954591
     second: Starbase tileset_24
@@ -88,7 +88,7 @@ TextureImporter:
     second: Starbase tileset_27
   - first:
       213: -12723675535846619
-    second: Starbase tileset_28
+    second: Starbase door placeholder_3
   - first:
       213: -7601172614086390325
     second: Starbase tileset_29
@@ -317,7 +317,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase tileset_5
+      name: Starbase door placeholder_0
       rect:
         serializedVersion: 2
         x: 160
@@ -463,7 +463,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase tileset_11
+      name: Starbase door placeholder_1
       rect:
         serializedVersion: 2
         x: 160
@@ -603,7 +603,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase tileset_17
+      name: Starbase DoorSpawner
       rect:
         serializedVersion: 2
         x: 160
@@ -739,7 +739,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase tileset_23
+      name: Starbase door placeholder_2
       rect:
         serializedVersion: 2
         x: 160
@@ -866,7 +866,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase tileset_28
+      name: Starbase door placeholder_3
       rect:
         serializedVersion: 2
         x: 160

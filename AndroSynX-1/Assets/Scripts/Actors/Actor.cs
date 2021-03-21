@@ -10,6 +10,7 @@ namespace AtomosZ.AndroSyn.Actors
 		public static readonly int IsLongIdlingHash = Animator.StringToHash("isLongIdling");
 		public static readonly int IsShootingHash = Animator.StringToHash("isShooting");
 		public static readonly int IsKneelingHash = Animator.StringToHash("isKneeling");
+		public static readonly int IsJetpackHash = Animator.StringToHash("isJetpack");
 		public static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
 		public static readonly int WalkSpeedHash = Animator.StringToHash("walkSpeed");
 		public static readonly int IsFallingHash = Animator.StringToHash("isFalling");
@@ -21,7 +22,9 @@ namespace AtomosZ.AndroSyn.Actors
 			" at runtime.")]
 		public bool isDummy = false;
 
+		[Tooltip("Horizontal move speed")]
 		public float groundMovementSpeed = 2.4f;
+		[Tooltip("Horizontal move speed")]
 		public float airMovementSpeed = 3.3f;
 
 		public Animator animator;
@@ -33,16 +36,16 @@ namespace AtomosZ.AndroSyn.Actors
 		/// Public for debugging purposes.
 		/// </summary>
 		public ActionStateType currentActionState;
-		public ActorPhysics actorPhysics;
+		public IActorPhysics actorPhysics;
 
 		/// <summary>
 		/// List of Controller device inputs to consume on an actor's movement updates.
 		/// </summary>
 		[NonSerialized] public Dictionary<CommandType, bool> commandList = new Dictionary<CommandType, bool>();
 		[NonSerialized] public Vector2 inputVelocity = Vector2.zero;
-
 		[SerializeField] private StandingState standingState = null;
 		[SerializeField] private WalkingState walkingState = null;
+		[SerializeField] private ClimbingStairsState stairsState = null;
 		[SerializeField] private KneelingState duckingState = null;
 		[SerializeField] private FallingState airbornState = null;
 		[SerializeField] private JetpackState jetpackState = null;
@@ -57,12 +60,12 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void Awake()
 		{
-			actorPhysics = GetComponent<ActorPhysics>();
+			actorPhysics = GetComponent<IActorPhysics>();
 			if (!animator)
 			{
 				animator = GetComponent<Animator>();
 				if (!animator)
-					Debug.LogError("No animator found for " + gameObject.name);
+					Debug.LogWarning("No animator found for " + gameObject.name);
 			}
 			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 
@@ -82,6 +85,12 @@ namespace AtomosZ.AndroSyn.Actors
 			{
 				walkingState.SetActor(this);
 				movementStateLookup.Add(MovementStateType.WALKING, walkingState);
+			}
+
+			if (stairsState)
+			{
+				stairsState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.STAIRS, stairsState);
 			}
 
 			if (airbornState)
@@ -112,7 +121,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 			currentMovementState = MovementStateType.FALLING;
 			movementState = airbornState;
-			currentActionState = ActionStateType.None;
+			currentActionState = ActionStateType.AwaitingAction;
 			actionState = actionStateLookup[ActionStateType.AwaitingAction];
 		}
 
@@ -123,6 +132,21 @@ namespace AtomosZ.AndroSyn.Actors
 			actorController.OnActorControl(this);
 		}
 
+		public void SetAnimator(int animationHash, bool value)
+		{
+			if (animator != null)
+			{
+				animator.SetBool(animationHash, value);
+			}
+		}
+
+		public void SetAnimator(int animationHash, float value)
+		{
+			if (animator != null)
+			{
+				animator.SetFloat(animationHash, value);
+			}
+		}
 
 		public void Flip()
 		{

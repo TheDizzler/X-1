@@ -14,6 +14,5 @@ namespace AtomosZ.AndroSyn.Weapons
 				GetComponent<Animator>().SetBool(IsOpenHash, true);
 			}
 		}
-
 	}
 }

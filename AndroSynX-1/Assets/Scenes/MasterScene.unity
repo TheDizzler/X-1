@@ -167,7 +167,7 @@ MonoBehaviour:
   cameraController: {fileID: 1603286013}
   inputType: 0
   playerPrefabs:
-  - {fileID: 4952907861917724029, guid: 7a00d107b82ce7141bfa07259ca8d285, type: 3}
+  - {fileID: 3259631117906409545, guid: 7417cbc3964cc91468d0c69f7600934f, type: 3}
 --- !u!1 &588131188
 GameObject:
   m_ObjectHideFlags: 0

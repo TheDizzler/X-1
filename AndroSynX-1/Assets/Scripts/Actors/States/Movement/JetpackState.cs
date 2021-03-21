@@ -14,7 +14,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 		/// </summary>
 		[Tooltip("How much energy is recharged per second when not in operation.")]
 		[SerializeField] private int jetpackRecharge = 5;
-		[SerializeField] private int maxJetpackEnergy = 10;
+		[SerializeField] private int maxJetpackEnergy = 100;
 		public float currentEnergy = 10;
 		[SerializeField] private float jetpackPower = 3.3f;
 		/// <summary>
@@ -46,11 +46,13 @@ namespace AtomosZ.AndroSyn.Actors.State
 			Vector2 inputVelocity = Vector2.zero;
 			inputVelocity.y = actor.inputVelocity.y * jetpackPower;
 			actor.actorPhysics.desiredVelocity = inputVelocity;
+			actor.SetAnimator(Actor.IsJetpackHash, true);
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
 			jetpackOn = false;
+			actor.SetAnimator(Actor.IsJetpackHash, false);
 			return movementStateType;
 		}
 

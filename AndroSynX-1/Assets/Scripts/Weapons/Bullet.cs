@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Weapons
 {
+	/// <summary>
+	/// @TODO: create bullet pool.
+	/// </summary>
 	public class Bullet : MonoBehaviour
 	{
 		public float speed = 5.0f;
@@ -22,6 +25,12 @@ namespace AtomosZ.AndroSyn.Weapons
 			rb2d.velocity = v;
 
 			affectingGravity = Vector2.zero;
+		}
+
+
+		private void OnCollisionEnter2D(Collision2D collision)
+		{
+			Destroy(gameObject); // return to pool
 		}
 
 		void OnTriggerStay2D(Collider2D collision)

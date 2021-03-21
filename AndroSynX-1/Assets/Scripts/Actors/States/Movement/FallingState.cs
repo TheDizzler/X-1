@@ -10,8 +10,6 @@ namespace AtomosZ.AndroSyn.Actors.State
 		private const float TimeToFallAnimation = 1.1f;
 
 		private Actor actor;
-		private float timeFalling;
-
 
 
 		public MovementStateType movementStateType
@@ -28,12 +26,12 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public void EnterState(MovementStateType previousState)
 		{
-			timeFalling = 0;
+			actor.SetAnimator(Actor.IsFallingHash, true);
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			actor.animator.SetBool(Actor.IsFallingHash, false);
+			actor.SetAnimator(Actor.IsFallingHash, false);
 			return movementStateType;
 		}
 
@@ -60,20 +58,6 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (actor.commandList[CommandType.Jetpack])
 			{
 				return MovementStateType.JETPACK;
-			}
-
-			if (actor.actorPhysics.GetVelocity().y < 0)
-			{
-				timeFalling += Time.deltaTime;
-				if (timeFalling > TimeToFallAnimation)
-				{
-					actor.animator.SetBool(Actor.IsFallingHash, true);
-				}
-			}
-			else
-			{
-				timeFalling = 0;
-				actor.animator.SetBool(Actor.IsFallingHash, false);
 			}
 
 			return MovementStateType.NONE;

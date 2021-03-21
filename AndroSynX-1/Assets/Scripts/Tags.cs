@@ -7,5 +7,6 @@
 		public const string PLAYER_SPAWN_POINT = "PlayerSpawnPoint";
 		public const string AREA_PHYSICS = "AreaPhysics";
 		public const string BULLET = "Bullet";
+		public const string GROUND = "Ground";
 	}
 }

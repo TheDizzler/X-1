@@ -29,7 +29,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public void EnterState(ActionStateType previousState)
 		{
-			actor.animator.SetBool(Actor.IsShootingHash, true);
+			actor.SetAnimator(Actor.IsShootingHash, true);
 			spawnBullet = true;
 			firstShot = true;
 			timeSinceShoot = 0f;
@@ -37,7 +37,7 @@ namespace AtomosZ.AndroSyn.Actors
 
 		public ActionStateType ExitState(ActionStateType nextState)
 		{
-			actor.animator.SetBool(Actor.IsShootingHash, false);
+			actor.SetAnimator(Actor.IsShootingHash, false);
 			return actionStateType;
 		}
 

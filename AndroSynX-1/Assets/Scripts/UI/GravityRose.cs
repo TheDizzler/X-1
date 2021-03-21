@@ -16,7 +16,7 @@ namespace AtomosZ.AndroSyn.UI
 		private TextMeshProUGUI playerMagnitudeTMP;
 		private Vector3 lastAreaGravity;
 		private Vector3 lastPlayerGravity;
-		private ActorPhysics playerPhysics;
+		private IActorPhysics playerPhysics;
 
 
 		public void Start()
@@ -43,7 +43,7 @@ namespace AtomosZ.AndroSyn.UI
 					Debug.LogError(tmp.name + " is not a valid Gravity Indicator TMP");
 			}
 
-			playerPhysics = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<ActorPhysics>();
+			playerPhysics = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<IActorPhysics>();
 		}
 
 
@@ -52,18 +52,21 @@ namespace AtomosZ.AndroSyn.UI
 			Vector3 currentAreaGravity = AreaPhysics.gravity;
 			if (currentAreaGravity != lastAreaGravity)
 			{
-				areaGravityRose.transform.rotation = 
+				areaGravityRose.transform.rotation =
 					Quaternion.FromToRotation(Vector3.up, currentAreaGravity.normalized);
 				float scale = currentAreaGravity.magnitude / ROSE_MEDIAN;
 				areaGravityRose.transform.localScale = new Vector3(scale, scale, 1);
 				areaMagnitudeTMP.text = "g = " + currentAreaGravity.magnitude;
 				lastAreaGravity = currentAreaGravity;
 			}
-
+#if UNITY_EDITOR
+			if (Application.isPlaying && playerPhysics == null)
+				return; // prevents error spam when stopping play
+#endif
 			Vector3 currentPlayerGravity = playerPhysics.GetTotalAffectingGravity();
 			if (currentPlayerGravity != lastPlayerGravity)
 			{
-				playerGravityRose.transform.rotation = 
+				playerGravityRose.transform.rotation =
 					Quaternion.FromToRotation(Vector3.up, currentPlayerGravity.normalized);
 				float scale = currentPlayerGravity.magnitude / ROSE_MEDIAN;
 				playerGravityRose.transform.localScale = new Vector3(scale, scale, 1);

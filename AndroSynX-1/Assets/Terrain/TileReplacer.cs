@@ -29,9 +29,6 @@ namespace AtomosZ.AndroSyn.Tiles
 							continue;
 						Vector3 tilePosition = tilemap.GetCellCenterWorld(coordinate);
 						Instantiate(replacer.prefab, tilePosition, Quaternion.identity);
-
-						Debug.Log(string.Format("Position of tile {4}: [{0}, {1}] = ({2}, {3})",
-							coordinate.x, coordinate.y, tilePosition.x, tilePosition.y, tile.name));
 						break;
 					}
 				}

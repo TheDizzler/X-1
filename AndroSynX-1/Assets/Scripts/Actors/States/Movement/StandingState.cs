@@ -8,6 +8,8 @@ namespace AtomosZ.AndroSyn.Actors.State
 		private float timeInStandingState;
 		private float timeUntilIdle = 2f;
 		private bool isIdle;
+		private IKLegSettings ikLegs;
+
 
 		public MovementStateType movementStateType
 		{
@@ -18,18 +20,20 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public void SetActor(Actor owner)
 		{
 			actor = owner;
+			ikLegs = actor.GetComponent<IKLegSettings>();
 		}
 
 		public void EnterState(MovementStateType previousState)
 		{
-			//Debug.Log("Entering StandingState");
 			timeInStandingState = 0;
+			if (previousState == MovementStateType.FALLING)
+				ikLegs.TryPutFeetOnGround();
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)
 		{
-			actor.animator.SetBool(Actor.IsIdlingHash, false);
-			actor.animator.SetBool(Actor.IsLongIdlingHash, false);
+			actor.SetAnimator(Actor.IsIdlingHash, false);
+			actor.SetAnimator(Actor.IsLongIdlingHash, false);
 			isIdle = false;
 			return movementStateType;
 		}
@@ -63,13 +67,13 @@ namespace AtomosZ.AndroSyn.Actors.State
 				{
 					if (isIdle)
 					{
-						actor.animator.SetBool(Actor.IsLongIdlingHash, true);
+						actor.SetAnimator(Actor.IsLongIdlingHash, true);
 					}
 					else
 					{
 						isIdle = true;
 						timeInStandingState = -timeInStandingState;
-						actor.animator.SetBool(Actor.IsIdlingHash, true);
+						actor.SetAnimator(Actor.IsIdlingHash, true);
 					}
 				}
 			}
@@ -77,8 +81,8 @@ namespace AtomosZ.AndroSyn.Actors.State
 			{
 				isIdle = false;
 				timeInStandingState = 0;
-				actor.animator.SetBool(Actor.IsIdlingHash, false);
-				actor.animator.SetBool(Actor.IsLongIdlingHash, false);
+				actor.SetAnimator(Actor.IsIdlingHash, false);
+				actor.SetAnimator(Actor.IsLongIdlingHash, false);
 			}
 			return MovementStateType.NONE;
 		}

@@ -4,77 +4,59 @@ using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors
 {
-	/// <summary>
-	/// Class to manage interactions with physics for a player character
-	/// </summary>
-	public class ActorPhysics : MonoBehaviour
+	public class IKActorPhysics : MonoBehaviour, IActorPhysics
 	{
-		const int CharacterLayer = 13;
-		const int CharacterIgnoringCharactersLayer = 14;
+		public static readonly float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 47f); // Just over 45 degrees...
 
-		static readonly float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 47f); // Just over 45 degrees...
 
-		[SerializeField] private float moveCollisionDistance = .1f;
-		/// <summary>
-		/// Gravity to be applied to actor from external forces NOT including Area Gravity. 
-		/// </summary>
-		private Vector2 affectingGravity;
-		/// <summary>
-		/// The current direction that this character should regard as "Up" for gravity/etc
-		/// </summary>
-		public Vector2 up;
-		public Vector2 right;
-
-		/// <summary>
-		/// Is the Character currently facing the GameObject's Right vector?
-		/// </summary>
-		public bool isFacingRight;
-		public bool isGrounded;
+		public bool isGrounded { get; set; }
 		/// <summary>
 		/// Desired velocity derived from input/etc, where:
 		/// - DesiredVelocity.X is along this.Right (NOT Facing) 
 		/// - DesiredVelocity.Y is along this.Up 
 		/// </summary>
-		public Vector2 desiredVelocity;
+		public Vector2 desiredVelocity { get; set; }
+		/// <summary>
+		/// Is the Character currently facing the GameObject's Right vector?
+		/// </summary>
+		public bool isFacingRight { get; set; }
 
+
+		/// <summary>
+		/// The current direction that this character should regard as "Up" for gravity/etc
+		/// </summary>
+		public Vector2 up { get; set; }
+		public Vector2 right;
+
+		public Collider2D lifterCollider = null;
+		[SerializeField] private float moveCollisionDistance = .1f;
+
+		/// <summary>
+		/// Gravity to be applied to actor from external forces NOT including Area Gravity. 
+		/// </summary>
+		private Vector2 affectingGravity;
 		private Vector2 lastAffectingGravity = Vector2.zero;
 		private Rigidbody2D rb2d;
-		private Collider2D mainCollider;
+		private Actor actor;
+
 		// Shared array for putting contacts into to avoid allocs
 		private int contactCount = 0;
 		private ContactPoint2D[] contactPoints = new ContactPoint2D[10];
 		private RaycastHit2D[] results;
-		private Vector3 footOffset;
 		private Vector2 contactNormal;
 		private Vector3 slopeVector;
-		
+
 
 		public void Awake()
 		{
 			rb2d = GetComponent<Rigidbody2D>();
-			mainCollider = GetComponent<BoxCollider2D>();
+			actor = GetComponent<Actor>();
 			results = new RaycastHit2D[2];
 			isFacingRight = true;
 			up = transform.up;
 			right = transform.right;
-			footOffset = new Vector3(0, -mainCollider.bounds.size.y / 2);
 		}
 
-		public void OnDrawGizmos()
-		{
-			Gizmos.color = Color.magenta;
-			for (int i = 0; i < contactCount; i++)
-			{
-				var contact = contactPoints[i];
-				Gizmos.DrawLine(contact.point, contact.point + (contact.normal * 0.5f));
-			}
-
-			if (isGrounded)
-			{
-				Gizmos.color = Color.cyan;
-				Gizmos.DrawWireSphere(transform.position + footOffset, 0.5f);
-			}
-		}
 
 		/// <summary>
 		/// For informational purposes (such as the gravity rose). Not for scientific use.
@@ -111,10 +93,6 @@ namespace AtomosZ.AndroSyn.Actors
 			return rb2d.velocity;
 		}
 
-		/// <summary>
-		/// Look at physics and update internal state, in preparation for whatever manipulates this object
-		/// to be able to decide what to do next.
-		/// </summary>
 		public void UpdateInternalStateFromPhysicsResult()
 		{
 			affectingGravity += AreaPhysics.gravity;
@@ -122,9 +100,11 @@ namespace AtomosZ.AndroSyn.Actors
 			up = -AreaPhysics.gravity.normalized;
 			contactNormal = up;
 
+			Vector2 contactPoint = Vector2.zero;
 			bool wasGrounded = isGrounded;
 			isGrounded = false;
-			contactCount = mainCollider.GetContacts(contactPoints);
+			contactCount = lifterCollider.GetContacts(contactPoints);
+
 			for (int i = 0; i < contactCount; i++)
 			{
 				var contact = contactPoints[i];
@@ -134,10 +114,12 @@ namespace AtomosZ.AndroSyn.Actors
 					contactNormal = contact.normal;
 					slopeVector = Vector3.Cross(contact.normal, Vector3.down);
 					isGrounded = true;
+					contactPoint = contact.point;
 					break;
 				}
 			}
 		}
+
 
 		public void ApplyToPhysics()
 		{
@@ -149,13 +131,8 @@ namespace AtomosZ.AndroSyn.Actors
 			if (isGrounded)
 			{
 				grav.y = 0;
-				if (mainCollider.Cast(v.normalized, results, moveCollisionDistance) > 0)
-				{
-					v.x = 0;
-					v.y = 0;
-				}
 			}
-			else if (mainCollider.Cast(new Vector2(v.x, 0).normalized, results, moveCollisionDistance) > 0)
+			else if (CheckForGround(new Vector2(v.x, 0).normalized))
 			{
 				v.x = 0;
 			}
@@ -170,7 +147,13 @@ namespace AtomosZ.AndroSyn.Actors
 		}
 
 
-		private void OnTriggerStay2D(Collider2D collision)
+		public bool CheckForGround(Vector2 normalizedDirection)
+		{
+			return lifterCollider.Cast(normalizedDirection, results, moveCollisionDistance) > 0;
+		}
+
+
+		void OnTriggerStay2D(Collider2D collision)
 		{
 			if (collision.CompareTag(Tags.GRAVITIC_OBJECT))
 			{

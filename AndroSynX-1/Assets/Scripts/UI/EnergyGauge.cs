@@ -14,7 +14,13 @@ namespace AtomosZ.AndroSyn.UI
 		public void Start()
 		{
 			energyGauge = GetComponentsInChildren<TextMeshProUGUI>()[1];
-			jetpack = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponentInChildren<JetpackState>();
+			if (GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponentInChildren<JetpackState>() == null)
+			{
+				this.enabled = false;
+				Debug.LogWarning("No jetpack found");
+			}
+			else
+				jetpack = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponentInChildren<JetpackState>();
 		}
 
 		public void Update()

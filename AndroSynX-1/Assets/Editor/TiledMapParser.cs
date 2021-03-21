@@ -34,8 +34,8 @@ namespace AtomosZ.Editor.Tiled
 		private Vector2 mapStartPos = Vector2.zero;
 		private float mapTileWidth;
 		private float mapTileHeight;
-		private bool importAssetsOnly;
-		private bool importColliderLayers;
+		private bool importAssetsOnly = false;
+		private bool importColliderLayers = true;
 
 
 		public static void ParseMap(string tiledMapPath)

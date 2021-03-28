@@ -15,6 +15,6 @@ namespace AtomosZ.AndroSyn.Actors
 		void ChangeUpDirection(Vector2 newUp);
 		void UpdateInternalStateFromPhysicsResult();
 		void ApplyToPhysics();
-		bool CheckForGround(Vector2 normalizedDirection);
+		bool CheckForCollision(Vector2 normalizedDirection);
 	}
 }

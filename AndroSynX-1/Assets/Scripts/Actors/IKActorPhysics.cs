@@ -132,7 +132,7 @@ namespace AtomosZ.AndroSyn.Actors
 			{
 				grav.y = 0;
 			}
-			else if (CheckForGround(new Vector2(v.x, 0).normalized))
+			else if (CheckForCollision(new Vector2(v.x, 0).normalized))
 			{
 				v.x = 0;
 			}
@@ -147,7 +147,7 @@ namespace AtomosZ.AndroSyn.Actors
 		}
 
 
-		public bool CheckForGround(Vector2 normalizedDirection)
+		public bool CheckForCollision(Vector2 normalizedDirection)
 		{
 			return lifterCollider.Cast(normalizedDirection, results, moveCollisionDistance) > 0;
 		}

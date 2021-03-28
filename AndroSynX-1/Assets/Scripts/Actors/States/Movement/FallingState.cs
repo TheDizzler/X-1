@@ -39,7 +39,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public MovementStateType FixedUpdateState()
 		{
 			if (actor.actorPhysics.isGrounded)
-			{ // if fall is "hard" go into a kneeling state
+			{ // if fall is "hard" go into a kneeling state? take damage?
 				return MovementStateType.STANDING;
 			}
 

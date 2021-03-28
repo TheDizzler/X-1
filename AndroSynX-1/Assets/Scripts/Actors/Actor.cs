@@ -45,7 +45,7 @@ namespace AtomosZ.AndroSyn.Actors
 		[NonSerialized] public Vector2 inputVelocity = Vector2.zero;
 		[SerializeField] private StandingState standingState = null;
 		[SerializeField] private WalkingState walkingState = null;
-		[SerializeField] private ClimbingStairsState stairsState = null;
+		[SerializeField] private IKClimbingStairsState stairsState = null;
 		[SerializeField] private KneelingState duckingState = null;
 		[SerializeField] private FallingState airbornState = null;
 		[SerializeField] private JetpackState jetpackState = null;
@@ -69,18 +69,24 @@ namespace AtomosZ.AndroSyn.Actors
 			}
 			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 
+			if (!standingState)
+				standingState = GetComponentInChildren<StandingState>();
 			if (standingState)
 			{
 				standingState.SetActor(this);
 				movementStateLookup.Add(MovementStateType.STANDING, standingState);
 			}
 
+			if (!duckingState)
+				duckingState = GetComponentInChildren<KneelingState>();
 			if (duckingState)
 			{
 				duckingState.SetActor(this);
 				movementStateLookup.Add(MovementStateType.KNEELING, duckingState);
 			}
 
+			if (!walkingState)
+				walkingState = GetComponentInChildren<WalkingState>();
 			if (walkingState)
 			{
 				walkingState.SetActor(this);
@@ -93,12 +99,16 @@ namespace AtomosZ.AndroSyn.Actors
 				movementStateLookup.Add(MovementStateType.STAIRS, stairsState);
 			}
 
+			if (!airbornState)
+				airbornState = GetComponentInChildren<FallingState>();
 			if (airbornState)
 			{
 				airbornState.SetActor(this);
 				movementStateLookup.Add(MovementStateType.FALLING, airbornState);
 			}
 
+			if (!jetpackState)
+				jetpackState = GetComponentInChildren<JetpackState>();
 			if (jetpackState)
 			{
 				jetpackState.SetActor(this);
@@ -112,7 +122,8 @@ namespace AtomosZ.AndroSyn.Actors
 			awaitingState.SetActor(this);
 			actionStateLookup.Add(ActionStateType.AwaitingAction, awaitingState);
 
-
+			if (!shootingState)
+				shootingState = GetComponentInChildren<ShootingState>();
 			if (shootingState)
 			{
 				shootingState.SetActor(this);

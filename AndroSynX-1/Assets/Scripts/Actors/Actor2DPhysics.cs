@@ -18,12 +18,12 @@ namespace AtomosZ.AndroSyn.Actors
 		/// - DesiredVelocity.Y is along this.Up 
 		/// </summary>
 		public Vector2 desiredVelocity { get; set; }
-				/// <summary>
+		/// <summary>
 		/// Is the Character currently facing the GameObject's Right vector?
 		/// </summary>
 		public bool isFacingRight { get; set; }
 
-		[SerializeField] protected float moveCollisionDistance = .1f;
+		[SerializeField] private float moveCollisionDistance = .1f;
 		[SerializeField] private Collider2D groundCollider = null;
 		/// <summary>
 		/// Gravity to be applied to actor from external forces NOT including Area Gravity. 
@@ -49,11 +49,11 @@ namespace AtomosZ.AndroSyn.Actors
 
 
 
-		public virtual void Awake()
+		public void Awake()
 		{
 			rb2d = GetComponent<Rigidbody2D>();
 			if (groundCollider == null)
-				groundCollider = GetComponent<BoxCollider2D>();
+				groundCollider = GetComponent<Collider2D>();
 			results = new RaycastHit2D[2];
 			isFacingRight = true;
 			up = transform.up;
@@ -63,7 +63,7 @@ namespace AtomosZ.AndroSyn.Actors
 			actor = GetComponent<Actor>();
 		}
 
-		public virtual void OnDrawGizmos()
+		public void OnDrawGizmos()
 		{
 			Gizmos.color = Color.magenta;
 			for (int i = 0; i < contactCount; i++)
@@ -173,7 +173,7 @@ namespace AtomosZ.AndroSyn.Actors
 		}
 
 
-		public bool CheckForGround(Vector2 normalizedDirection)
+		public bool CheckForCollision(Vector2 normalizedDirection)
 		{
 			return groundCollider.Cast(normalizedDirection, results, moveCollisionDistance) > 0;
 		}

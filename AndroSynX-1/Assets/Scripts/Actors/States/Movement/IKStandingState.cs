@@ -2,7 +2,7 @@
 
 namespace AtomosZ.AndroSyn.Actors.State
 {
-	public class StandingState : MonoBehaviour, IMovementState
+	public class IKStandingState : MonoBehaviour, IMovementState
 	{
 		private Actor actor;
 		private float timeInStandingState;
@@ -26,6 +26,8 @@ namespace AtomosZ.AndroSyn.Actors.State
 		public void EnterState(MovementStateType previousState)
 		{
 			timeInStandingState = 0;
+			if (previousState == MovementStateType.FALLING)
+				ikLegs.TryPutFeetOnGround();
 		}
 
 		public MovementStateType ExitState(MovementStateType nextState)

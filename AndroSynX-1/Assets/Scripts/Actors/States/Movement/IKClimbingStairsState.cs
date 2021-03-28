@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors
 {
-	public class ClimbingStairsState : MonoBehaviour, IMovementState
+	public class IKClimbingStairsState : MonoBehaviour, IMovementState
 	{
 		public enum StepPhase
 		{
@@ -117,9 +117,19 @@ namespace AtomosZ.AndroSyn.Actors
 				case StepPhase.LegMoving:
 					if (!legSolvers[lastFootToMove].IsMoving())
 					{
-						stepPhase = StepPhase.BodyMoving;
+						stepPhase = StepPhase.LegLanded;
 						lifterCollider.enabled = false;
 						stepLerp = 0;
+					}
+					break;
+
+				case StepPhase.LegLanded:
+					if (actor.commandList[CommandType.MoveLeft]
+						|| actor.commandList[CommandType.MoveRight])
+					{
+						//stepPhase = StepPhase.BodyMoving;
+						lifterCollider.enabled = true;
+						return MovementStateType.STANDING;
 					}
 					break;
 
@@ -140,36 +150,7 @@ namespace AtomosZ.AndroSyn.Actors
 					break;
 			}
 
-			if (actor.commandList[CommandType.MoveLeft]
-				|| actor.commandList[CommandType.MoveRight])
-			{
-				//RaycastHit2D hit = Physics2D.Raycast(body.position + new Vector3(ikLegSettings.stepLength, 0, 0),
-				//	-actorPhysics.up, ikLegSettings.raycastDistance, ikLegSettings.probeMask);
-				//if (hit.collider == null)
-				//{
-				//	Debug.LogError("huh?");
-				//}
 
-				//var dot = Vector2.Dot(hit.normal, actorPhysics.up);
-				//if (dot <= IKActorPhysics.Cos45)
-				//{
-				//	Debug.Log("Too steep");
-				//}
-				//else if (hit.point.y > ikLegSettings.MaxStepHeight())
-				//{
-				//	Debug.Log("too high");
-				//}
-				//else
-				//{
-				//	lastFootToMove = lastFootToMove == 1 ? 0 : 1;
-				//	ikLegSettings.legSolvers[lastFootToMove].SetTarget(hit);
-				//	Vector3 diff = (Vector3)hit.point - ikLegSettings.legSolvers[lastFootToMove].transform.position;
-				//	stepBodyTarget.x = hit.point.x;
-				//	stepBodyTarget.y = body.position.y + diff.y;
-				//	originalStepPosition = transform.position;
-				//	stepLerp = 0f;
-				//}
-			}
 
 			return MovementStateType.NONE;
 		}

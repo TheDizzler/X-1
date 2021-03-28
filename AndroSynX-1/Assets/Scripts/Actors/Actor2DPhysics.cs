@@ -125,6 +125,7 @@ namespace AtomosZ.AndroSyn.Actors
 			up = -AreaPhysics.gravity.normalized;
 			contactNormal = up;
 
+			stepsSinceLastGrounded += 1;
 			bool wasGrounded = isGrounded;
 			isGrounded = false;
 			contactCount = groundCollider.GetContacts(contactPoints);
@@ -135,12 +136,38 @@ namespace AtomosZ.AndroSyn.Actors
 				if (dot > Cos45)
 				{
 					contactNormal = contact.normal;
-					slopeVector = Vector3.Cross(contact.normal, Vector3.down);
+					slopeVector = Vector3.Cross(contactNormal, Vector3.down);
 					isGrounded = true;
+					stepsSinceLastGrounded = 0;
 					break;
 				}
 			}
+
+			if (stepsSinceLastGrounded == 1 && wasGrounded && !isGrounded)
+			{
+				// check if ungrounding was intended, if not, stick to ground
+				SnapToGround();
+			}
 		}
+
+		private void SnapToGround()
+		{
+			if (!(groundCollider.Cast(-up, results, moveCollisionDistance) > 0))
+				return;
+
+			
+			if (results[0].normal.y < Cos45)
+				return;
+
+			isGrounded = true;
+			contactNormal = results[0].normal;
+			slopeVector = Vector3.Cross(contactNormal, -up);
+			Vector3 pos = transform.position;
+			pos.y -= results[0].distance;
+			transform.position = pos;
+		}
+
+		private int stepsSinceLastGrounded = 0;
 
 		public void ApplyToPhysics()
 		{
@@ -152,19 +179,13 @@ namespace AtomosZ.AndroSyn.Actors
 			if (isGrounded)
 			{
 				grav.y = 0;
-				if (CheckForGround(v.normalized))
-				{
-					v.x = 0;
-					v.y = 0;
-				}
 			}
-			else if (CheckForGround(new Vector2(v.x, 0).normalized))
+			else if (CheckForCollision(new Vector2(v.x, 0).normalized))
 			{
 				v.x = 0;
 			}
 
 			v += up * desiredVelocity.y + grav;
-
 			rb2d.velocity = v;
 
 			lastAffectingGravity = affectingGravity;

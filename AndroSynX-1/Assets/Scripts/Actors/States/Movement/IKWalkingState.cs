@@ -53,9 +53,9 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (!actor.actorPhysics.isGrounded)
 				return MovementStateType.FALLING;
 
-			if (actor.commandList[CommandType.Duck])
+			if (actor.commandList[CommandType.Kneel])
 			{
-				actor.commandList[CommandType.Duck] = false;
+				actor.commandList[CommandType.Kneel] = false;
 				return MovementStateType.KNEELING;
 			}
 

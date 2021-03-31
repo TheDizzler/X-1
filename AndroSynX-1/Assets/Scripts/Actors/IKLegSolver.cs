@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.U2D.IK;
+using UnityEngine.U2D.IK;
 
 namespace AtomosZ.AndroSyn.Actors
 {

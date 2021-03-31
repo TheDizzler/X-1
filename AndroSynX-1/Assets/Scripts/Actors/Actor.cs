@@ -222,7 +222,7 @@ namespace AtomosZ.AndroSyn.Actors
 		}
 
 
-		public void Update()
+		void Update()
 		{
 #if UNITY_EDITOR
 			if (isDummy)
@@ -246,11 +246,10 @@ namespace AtomosZ.AndroSyn.Actors
 					currentActionState = nextAction;
 				}
 			}
-
 		}
 
 
-		public void FixedUpdate()
+		void FixedUpdate()
 		{
 #if UNITY_EDITOR
 			if (isDummy)

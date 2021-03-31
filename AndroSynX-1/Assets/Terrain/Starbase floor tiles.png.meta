@@ -52,10 +52,10 @@ TextureImporter:
     second: Starbase floor tiles_15
   - first:
       213: -723924837972037566
-    second: Starbase floor tiles_16
+    second: Starbase floor tiles_ramp26_01
   - first:
       213: -4646999734241700254
-    second: Starbase floor tiles_17
+    second: Starbase floor tiles_ramp26_02
   - first:
       213: 3704182706724908096
     second: Starbase floor tiles_18
@@ -70,7 +70,7 @@ TextureImporter:
     second: Starbase floor tiles_21
   - first:
       213: -7044704127989551357
-    second: Starbase floor tiles_22
+    second: Starbase floor tiles_ramp26_00
   - first:
       213: 7197817405987111124
     second: Starbase floor tiles_23
@@ -79,7 +79,7 @@ TextureImporter:
     second: Starbase floor tiles_24
   - first:
       213: -7039995963364092761
-    second: Starbase floor tiles_25
+    second: Starbase floor tiles_ramp45_01
   - first:
       213: 2056349315747435134
     second: Starbase floor tiles_26
@@ -89,6 +89,87 @@ TextureImporter:
   - first:
       213: -5754304863460875530
     second: Starbase floor tiles_28
+  - first:
+      213: 7478651844877185649
+    second: Starbase floor tiles_29
+  - first:
+      213: -7477302483037799374
+    second: Starbase floor tiles_30
+  - first:
+      213: 4369829136473036814
+    second: Starbase floor tiles_31
+  - first:
+      213: -7760081006603169157
+    second: Starbase floor tiles_32
+  - first:
+      213: -6305246835934015064
+    second: Starbase floor tiles_33
+  - first:
+      213: 7596440106665122638
+    second: Starbase floor tiles_34
+  - first:
+      213: 1601544416839099149
+    second: Starbase floor tiles_35
+  - first:
+      213: -7528933545466966879
+    second: Starbase floor tiles_36
+  - first:
+      213: -6572425983224750752
+    second: Starbase floor tiles_ramp45_00
+  - first:
+      213: -7968422258089035537
+    second: Starbase floor tiles_38
+  - first:
+      213: -7981530213932781436
+    second: Starbase floor tiles_39
+  - first:
+      213: 6521406623668694904
+    second: Starbase floor tiles_40
+  - first:
+      213: 3620671258251689337
+    second: Starbase floor tiles_41
+  - first:
+      213: 1101300154926506625
+    second: Starbase floor tiles_42
+  - first:
+      213: 5223031511333866081
+    second: Starbase floor tiles_43
+  - first:
+      213: -3452685938723340584
+    second: Starbase floor tiles_44
+  - first:
+      213: -1349864933452883043
+    second: Starbase floor tiles_45
+  - first:
+      213: 3242378939951933447
+    second: Starbase floor tiles_46
+  - first:
+      213: 8075147156209138943
+    second: Starbase floor tiles_47
+  - first:
+      213: -3461042417157746121
+    second: Starbase floor tiles_48
+  - first:
+      213: -2663812369842055379
+    second: Starbase floor tiles_49
+  - first:
+      213: 6593024732494678408
+    second: Starbase floor tiles_50
+  - first:
+      213: -5715072708427060270
+    second: Starbase floor tiles_51
+  - first:
+      213: -7892842864691849478
+    second: Starbase floor tiles_52
+  - first:
+      213: -4030904375185365763
+    second: Starbase floor tiles_53
+  - first:
+      213: -8269173862878443030
+    second: Starbase floor tiles_54
+  - first:
+      213: 4723989395986937572
+    second: Starbase floor tiles_55
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,6 +191,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -141,9 +223,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -437,12 +522,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: -16}
-        - {x: -16, y: 6}
-        - {x: -6, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 843d4c97f73109d30800000000000000
@@ -463,12 +543,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: -16}
-        - {x: -16, y: 16}
-        - {x: 6, y: 16}
-        - {x: 16, y: 6}
-        - {x: 16, y: -16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: c3f5dcebe90fb0670800000000000000
@@ -520,7 +595,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase floor tiles_16
+      name: Starbase floor tiles_ramp26_01
       rect:
         serializedVersion: 2
         x: 128
@@ -544,7 +619,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase floor tiles_17
+      name: Starbase floor tiles_ramp26_02
       rect:
         serializedVersion: 2
         x: 160
@@ -580,12 +655,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: -16}
-        - {x: -16, y: -6}
-        - {x: -16, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 04cab71db86e76330800000000000000
@@ -606,12 +676,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: 6, y: -16}
-        - {x: -16, y: -16}
-        - {x: -16, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -6}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: c63910338523f6960800000000000000
@@ -663,27 +728,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase floor tiles_22
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30f64778bee2c3e90800000000000000
-      internalID: -7044704127989551357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Starbase floor tiles_23
       rect:
         serializedVersion: 2
@@ -705,28 +749,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase floor tiles_24
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5300c18718b29010800000000000000
-      internalID: 1194219262307205983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Starbase floor tiles_25
+      name: Starbase floor tiles_ramp45_01
       rect:
         serializedVersion: 2
         x: 64
@@ -771,11 +794,32 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: Starbase floor tiles_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5300c18718b29010800000000000000
+      internalID: 1194219262307205983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: Starbase floor tiles_27
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 192
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -795,8 +839,8 @@ TextureImporter:
       name: Starbase floor tiles_28
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 192
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -808,6 +852,572 @@ TextureImporter:
       bones: []
       spriteID: 6f2ac1cd63a9420b0800000000000000
       internalID: -5754304863460875530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_29
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17279b4ba3289c760800000000000000
+      internalID: 7478651844877185649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_30
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23cb26412094b3890800000000000000
+      internalID: -7477302483037799374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_31
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0890a08270c4ac30800000000000000
+      internalID: 4369829136473036814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_32
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72992d6077ae4490800000000000000
+      internalID: -7760081006603169157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_33
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a15ffac8634f78a0800000000000000
+      internalID: -6305246835934015064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_34
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4b1e43870afb6960800000000000000
+      internalID: 7596440106665122638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_35
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0364b96924d93610800000000000000
+      internalID: 1601544416839099149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_36
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ac4be494dad38790800000000000000
+      internalID: -7528933545466966879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_ramp45_00
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d5755f36d0ac4a0800000000000000
+      internalID: -6572425983224750752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_38
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe8794ebc2a7a6190800000000000000
+      internalID: -7968422258089035537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4803d72fe88eb3190800000000000000
+      internalID: -7981530213932781436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87fe6a7b5c0b08a50800000000000000
+      internalID: 6521406623668694904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_41
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97dfe8483553f3230800000000000000
+      internalID: 3620671258251689337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_42
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1822a7de7aa984f00800000000000000
+      internalID: 1101300154926506625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_43
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a0abb9c7feb7840800000000000000
+      internalID: 5223031511333866081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_45
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9bd8c2bef0544de0800000000000000
+      internalID: -1349864933452883043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_47
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffcf9dafd8fa01070800000000000000
+      internalID: 8075147156209138943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: -16, y: 6}
+        - {x: -6, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 732d0cc4248e7ffc0800000000000000
+      internalID: -3461042417157746121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_49
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: -16, y: 16}
+        - {x: 6, y: 16}
+        - {x: 16, y: 6}
+        - {x: 16, y: -16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27d54b53cc380bd0800000000000000
+      internalID: -2663812369842055379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -5, y: -16}
+        - {x: -16, y: -5}
+        - {x: -16, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889c5b710112f7b50800000000000000
+      internalID: 6593024732494678408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_51
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 5, y: -16}
+        - {x: -16, y: -16}
+        - {x: -16, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dbeca4c6abffa0b0800000000000000
+      internalID: -5715072708427060270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_52
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6d01e8b3df67290800000000000000
+      internalID: -7892842864691849478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_53
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df42281d3d95f08c0800000000000000
+      internalID: -4030904375185365763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_54
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae98f250f2efd3d80800000000000000
+      internalID: -8269173862878443030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_55
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e6738ea35bfe8140800000000000000
+      internalID: 4723989395986937572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase floor tiles_ramp26_00
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f64778bee2c3e90800000000000000
+      internalID: -7044704127989551357
       vertices: []
       indices: 
       edges: []

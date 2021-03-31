@@ -20,7 +20,6 @@ namespace AtomosZ.AndroSyn.Actors
 			set => throw new System.NotImplementedException();
 		}
 
-		[SerializeField] private WalkingState walkingState = null;
 		[SerializeField] private IKLegSettings ikLegSettings = null;
 		private Actor actor;
 		private IKActorPhysics actorPhysics;
@@ -100,10 +99,10 @@ namespace AtomosZ.AndroSyn.Actors
 			//if (!actor.actorPhysics.isGrounded)
 			//	return MovementStateType.FALLING;
 
-			if (actor.commandList[CommandType.Duck])
+			if (actor.commandList[CommandType.Kneel])
 			{
 				Debug.LogWarning("Need special case for kneeling on stairs?");
-				actor.commandList[CommandType.Duck] = false;
+				actor.commandList[CommandType.Kneel] = false;
 				return MovementStateType.KNEELING;
 			}
 

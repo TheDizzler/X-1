@@ -5,6 +5,7 @@
 		NONE,
 		STANDING, KNEELING,
 		WALKING, STAIRS,
+		ELEVATOR,
 		FALLING, JETPACK,
 	}
 
@@ -14,9 +15,9 @@
 		void SetActor(Actor owner);
 		void EnterState(MovementStateType previousState);
 		/// <summary>
-		/// The next state to transition to.
+		/// Called in FixedUpdate().
 		/// </summary>
-		/// <returns>Current MovementStateType</returns>
+		/// <returns>MovementStateType to transition to or None if no change.</returns>
 		MovementStateType FixedUpdateState();
 		MovementStateType ExitState(MovementStateType nextState);
 	}

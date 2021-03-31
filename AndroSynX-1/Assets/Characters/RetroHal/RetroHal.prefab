@@ -55,6 +55,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   currentMovementState: 0
   currentActionState: 0
+  isNearElevator: 0
   standingState: {fileID: 0}
   walkingState: {fileID: 0}
   stairsState: {fileID: 0}
@@ -77,6 +78,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -100,7 +102,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 747452751887733164, guid: b178e7495ede9fa479f02986fab4215d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -187,7 +189,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!1 &7462390788338741734
@@ -202,6 +204,7 @@ GameObject:
   - component: {fileID: 7462390788338741741}
   - component: {fileID: 7462390788338741730}
   - component: {fileID: 7462390788338741731}
+  - component: {fileID: 5180666905073217246}
   - component: {fileID: 7462390788338741728}
   m_Layer: 0
   m_Name: MovementStates
@@ -260,6 +263,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974d6a590ad328f418ecf86375011cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5180666905073217246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462390788338741734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2afed0d190fb68b44993f77ef0b0de39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevator: {fileID: 0}
 --- !u!114 &7462390788338741728
 MonoBehaviour:
   m_ObjectHideFlags: 0

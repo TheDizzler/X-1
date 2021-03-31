@@ -4,6 +4,9 @@ using UnityEngine.Tilemaps;
 
 namespace AtomosZ.AndroSyn.Tiles
 {
+	/// <summary>
+	/// Place on gameobject that contains tiles to be replaced with objects.
+	/// </summary>
 	[RequireComponent(typeof(Tilemap))]
 	public class TileReplacer : MonoBehaviour
 	{
@@ -14,7 +17,7 @@ namespace AtomosZ.AndroSyn.Tiles
 		{
 			Tilemap tilemap = GetComponent<Tilemap>();
 
-
+			// go through every tile in tilemap and check if it is to be replaced....ugh!
 			for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.xMax; ++i)
 			{
 				for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; ++j)
@@ -28,7 +31,8 @@ namespace AtomosZ.AndroSyn.Tiles
 						if (replacer.tile != tile)
 							continue;
 						Vector3 tilePosition = tilemap.GetCellCenterWorld(coordinate);
-						Instantiate(replacer.prefab, tilePosition, Quaternion.identity);
+						Instantiate(replacer.prefab, tilePosition + replacer.spawnOffset,
+							Quaternion.identity);
 						break;
 					}
 				}
@@ -48,6 +52,7 @@ namespace AtomosZ.AndroSyn.Tiles
 	{
 		public TileBase tile;
 		public GameObject prefab;
+		public Vector3 spawnOffset;
 		public List<TileBase> connected;
 	}
 }

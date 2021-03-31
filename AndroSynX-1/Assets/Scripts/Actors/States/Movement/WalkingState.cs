@@ -4,7 +4,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 {
 	public class WalkingState : MonoBehaviour, IMovementState
 	{
-		private const float TimeToStopMomentum = .15f;
+		private const float TimeToStopMomentum = .05f;
 
 		public MovementStateType movementStateType
 		{
@@ -39,9 +39,9 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (!actor.actorPhysics.isGrounded)
 				return MovementStateType.FALLING;
 
-			if (actor.commandList[CommandType.Duck])
+			if (actor.commandList[CommandType.Kneel])
 			{
-				actor.commandList[CommandType.Duck] = false;
+				actor.commandList[CommandType.Kneel] = false;
 				return MovementStateType.KNEELING;
 			}
 

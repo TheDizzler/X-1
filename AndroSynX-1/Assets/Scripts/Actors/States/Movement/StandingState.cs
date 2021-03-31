@@ -41,9 +41,9 @@ namespace AtomosZ.AndroSyn.Actors.State
 			if (!actor.actorPhysics.isGrounded)
 				return MovementStateType.FALLING;
 
-			if (actor.commandList[CommandType.Duck])
+			if (actor.commandList[CommandType.Kneel])
 			{
-				actor.commandList[CommandType.Duck] = false;
+				actor.commandList[CommandType.Kneel] = false;
 				return MovementStateType.KNEELING;
 			}
 
@@ -55,10 +55,16 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 			if (actor.commandList[CommandType.Jetpack])
 			{
+				// Check to see if in front of elevator
+				if (actor.isNearElevator)
+				{
+					return MovementStateType.ELEVATOR;
+				}
+
 				return MovementStateType.JETPACK;
 			}
 
-			if (actor.currentActionState == ActionStateType.AwaitingAction)
+			if (actor.currentActionState == ActionStateType.AWAITING_ACTION)
 			{
 				timeInStandingState += Time.deltaTime;
 				if (timeInStandingState >= timeUntilIdle)

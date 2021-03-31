@@ -34,7 +34,7 @@ namespace AtomosZ.AndroSyn.Actors.State
 
 		public MovementStateType FixedUpdateState()
 		{
-			if (!actor.commandList[CommandType.Duck])
+			if (!actor.commandList[CommandType.Kneel])
 				return MovementStateType.STANDING;
 
 			return MovementStateType.NONE;

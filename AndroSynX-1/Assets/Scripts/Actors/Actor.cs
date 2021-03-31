@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AtomosZ.AndroSyn.Actors.State;
+using AtomosZ.AndroSyn.Gadgets;
 using UnityEngine;
 
 namespace AtomosZ.AndroSyn.Actors
@@ -38,6 +39,9 @@ namespace AtomosZ.AndroSyn.Actors
 		public ActionStateType currentActionState;
 		public IActorPhysics actorPhysics;
 
+		public bool isNearElevator = false;
+		private Elevator nearElevator;
+
 		/// <summary>
 		/// List of Controller device inputs to consume on an actor's movement updates.
 		/// </summary>
@@ -55,11 +59,14 @@ namespace AtomosZ.AndroSyn.Actors
 		private IMovementState movementState;
 		private Dictionary<MovementStateType, IMovementState> movementStateLookup;
 		private IActionState actionState;
+		private ElevatorState elevatorState;
 		private Dictionary<ActionStateType, IActionState> actionStateLookup;
+		private SpriteRenderer sprite;
 
 
 		public void Awake()
 		{
+			sprite = GetComponent<SpriteRenderer>();
 			actorPhysics = GetComponent<IActorPhysics>();
 			if (!animator)
 			{
@@ -67,6 +74,8 @@ namespace AtomosZ.AndroSyn.Actors
 				if (!animator)
 					Debug.LogWarning("No animator found for " + gameObject.name);
 			}
+
+			actionStateLookup = new Dictionary<ActionStateType, IActionState>();
 			movementStateLookup = new Dictionary<MovementStateType, IMovementState>();
 
 			if (!standingState)
@@ -115,25 +124,32 @@ namespace AtomosZ.AndroSyn.Actors
 				movementStateLookup.Add(MovementStateType.JETPACK, jetpackState);
 			}
 
-			actionStateLookup = new Dictionary<ActionStateType, IActionState>();
+			elevatorState = GetComponentInChildren<ElevatorState>();
+			if (elevatorState)
+			{
+				elevatorState.SetActor(this);
+				movementStateLookup.Add(MovementStateType.ELEVATOR, elevatorState);
+				actionStateLookup.Add(ActionStateType.ELEVATOR, elevatorState);
+			}
+
 
 
 			NoActionState awaitingState = new NoActionState();
 			awaitingState.SetActor(this);
-			actionStateLookup.Add(ActionStateType.AwaitingAction, awaitingState);
+			actionStateLookup.Add(ActionStateType.AWAITING_ACTION, awaitingState);
 
 			if (!shootingState)
 				shootingState = GetComponentInChildren<ShootingState>();
 			if (shootingState)
 			{
 				shootingState.SetActor(this);
-				actionStateLookup.Add(ActionStateType.Shoot, shootingState);
+				actionStateLookup.Add(ActionStateType.SHOOT, shootingState);
 			}
 
 			currentMovementState = MovementStateType.FALLING;
 			movementState = airbornState;
-			currentActionState = ActionStateType.AwaitingAction;
-			actionState = actionStateLookup[ActionStateType.AwaitingAction];
+			currentActionState = ActionStateType.AWAITING_ACTION;
+			actionState = actionStateLookup[ActionStateType.AWAITING_ACTION];
 		}
 
 
@@ -159,6 +175,44 @@ namespace AtomosZ.AndroSyn.Actors
 			}
 		}
 
+		public void NearElevator(Elevator elevator)
+		{
+			isNearElevator = elevator == null ? false : true;
+			elevatorState.elevator = elevator;
+		}
+
+		/// <summary>
+		/// A hack to get button input in the elevator.
+		/// </summary>
+		public void EnterElevator()
+		{
+			ActionStateType nextAction = ActionStateType.ELEVATOR;
+			if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
+				Debug.Log(this.name + " could not find actionState for " + nextAction.ToString());
+			else
+			{
+				ActionStateType prevAction = actionState.ExitState(nextAction);
+				actionState = newAction;
+				actionState.EnterState(prevAction);
+				currentActionState = nextAction;
+			}
+		}
+
+		public int SetZDepth(int newZDepth)
+		{
+			int oldZ = sprite.sortingOrder;
+			sprite.sortingOrder = newZDepth;
+			return oldZ;
+		}
+
+		public string SetSpriteSortingLayer(string sortingLayer)
+		{
+			string oldLayer = sprite.sortingLayerName;
+			sprite.sortingLayerName = sortingLayer;
+			return oldLayer;
+		}
+
+
 		public void Flip()
 		{
 			actorPhysics.isFacingRight = !actorPhysics.isFacingRight;
@@ -179,8 +233,8 @@ namespace AtomosZ.AndroSyn.Actors
 
 			actorController.UpdateCommands();
 
-			ActionStateType nextAction = actionState.FixedUpdateState();
-			if (nextAction != ActionStateType.None)
+			ActionStateType nextAction = actionState.UpdateState();
+			if (nextAction != ActionStateType.NONE)
 			{
 				if (!actionStateLookup.TryGetValue(nextAction, out IActionState newAction))
 					Debug.Log(this.name + " could not find actionState for " + nextAction.ToString());

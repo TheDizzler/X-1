@@ -4,8 +4,10 @@
 	{
 		MoveLeft,
 		MoveRight,
-		Duck,
+		Kneel,
 		Jetpack,
 		Shoot,
+
+		Cancel,
 	}
 }

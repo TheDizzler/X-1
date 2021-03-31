@@ -13,6 +13,8 @@
 
 		Attack,
 
+		Cancel,
+
 		Invert,
 		DebugHP,
 		DebugPossess,

@@ -73,7 +73,7 @@ namespace AtomosZ.AndroSyn.Player
 			controller.SetBinding(VirtualInputCommand.Right, KeyCode.RightArrow);
 
 			controller.SetBinding(VirtualInputCommand.Attack, KeyCode.Z);
-
+			controller.SetBinding(VirtualInputCommand.Cancel, KeyCode.Q);
 			return controller;
 		}
 
@@ -89,6 +89,7 @@ namespace AtomosZ.AndroSyn.Player
 			//controller.SetBinding(VirtualControllerCommand.Sprint, KeyCode.Joystick1Button5);
 
 			controller.SetBinding(VirtualInputCommand.Attack, KeyCode.Joystick1Button2);
+			controller.SetBinding(VirtualInputCommand.Cancel, KeyCode.Joystick1Button3);
 
 			return controller;
 		}

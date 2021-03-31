@@ -2,9 +2,10 @@
 {
 	public enum ActionStateType
 	{
-		None,
-		AwaitingAction,
-		Shoot,
+		NONE,
+		AWAITING_ACTION,
+		SHOOT,
+		ELEVATOR,
 	}
 
 
@@ -14,10 +15,10 @@
 		void SetActor(Actor owner);
 		void EnterState(ActionStateType previousState);
 		/// <summary>
-		/// The next state to transition to.
+		/// Called in Update().
 		/// </summary>
-		/// <returns>Current MovementStateType</returns>
-		ActionStateType FixedUpdateState();
+		/// <returns>MovementStateType to transition to or None if no change.</returns>
+		ActionStateType UpdateState();
 		ActionStateType ExitState(ActionStateType nextState);
 	}
 }

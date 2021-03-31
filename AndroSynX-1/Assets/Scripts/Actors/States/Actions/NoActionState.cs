@@ -4,7 +4,7 @@
 	{
 		public ActionStateType actionStateType
 		{
-			get { return ActionStateType.AwaitingAction; }
+			get { return ActionStateType.AWAITING_ACTION; }
 			set { throw new System.NotImplementedException(); }
 		}
 
@@ -25,12 +25,12 @@
 			return actionStateType;
 		}
 
-		public ActionStateType FixedUpdateState()
+		public ActionStateType UpdateState()
 		{
 			if (actor.commandList[CommandType.Shoot])
-				return ActionStateType.Shoot;
+				return ActionStateType.SHOOT;
 
-			return ActionStateType.None;
+			return ActionStateType.NONE;
 		}
 
 

@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AtomosZ.AndroSyn.InputProcessing
 {
+	/// <summary>
+	/// @TODO: This still uses old Unity input. Switch to new input system.
+	/// </summary>
 	public class VirtualInput
 	{
 		const float DeadZone = 0.1f;
@@ -23,7 +24,7 @@ namespace AtomosZ.AndroSyn.InputProcessing
 				System.Enum.GetValues(typeof(VirtualInputCommand));
 			commandToKeycode = new KeyCode[allVirtualInputCommands.Length];
 		}
-		
+
 		public void SetBinding(VirtualInputCommand command, KeyCode code)
 		{
 			commandToKeycode[(int)command] = code;
@@ -49,7 +50,8 @@ namespace AtomosZ.AndroSyn.InputProcessing
 			currentInput.x = Input.GetAxisRaw(axisX);
 			currentInput.y = Input.GetAxisRaw(axisY);
 
-			if (currentInput.magnitude < DeadZone) currentInput = Vector2.zero;
+			if (currentInput.magnitude < DeadZone)
+				currentInput = Vector2.zero;
 
 			currentInput.x = CalcHorizontalAxis();
 			currentInput.y = CalcVerticalAxis();
@@ -92,7 +94,8 @@ namespace AtomosZ.AndroSyn.InputProcessing
 		{
 			foreach (var val in commandToKeycode)
 			{
-				if (Input.GetKey(val)) return true;
+				if (Input.GetKey(val))
+					return true;
 			}
 
 			return false;

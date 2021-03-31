@@ -7,7 +7,7 @@ namespace AtomosZ.AndroSyn.Actors
 	{
 		public ActionStateType actionStateType
 		{
-			get { return ActionStateType.Shoot; }
+			get { return ActionStateType.SHOOT; }
 			set { throw new System.NotImplementedException(); }
 		}
 
@@ -57,7 +57,7 @@ namespace AtomosZ.AndroSyn.Actors
 			}
 		}
 
-		public ActionStateType FixedUpdateState()
+		public ActionStateType UpdateState()
 		{
 			timeSinceShoot += Time.deltaTime;
 			if (timeSinceShoot > MinTimeBetweenShots)
@@ -69,10 +69,10 @@ namespace AtomosZ.AndroSyn.Actors
 					spawnBullet = true;
 				}
 				else if (timeSinceShoot > LowerWeaponTime)
-					return ActionStateType.AwaitingAction;
+					return ActionStateType.AWAITING_ACTION;
 			}
 
-			return ActionStateType.None;
+			return ActionStateType.NONE;
 		}
 	}
 }

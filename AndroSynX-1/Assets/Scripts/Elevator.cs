@@ -7,12 +7,11 @@ namespace AtomosZ.AndroSyn.Gadgets
 {
 	public class Elevator : MonoBehaviour
 	{
-		[System.Flags]
 		public enum Directions
 		{
 			Broken = 0,
-			Up = 1 << 0, Down = 1 << 1,
-			Left = 1 << 2, Right = 1 << 3, // maybe?
+			Up = 1, Down = 2,
+			Left = 3, Right = 4,
 		}
 
 
@@ -25,8 +24,13 @@ namespace AtomosZ.AndroSyn.Gadgets
 			DoorsOpening,
 		}
 
-		public Directions directions;
 		public ElevatorPhase phase;
+
+		public Elevator[] connected = new Elevator[4];
+		public List<Vector3Int> upShaft = new List<Vector3Int>();
+		public List<Vector3Int> downShaft = new List<Vector3Int>();
+		public List<Vector3Int> rightShaft = new List<Vector3Int>();
+		public List<Vector3Int> leftShaft = new List<Vector3Int>();
 
 		[SerializeField] private SlidingDoor rightDoor = null;
 		[SerializeField] private SlidingDoor leftDoor = null;
@@ -52,6 +56,16 @@ namespace AtomosZ.AndroSyn.Gadgets
 				collision.GetComponent<Actor>().NearElevator(null);
 			}
 		}
+
+		
+		public bool IsConnectedTo(Elevator elevator)
+		{
+			for (int i = 0; i < connected.Length; ++i)
+				if (connected[i] == elevator)
+					return true;
+			return false;
+		}
+
 
 		public void Entered(Actor actor)
 		{
@@ -125,7 +139,7 @@ namespace AtomosZ.AndroSyn.Gadgets
 					}
 					else if (commandList[CommandType.Kneel])
 					{
-						if (directions.HasFlag(Directions.Down))
+						if (connected[(int)Directions.Down] != null)
 						{
 							Debug.Log("can go down");
 						}
@@ -134,7 +148,7 @@ namespace AtomosZ.AndroSyn.Gadgets
 					}
 					else if (commandList[CommandType.Jetpack])
 					{
-						if (directions.HasFlag(Directions.Up))
+						if (connected[(int)Directions.Up] != null)
 						{
 							Debug.Log("can go up");
 						}

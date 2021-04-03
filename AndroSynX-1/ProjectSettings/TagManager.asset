@@ -8,6 +8,7 @@ TagManager:
   - PlayerSpawnPoint
   - AreaPhysics
   - Bullet
+  - BGTilemap
   layers:
   - Default
   - TransparentFX

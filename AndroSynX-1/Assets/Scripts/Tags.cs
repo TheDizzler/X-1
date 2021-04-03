@@ -8,13 +8,8 @@
 		public const string AREA_PHYSICS = "AreaPhysics";
 		public const string BULLET = "Bullet";
 		public const string GROUND = "Ground";
+		public const string BG_TILEMAP = "BGTilemap";
 	}
 
-	public class SpriteLayers
-	{
-		public const string BACKGROUND = "Background";
-		public const string IN_ELEVATOR = "InElevator";
-		public const string DEFAULT = "Default";
-		public const string FOREGROUND = "Foreground";
-	}
+
 }

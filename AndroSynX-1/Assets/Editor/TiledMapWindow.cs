@@ -4,7 +4,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AtomosZ.Editor.Tiled
+namespace AtomosZ.AndroSyn.Editors.Tiled
 {
 	public class TiledMapWindow : EditorWindow
 	{

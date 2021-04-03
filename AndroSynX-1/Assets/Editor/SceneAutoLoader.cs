@@ -2,7 +2,7 @@
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace AtomosZ.Editor
+namespace AtomosZ.AndroSyn.Editors
 {
 	[InitializeOnLoad]
 	public class SceneAutoLoader : MonoBehaviour

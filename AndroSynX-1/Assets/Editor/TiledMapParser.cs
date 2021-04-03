@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-namespace AtomosZ.Editor.Tiled
+namespace AtomosZ.AndroSyn.Editors.Tiled
 {
 	/// <summary>
 	/// Imports Tiled Maps with image assets into Unity project.

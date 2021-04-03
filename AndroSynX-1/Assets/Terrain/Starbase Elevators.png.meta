@@ -4,10 +4,10 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -8827076445923496350
-    second: Starbase Elevators_0
+    second: Starbase Elevator shaft_vert_2a
   - first:
       213: -698973022927802046
-    second: Starbase Elevators_1
+    second: Starbase Elevator shaft_vert_2b
   - first:
       213: 5756442341537215929
     second: Starbase Elevators_doorportal
@@ -16,10 +16,10 @@ TextureImporter:
     second: Starbase Elevators_internal
   - first:
       213: -5797404621128252928
-    second: Starbase Elevators_4
+    second: Starbase Elevator shaft_vert_1a
   - first:
       213: -6143562403605178093
-    second: Starbase Elevators_5
+    second: Starbase Elevator shaft_vert_1b
   - first:
       213: -8702058410543912788
     second: Starbase Elevators_doorleft
@@ -28,28 +28,28 @@ TextureImporter:
     second: Starbase Elevators_doorright
   - first:
       213: 6987995288982674717
-    second: Starbase Elevators_8
+    second: Starbase Elevator shaft_vert_0a
   - first:
       213: -3410428292587402626
-    second: Starbase Elevators_9
+    second: Starbase Elevator shaft_vert_0b
   - first:
       213: -8460585985593995792
-    second: Starbase Elevators_shaft
+    second: Starbase Elevators_internalshaft_0a
   - first:
       213: -7773109486632012152
-    second: Starbase Elevators_11
+    second: Starbase Elevator shaft_horz_1a
   - first:
       213: -198850740427906948
-    second: Starbase Elevators_12
+    second: Starbase Elevator shaft_ground_0a
   - first:
       213: -7849193701964299831
-    second: Starbase Elevators_13
+    second: Starbase Elevator shaft_ground_0b
   - first:
       213: -8977710520441261434
-    second: Starbase Elevators_14
+    second: Starbase Elevator shaft_horz_2a
   - first:
       213: -7378376936261530104
-    second: Starbase Elevators_15
+    second: Starbase Elevator shaft_horz_1b
   - first:
       213: 5747299572823015474
     second: Starbase Elevators_16
@@ -58,10 +58,10 @@ TextureImporter:
     second: Starbase Elevators_17
   - first:
       213: -3561942428871500270
-    second: Starbase Elevators_18
+    second: Starbase Elevator shaft_horz_2b
   - first:
       213: -8360328107144495221
-    second: Starbase Elevators_19
+    second: Starbase Elevator shaft_horz_0a
   - first:
       213: -6315815678960540407
     second: Starbase Elevators_20
@@ -70,10 +70,46 @@ TextureImporter:
     second: Starbase Elevators_21
   - first:
       213: 881929596074620603
-    second: Starbase Elevators_22
+    second: Starbase Elevator shaft_horz_0b
   - first:
       213: 5869277366052958838
-    second: Starbase Elevators_23
+    second: Starbase Elevator shaft_corner_LD_outside
+  - first:
+      213: -3672074139818584106
+    second: Starbase Elevator shaft_corner_LD_outside
+  - first:
+      213: 7916206523954153593
+    second: Starbase Elevator shaft_corner_LU_outside
+  - first:
+      213: 5380039269597686537
+    second: Starbase Elevator shaft_corner_LU_outside
+  - first:
+      213: 8215573237951445107
+    second: Starbase Elevator shaft_corner_RU_inside
+  - first:
+      213: -4906442183526860044
+    second: Starbase Elevator shaft_corner_RD_inside
+  - first:
+      213: 6646036172474557238
+    second: Starbase Elevator shaft_corner_RU_inside
+  - first:
+      213: -9002255504027700374
+    second: Starbase Elevator shaft_corner_RD_inside
+  - first:
+      213: -3644963647558220387
+    second: Starbase Elevator shaft_cornerRD_0a
+  - first:
+      213: 6269683185271451904
+    second: Starbase Elevator shaft_cornerRD_1a
+  - first:
+      213: -6295591026435266527
+    second: Starbase Elevator shaft_cornerRD_1b
+  - first:
+      213: -857660374033891919
+    second: Starbase Elevator shaft_cornerRD_0b
+  - first:
+      213: 211061243067625256
+    second: Starbase Elevators_internalshaft_0b
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -95,7 +131,6 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -127,12 +162,9 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
-  flipbookRows: 1
-  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -163,7 +195,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Starbase Elevators_0
+      name: Starbase Elevator shaft_vert_2a
       rect:
         serializedVersion: 2
         x: 0
@@ -184,7 +216,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_1
+      name: Starbase Elevator shaft_vert_2b
       rect:
         serializedVersion: 2
         x: 32
@@ -205,7 +237,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_4
+      name: Starbase Elevator shaft_vert_1a
       rect:
         serializedVersion: 2
         x: 0
@@ -226,7 +258,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_5
+      name: Starbase Elevator shaft_vert_1b
       rect:
         serializedVersion: 2
         x: 32
@@ -247,7 +279,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_8
+      name: Starbase Elevator shaft_vert_0a
       rect:
         serializedVersion: 2
         x: 0
@@ -268,7 +300,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_9
+      name: Starbase Elevator shaft_vert_0b
       rect:
         serializedVersion: 2
         x: 32
@@ -289,7 +321,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_12
+      name: Starbase Elevator shaft_ground_0a
       rect:
         serializedVersion: 2
         x: 0
@@ -310,7 +342,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_13
+      name: Starbase Elevator shaft_ground_0b
       rect:
         serializedVersion: 2
         x: 32
@@ -481,7 +513,7 @@ TextureImporter:
       name: Starbase Elevators_doorright
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 0
         width: 64
         height: 64
@@ -499,7 +531,28 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Starbase Elevators_shaft
+      name: Starbase Elevators_internalshaft_0a
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fd85094fd5f59a80800000000000000
+      internalID: -8460585985593995792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_1a
       rect:
         serializedVersion: 2
         x: 128
@@ -513,8 +566,302 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fd85094fd5f59a80800000000000000
-      internalID: -8460585985593995792
+      spriteID: 88674190b1e502490800000000000000
+      internalID: -7773109486632012152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_2a
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 682bfccf8d3c86380800000000000000
+      internalID: -8977710520441261434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_1b
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80e423fc44dba9990800000000000000
+      internalID: -7378376936261530104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_2b
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ed8b0ab30719ec0800000000000000
+      internalID: -3561942428871500270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_0a
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8f30f7a1e52afb80800000000000000
+      internalID: -8360328107144495221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_horz_0b
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb67ee28b4e3d3c00800000000000000
+      internalID: 881929596074620603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_RD_outside
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 672b3dbeaacd37150800000000000000
+      internalID: 5869277366052958838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_LD_outside
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7173b760c2a0dc0800000000000000
+      internalID: -3672074139818584106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_RU_outside
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978cae444e30cdd60800000000000000
+      internalID: 7916206523954153593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_LU_outside
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90ba506063db9aa40800000000000000
+      internalID: 5380039269597686537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_LU_inside
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3783d4af454930270800000000000000
+      internalID: 8215573237951445107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_LD_inside
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fab3eb54d0d8ebb0800000000000000
+      internalID: -4906442183526860044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_RU_inside
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6332eb8cfa67b3c50800000000000000
+      internalID: 6646036172474557238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevator shaft_corner_RD_inside
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63bf19a050911380800000000000000
+      internalID: -9002255504027700374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Starbase Elevators_internalshaft_0b
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82fe5e21517dde200800000000000000
+      internalID: 211061243067625256
       vertices: []
       indices: 
       edges: []

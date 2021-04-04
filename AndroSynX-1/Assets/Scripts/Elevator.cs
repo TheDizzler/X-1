@@ -57,7 +57,7 @@ namespace AtomosZ.AndroSyn.Gadgets
 			}
 		}
 
-		
+
 		public bool IsConnectedTo(Elevator elevator)
 		{
 			for (int i = 0; i < connected.Length; ++i)
@@ -188,6 +188,90 @@ namespace AtomosZ.AndroSyn.Gadgets
 		public bool IsDoorClosed()
 		{
 			return rightDoor.IsDoorClosed();
+		}
+
+		public bool HasShaftInDirection(Directions direction)
+		{
+			switch (direction)
+			{
+				case Directions.Up:
+					return upShaft != null && upShaft.Count > 0;
+				case Directions.Down:
+					return downShaft != null && downShaft.Count > 0;
+				case Directions.Left:
+					return leftShaft != null && leftShaft.Count > 0;
+				case Directions.Right:
+					return rightShaft != null && rightShaft.Count > 0;
+			}
+
+			return false;
+		}
+
+		public List<Vector3Int> GetShaftInDirection(Directions direction)
+		{
+			switch (direction)
+			{
+				case Directions.Up:
+					return upShaft;
+				case Directions.Down:
+					return downShaft;
+				case Directions.Left:
+					return leftShaft;
+				case Directions.Right:
+					return rightShaft;
+				default:
+					return null;
+			}
+		}
+
+		public void ClearShaft(Directions direction)
+		{
+			switch (direction)
+			{
+				case Directions.Up:
+					upShaft = null;
+					break;
+				case Directions.Down:
+					downShaft = null;
+					break;
+				case Directions.Left:
+					leftShaft = null;
+					break;
+				case Directions.Right:
+					rightShaft = null;
+					break;
+			}
+		}
+
+		public List<Vector3Int> RemoveConnection(Directions direction)
+		{
+			if (connected[(int)direction] == null)
+				return null;
+			var opp = GetOpposite(direction);
+			List<Vector3Int> otherShaft = connected[(int)direction].GetShaftInDirection(opp);
+			ClearShaft(direction);
+			connected[(int)direction].ClearShaft(opp);
+			connected[(int)direction].connected[(int)opp] = null;
+			connected[(int)direction] = null;
+			return otherShaft;
+		}
+
+		public static Directions GetOpposite(Directions direction)
+		{
+			switch (direction)
+			{
+				case Directions.Down:
+					return Directions.Up;
+				case Directions.Left:
+					return Directions.Right;
+				case Directions.Right:
+					return Directions.Left;
+				case Directions.Up:
+					return Directions.Down;
+				case Directions.Broken:
+				default:
+					throw new System.Exception("Cannot connect broken elevator");
+			}
 		}
 	}
 }

@@ -135,8 +135,16 @@ namespace AtomosZ.AndroSyn.Editors
 				{
 					EditorGUILayout.PrefixLabel(((Elevator.Directions)i).ToString());
 
-					elevator.connected[i] = (Elevator)
+					var newElevator = (Elevator)
 						EditorGUILayout.ObjectField(elevator.connected[i], typeof(Elevator), true);
+					if (newElevator != elevator.connected[i])
+					{
+						RemoveShaft(elevator.GetShaftInDirection((Elevator.Directions)i));
+						var otherShaft = elevator.RemoveConnection((Elevator.Directions)i);
+						RemoveShaft(otherShaft);
+						elevator.connected[i] = newElevator;
+					}
+
 					if (elevator.connected[i] != null && GUILayout.Button("Connect"))
 					{
 						ConnectElevatorDoors(elevator.connected[i], (Elevator.Directions)i);
@@ -149,7 +157,10 @@ namespace AtomosZ.AndroSyn.Editors
 		}
 
 		/// <summary>
-		/// We will ALWAYS connect from bottom to top.
+		/// Connecting elevator contract:
+		/// 1) We will ALWAYS connect from bottom to top. Left/right doesn't matter.
+		/// 2) An Elevator.Direction MUST connect with the opposite Elevator.Direction on the other,
+		///		i.e this Up must connect with other Down.
 		/// </summary>
 		/// <param name="other"></param>
 		/// <param name="direction"></param>
@@ -160,6 +171,21 @@ namespace AtomosZ.AndroSyn.Editors
 			//	Debug.LogError("Other elevator is not connected to this one");
 			//	return;
 			//}
+
+			var oppositeDirection = Elevator.GetOpposite(direction);
+
+			if (other.connected[(int)oppositeDirection] != elevator
+				&& other.HasShaftInDirection(oppositeDirection))
+			{
+				//Debug.LogError("Cannot connect: Other elevator already has a connection " +
+				//	"to a different elevator on " + oppositeDirection);
+				//return;
+				RemoveShaft(other.GetShaftInDirection(oppositeDirection));
+			}
+
+			other.connected[(int)oppositeDirection] = elevator;
+
+			// remove old shaft if exists
 			List<Vector3Int> oldShaft = null;
 			switch (direction)
 			{
@@ -177,27 +203,30 @@ namespace AtomosZ.AndroSyn.Editors
 					break;
 			}
 
-			if (oldShaft != null)
-			{
-				// remove old shaft
-				foreach (var tile in oldShaft)
-				{
-					shaftTilemap.SetTile(tile, null);
-					bgTilemap.SetTile(tile, null);
-				}
-
-				oldShaft = null;
-			}
+			RemoveShaft(oldShaft);
 
 			// get tilemap position of elevator entrances
-			Vector3Int startPos = shaftTilemap.WorldToCell(elevator.transform.position);
-			Vector3Int endPos = shaftTilemap.WorldToCell(other.transform.position);
+			bool belowOther = elevator.transform.position.y < other.transform.position.y;
+
+			Vector3Int startPos = belowOther ?
+				shaftTilemap.WorldToCell(elevator.transform.position) :
+				shaftTilemap.WorldToCell(other.transform.position);
+			Vector3Int endPos = belowOther ?
+				shaftTilemap.WorldToCell(other.transform.position) :
+				shaftTilemap.WorldToCell(elevator.transform.position);
+
+
 			List<Vector3Int> shaft = new List<Vector3Int>();
 
 			Vector3Int diff = endPos - startPos;
-			if (Mathf.Abs(diff.y) >= Mathf.Abs(diff.x))
+			if (diff.y < 5 && diff.x != 0)
+			{
+				Debug.LogError("non-vertically aligned elevators should be at least 5 squares apart");
+				return;
+			}
+
+			if (direction == Elevator.Directions.Up || direction == Elevator.Directions.Down)
 			{ // vertical
-				Debug.Log("isVertical");
 				bool hasBreakPos = false;
 				bool movingVertically = true;
 				Vector3Int pairOffest = right;
@@ -210,8 +239,8 @@ namespace AtomosZ.AndroSyn.Editors
 				{
 					hasBreakPos = true;
 					int vertMidpoint = startPos.y + (int)(.5f * diff.y);
-					midpoints[0] = new Vector3Int(startPos.x, vertMidpoint, 0) + left;
-					midpoints[1] = new Vector3Int(endPos.x, vertMidpoint, 0) + up;
+					midpoints[0] = new Vector3Int(startPos.x, vertMidpoint, 0) + left + down;
+					midpoints[1] = new Vector3Int(endPos.x, vertMidpoint, 0) /*+ up*/;
 
 					if (startPos.x < endPos.x)
 					{
@@ -340,15 +369,19 @@ namespace AtomosZ.AndroSyn.Editors
 				{
 					case Elevator.Directions.Up:
 						elevator.upShaft = shaft;
+						other.downShaft = shaft;
 						break;
 					case Elevator.Directions.Down:
 						elevator.downShaft = shaft;
+						other.upShaft = shaft;
 						break;
 					case Elevator.Directions.Left:
 						elevator.leftShaft = shaft;
+						other.rightShaft = shaft;
 						break;
 					case Elevator.Directions.Right:
 						elevator.rightShaft = shaft;
+						other.leftShaft = shaft;
 						break;
 				}
 			}
@@ -362,6 +395,19 @@ namespace AtomosZ.AndroSyn.Editors
 
 
 
+		}
+
+		private void RemoveShaft(List<Vector3Int> oldShaft)
+		{
+			if (oldShaft == null)
+				return;
+			foreach (var tile in oldShaft)
+			{
+				shaftTilemap.SetTile(tile, null);
+				bgTilemap.SetTile(tile, null);
+			}
+
+			oldShaft = null;
 		}
 
 

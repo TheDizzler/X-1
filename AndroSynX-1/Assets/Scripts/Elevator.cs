@@ -9,9 +9,9 @@ namespace AtomosZ.AndroSyn.Gadgets
 	{
 		public enum Directions
 		{
-			Broken = 0,
-			Up = 1, Down = 2,
-			Left = 3, Right = 4,
+			Broken = -1,
+			Up = 0, Down = 1,
+			Left = 2, Right = 3,
 		}
 
 

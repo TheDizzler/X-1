@@ -137,7 +137,9 @@ namespace AtomosZ.AndroSyn.Editors
 
 					var newElevator = (Elevator)
 						EditorGUILayout.ObjectField(elevator.connected[i], typeof(Elevator), true);
-					if (newElevator != elevator.connected[i])
+					if (newElevator != null && newElevator == elevator)
+						Debug.LogError("Cannot connect to self");
+					else if (newElevator != elevator.connected[i])
 					{
 						RemoveShaft(elevator.GetShaftInDirection((Elevator.Directions)i));
 						var otherShaft = elevator.RemoveConnection((Elevator.Directions)i);
@@ -166,11 +168,41 @@ namespace AtomosZ.AndroSyn.Editors
 		/// <param name="direction"></param>
 		private void ConnectElevatorDoors(Elevator other, Elevator.Directions direction)
 		{
-			//if (!other.IsConnectedTo(elevator))
-			//{
-			//	Debug.LogError("Other elevator is not connected to this one");
-			//	return;
-			//}
+			switch (direction)
+			{
+				case Elevator.Directions.Up:
+					if (elevator.transform.position.y >= other.transform.position.y)
+					{
+						Debug.LogError("Elevator connected to \"Up\" must be" +
+							" above this elevator.");
+						return;
+					}
+					break;
+				case Elevator.Directions.Down:
+					if (elevator.transform.position.y <= other.transform.position.y)
+					{
+						Debug.LogError("Elevator connected to \"Down\" must be" +
+							" below this elevator.");
+						return;
+					}
+					break;
+				case Elevator.Directions.Right:
+					if (elevator.transform.position.x >= other.transform.position.x)
+					{
+						Debug.LogError("Elevator connected to \"Right\" must be" +
+							" to the right this elevator.");
+						return;
+					}
+					break;
+				case Elevator.Directions.Left:
+					if (elevator.transform.position.x <= other.transform.position.x)
+					{
+						Debug.LogError("Elevator connected to \"Left\" must be" +
+							" to the left this elevator.");
+						return;
+					}
+					break;
+			}
 
 			var oppositeDirection = Elevator.GetOpposite(direction);
 
@@ -206,7 +238,7 @@ namespace AtomosZ.AndroSyn.Editors
 			RemoveShaft(oldShaft);
 
 			// get tilemap position of elevator entrances
-			bool belowOther = elevator.transform.position.y < other.transform.position.y;
+			bool belowOther = elevator.transform.position.y <= other.transform.position.y;
 
 			Vector3Int startPos = belowOther ?
 				shaftTilemap.WorldToCell(elevator.transform.position) :
@@ -215,119 +247,189 @@ namespace AtomosZ.AndroSyn.Editors
 				shaftTilemap.WorldToCell(other.transform.position) :
 				shaftTilemap.WorldToCell(elevator.transform.position);
 
-
 			List<Vector3Int> shaft = new List<Vector3Int>();
-
 			Vector3Int diff = endPos - startPos;
-			if (diff.y < 5 && diff.x != 0)
-			{
-				Debug.LogError("non-vertically aligned elevators should be at least 5 squares apart");
-				return;
-			}
+
+			bool hasBreakPos = false;
+			bool buildingVertically; // is shaft currently building vertically
+			Vector3Int pairOffset; // will be right or down, depending on horz or vert shaft
+			Vector3Int buildDirection; // current direction shaft is being built
+			Vector3Int horizontalDirection; // is shaft going left or right from origin?
+			Tile[] currentShaft; // the current tileset being used to build the shaft
+			Vector3Int[] midpoints = new Vector3Int[2]; // where the shaft changes directions
 
 			if (direction == Elevator.Directions.Up || direction == Elevator.Directions.Down)
-			{ // vertical
-				bool hasBreakPos = false;
-				bool movingVertically = true;
-				Vector3Int pairOffest = right;
-				Vector3Int constructDirection = up;
-				Vector3Int horizontalDirection = right;
-				Tile[] currentShaft = verticalShaft;
-				int nextBreakPos = 0;
-				Vector3Int[] midpoints = new Vector3Int[2];
-				if (startPos.x != endPos.x)
+			{
+				buildingVertically = true;
+				pairOffset = right;
+				buildDirection = up;
+				horizontalDirection = right;
+				currentShaft = verticalShaft;
+			}
+			else
+			{
+				buildingVertically = false;
+				pairOffset = down;
+				if (!belowOther)
 				{
-					hasBreakPos = true;
-					int vertMidpoint = startPos.y + (int)(.5f * diff.y);
-					midpoints[0] = new Vector3Int(startPos.x, vertMidpoint, 0) + left + down;
-					midpoints[1] = new Vector3Int(endPos.x, vertMidpoint, 0) /*+ up*/;
+					buildDirection = (direction == Elevator.Directions.Left) ? right : left;
+					horizontalDirection = (direction == Elevator.Directions.Left) ? right : left;
+				}
+				else
+				{
+					buildDirection = (direction == Elevator.Directions.Left) ? left : right;
+					horizontalDirection = (direction == Elevator.Directions.Left) ? left : right;
+				}
+				currentShaft = horizontalShaft;
+			}
 
-					if (startPos.x < endPos.x)
+			int nextBreakPos = 0;
+
+			// are shafts vertically aligned?
+			switch (direction)
+			{
+				case Elevator.Directions.Up:
+				case Elevator.Directions.Down:
+					if (diff.x != 0)
 					{
-						midpoints[1] += left;
+						hasBreakPos = true;
+						int vertMidpoint = startPos.y + (int)(.5f * diff.y);
+						midpoints[0] = new Vector3Int(startPos.x, vertMidpoint, 0) + left + down;
+						midpoints[1] = new Vector3Int(endPos.x, vertMidpoint, 0);
+
+						if (startPos.x < endPos.x)
+						{
+							midpoints[1] += left;
+						}
+
+						horizontalDirection = startPos.x < endPos.x ? right : left;
+					}
+					break;
+				case Elevator.Directions.Left:
+				case Elevator.Directions.Right:
+					if (diff.y != 0)
+					{
+						hasBreakPos = true;
+						int horzMidPoint = startPos.x + (int)(.5f * diff.x);
+						midpoints[0] = new Vector3Int(horzMidPoint, startPos.y, 0);
+						midpoints[1] = new Vector3Int(horzMidPoint, endPos.y, 0);
+						if (belowOther)
+							horizontalDirection = (direction == Elevator.Directions.Left) ? left : right;
+						else
+							horizontalDirection = (direction == Elevator.Directions.Left) ? right : left;
+					}
+					break;
+			}
+
+
+			Vector3Int currentPos = startPos + left; // start building from topleft of door
+			switch (direction)
+			{
+				case Elevator.Directions.Up:
+				case Elevator.Directions.Down:
+					endPos += down + left; // stop building at bottomleft of door
+					break;
+				case Elevator.Directions.Right:
+					if (belowOther)
+					{
+						midpoints[1] += down;
+					}
+					else
+					{
+						endPos += left + left;
+						midpoints[1] += left + down;
+					}
+					break;
+				case Elevator.Directions.Left:
+					if (belowOther)
+					{
+						endPos += left + left;
+						midpoints[1] += left + down;
+					}
+					else
+					{
+						midpoints[1] += down;
+					}
+					break;
+			}
+
+			int nextTile = 0;
+			while (currentPos != endPos)
+			{
+				shaftTilemap.SetTile(currentPos, currentShaft[nextTile++]);
+				shaftTilemap.SetTile(currentPos + pairOffset, currentShaft[nextTile++]);
+
+				shaft.Add(currentPos);
+				shaft.Add(currentPos + pairOffset);
+
+				bgTilemap.SetTile(currentPos, internalShaft[0]);
+				bgTilemap.SetTile(currentPos + pairOffset, internalShaft[1]);
+				if (nextTile >= currentShaft.Length)
+					nextTile = 0;
+				currentPos += buildDirection;
+				if (hasBreakPos && currentPos == midpoints[nextBreakPos])
+				{
+					var lastDirection = buildDirection;
+					buildingVertically = !buildingVertically;
+					currentShaft = buildingVertically ? verticalShaft : horizontalShaft;
+					pairOffset = buildingVertically ? right : down;
+					buildDirection = buildingVertically ? up : horizontalDirection;
+					nextTile = 0;
+					if (++nextBreakPos == 2)
+						hasBreakPos = false;
+
+
+					if (buildDirection == right)
+					{
+						shaftTilemap.SetTile(currentPos, cornerShaftRD[0]);
+						shaftTilemap.SetTile(currentPos + right, cornerShaftRD[1]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + right);
+						currentPos += up;
+						shaftTilemap.SetTile(currentPos, cornerShaftRD[2]);
+						shaftTilemap.SetTile(currentPos + right, cornerShaftRD[3]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + right);
+						currentPos += right;
+						currentPos += right;
+						continue;
 					}
 
-					horizontalDirection = startPos.x < endPos.x ? right : left;
-				}
-
-				Vector3Int currentPos = startPos + left;
-				endPos += down + left;
-
-				int nextTile = 0;
-				while (currentPos != endPos)
-				{
-					shaftTilemap.SetTile(currentPos, currentShaft[nextTile++]);
-					shaftTilemap.SetTile(currentPos + pairOffest, currentShaft[nextTile++]);
-
-					shaft.Add(currentPos);
-					shaft.Add(currentPos + pairOffest);
-
-					bgTilemap.SetTile(currentPos, internalShaft[0]);
-					bgTilemap.SetTile(currentPos + pairOffest, internalShaft[1]);
-					if (nextTile >= currentShaft.Length)
-						nextTile = 0;
-					currentPos += constructDirection;
-					if (hasBreakPos && currentPos == midpoints[nextBreakPos])
+					if (buildDirection == left)
 					{
-						var lastDirection = constructDirection;
-						movingVertically = !movingVertically;
-						currentShaft = movingVertically ? verticalShaft : horizontalShaft;
-						pairOffest = movingVertically ? right : down;
-						constructDirection = movingVertically ? up : horizontalDirection;
-						nextTile = 0;
-						if (++nextBreakPos == 2)
-							hasBreakPos = false;
+						shaftTilemap.SetTile(currentPos, cornerShaftLD[0]);
+						shaftTilemap.SetTile(currentPos + right, cornerShaftLD[1]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + right);
+						currentPos += up;
+						shaftTilemap.SetTile(currentPos, cornerShaftLD[2]);
+						shaftTilemap.SetTile(currentPos + right, cornerShaftLD[3]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + right);
+						currentPos += left;
+						continue;
+					}
 
-						if (constructDirection == right)
-						{
-							shaftTilemap.SetTile(currentPos, cornerShaftRD[0]);
-							shaftTilemap.SetTile(currentPos + right, cornerShaftRD[1]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + right);
-							currentPos += up;
-							shaftTilemap.SetTile(currentPos, cornerShaftRD[2]);
-							shaftTilemap.SetTile(currentPos + right, cornerShaftRD[3]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + right);
-							currentPos += right;
-							currentPos += right;
-							continue;
-						}
+					if (buildDirection != up)
+						Debug.LogError("We dun fq'd up, boi!");
 
-						if (constructDirection == left)
-						{
-							shaftTilemap.SetTile(currentPos, cornerShaftLD[0]);
-							shaftTilemap.SetTile(currentPos + right, cornerShaftLD[1]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + right);
-							currentPos += up;
-							shaftTilemap.SetTile(currentPos, cornerShaftLD[2]);
-							shaftTilemap.SetTile(currentPos + right, cornerShaftLD[3]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + right);
-							currentPos += left;
-							continue;
-						}
-
-						if (constructDirection != up)
-							Debug.LogError("We dun fq'd up, boi!");
-						//{
-						if (lastDirection == right)
-						{
-							shaftTilemap.SetTile(currentPos, cornerShaftLU[0]);
-							shaftTilemap.SetTile(currentPos + down, cornerShaftLU[1]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + down);
-							currentPos += right;
-							shaftTilemap.SetTile(currentPos, cornerShaftLU[2]);
-							shaftTilemap.SetTile(currentPos + down, cornerShaftLU[3]);
-							shaft.Add(currentPos);
-							shaft.Add(currentPos + down);
-							currentPos += up;
-							currentPos += left;
-							continue;
-						}
-
+					if (lastDirection == right)
+					{
+						shaftTilemap.SetTile(currentPos, cornerShaftLU[0]);
+						shaftTilemap.SetTile(currentPos + down, cornerShaftLU[1]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + down);
+						currentPos += right;
+						shaftTilemap.SetTile(currentPos, cornerShaftLU[2]);
+						shaftTilemap.SetTile(currentPos + down, cornerShaftLU[3]);
+						shaft.Add(currentPos);
+						shaft.Add(currentPos + down);
+						currentPos += up;
+						currentPos += left;
+						continue;
+					}
+					else
+					{ // last direction was left
 						shaftTilemap.SetTile(currentPos, cornerShaftRU[0]);
 						shaftTilemap.SetTile(currentPos + down, cornerShaftRU[1]);
 						shaft.Add(currentPos);
@@ -338,63 +440,52 @@ namespace AtomosZ.AndroSyn.Editors
 						shaft.Add(currentPos);
 						shaft.Add(currentPos + down);
 						currentPos += up;
-						//continue;
-						//}
-					}
-
-					if (Mathf.Abs(currentPos.x) > 50 || Mathf.Abs(currentPos.y) > 50)
-					{
-						Debug.Log("dun fk'd up");
-						break;
 					}
 				}
 
+				if (Mathf.Abs(currentPos.x) > 50 || Mathf.Abs(currentPos.y) > 50)
+				{
+					Debug.LogWarning("dun fk'd up");
+					break;
+				}
+			}
+
+			currentPos += down;
+			if (nextTile == 0)
+			{ // make sure we don't have any cut off windows
 				currentPos += down;
-				if (nextTile == 0)
-				{ // make sure we don't have any cut off windows
-					currentPos += down;
-					shaftTilemap.SetTile(currentPos, verticalShaft[0]);
-					shaftTilemap.SetTile(currentPos + right, verticalShaft[1]);
-					shaft.Add(currentPos);
-					shaft.Add(currentPos + right);
-					currentPos += up;
-				}
-
-				shaftTilemap.SetTile(currentPos, verticalShaftGround[0]);
-				shaftTilemap.SetTile(currentPos + right, verticalShaftGround[1]);
+				shaftTilemap.SetTile(currentPos, verticalShaft[0]);
+				shaftTilemap.SetTile(currentPos + right, verticalShaft[1]);
 				shaft.Add(currentPos);
 				shaft.Add(currentPos + right);
-
-				switch (direction)
-				{
-					case Elevator.Directions.Up:
-						elevator.upShaft = shaft;
-						other.downShaft = shaft;
-						break;
-					case Elevator.Directions.Down:
-						elevator.downShaft = shaft;
-						other.upShaft = shaft;
-						break;
-					case Elevator.Directions.Left:
-						elevator.leftShaft = shaft;
-						other.rightShaft = shaft;
-						break;
-					case Elevator.Directions.Right:
-						elevator.rightShaft = shaft;
-						other.leftShaft = shaft;
-						break;
-				}
+				currentPos += up;
 			}
-			else
+
+			shaftTilemap.SetTile(currentPos, verticalShaftGround[0]);
+			shaftTilemap.SetTile(currentPos + right, verticalShaftGround[1]);
+			shaft.Add(currentPos);
+			shaft.Add(currentPos + right);
+
+
+			switch (direction)
 			{
-				Debug.Log("isHorizontal");
-				int horzMidpoint = startPos.x + (int)(.5f * diff.x);
-				//midpoints[0] = new Vector3Int(horzMidpoint, startPos.y, 0);
-				//midpoints[1] = new Vector3Int(horzMidpoint, endPos.y, 0);
+				case Elevator.Directions.Up:
+					elevator.upShaft = shaft;
+					other.downShaft = shaft;
+					break;
+				case Elevator.Directions.Down:
+					elevator.downShaft = shaft;
+					other.upShaft = shaft;
+					break;
+				case Elevator.Directions.Left:
+					elevator.leftShaft = shaft;
+					other.rightShaft = shaft;
+					break;
+				case Elevator.Directions.Right:
+					elevator.rightShaft = shaft;
+					other.leftShaft = shaft;
+					break;
 			}
-
-
-
 		}
 
 		private void RemoveShaft(List<Vector3Int> oldShaft)

@@ -190,6 +190,7 @@ namespace AtomosZ.AndroSyn.Gadgets
 			return rightDoor.IsDoorClosed();
 		}
 
+#if UNITY_EDITOR
 		public bool HasShaftInDirection(Directions direction)
 		{
 			switch (direction)
@@ -243,6 +244,11 @@ namespace AtomosZ.AndroSyn.Gadgets
 			}
 		}
 
+		public Elevator GetElevatorConnectedTo(Directions direction)
+		{
+			return connected[(int)direction];
+		}
+
 		public List<Vector3Int> RemoveConnection(Directions direction)
 		{
 			if (connected[(int)direction] == null)
@@ -273,5 +279,6 @@ namespace AtomosZ.AndroSyn.Gadgets
 					throw new System.Exception("Cannot connect broken elevator");
 			}
 		}
+#endif
 	}
 }

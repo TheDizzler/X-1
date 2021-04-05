@@ -141,21 +141,29 @@ namespace AtomosZ.AndroSyn.Editors
 						Debug.LogError("Cannot connect to self");
 					else if (newElevator != elevator.connected[i])
 					{
+						if (newElevator == null)
+							Debug.Log("elevator erased");
+						var other = elevator.connected[i];
 						RemoveShaft(elevator.GetShaftInDirection((Elevator.Directions)i));
 						var otherShaft = elevator.RemoveConnection((Elevator.Directions)i);
 						RemoveShaft(otherShaft);
 						elevator.connected[i] = newElevator;
+						EditorUtility.SetDirty(other);
 					}
 
 					if (elevator.connected[i] != null && GUILayout.Button("Connect"))
 					{
 						ConnectElevatorDoors(elevator.connected[i], (Elevator.Directions)i);
+						EditorUtility.SetDirty(elevator.connected[i]);
 					}
 				}
 				EditorGUILayout.EndHorizontal();
 			}
 			EditorGUI.indentLevel -= 1;
 			EditorGUILayout.EndFoldoutHeaderGroup();
+
+			serializedObject.ApplyModifiedProperties();
+
 		}
 
 		/// <summary>

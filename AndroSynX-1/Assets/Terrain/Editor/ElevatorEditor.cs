@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using AtomosZ.AndroSyn.Gadgets;
 using UnityEditor;
 using UnityEngine;
@@ -107,9 +106,15 @@ namespace AtomosZ.AndroSyn.Editors
 
 		public override void OnInspectorGUI()
 		{
-			base.OnInspectorGUI();
+			serializedObject.Update();
+			//base.OnInspectorGUI();
 			// for debugging
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("phase"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("carriage"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("carriageSpeed"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("rightDoor"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("leftDoor"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("connectingShafts"));
 
 			if (elevator.connected.Length != 4)
 			{
@@ -127,7 +132,7 @@ namespace AtomosZ.AndroSyn.Editors
 				return;
 			}
 
-			EditorGUILayout.BeginFoldoutHeaderGroup(true, "Connected Shafts");
+			EditorGUILayout.BeginFoldoutHeaderGroup(true, "Connecting Elevators");
 			EditorGUI.indentLevel += 1;
 			for (int i = 0; i < elevator.connected.Length; ++i)
 			{
@@ -141,14 +146,13 @@ namespace AtomosZ.AndroSyn.Editors
 						Debug.LogError("Cannot connect to self");
 					else if (newElevator != elevator.connected[i])
 					{
-						if (newElevator == null)
-							Debug.Log("elevator erased");
 						var other = elevator.connected[i];
-						RemoveShaft(elevator.GetShaftInDirection((Elevator.Directions)i));
-						var otherShaft = elevator.RemoveConnection((Elevator.Directions)i);
-						RemoveShaft(otherShaft);
+						var connectingShaft = elevator.GetShaftInDirection((Elevator.Directions)i);
+						RemoveShaftTiles(connectingShaft);
+						connectingShaft.DestroyConnection();
 						elevator.connected[i] = newElevator;
-						EditorUtility.SetDirty(other);
+						if (other != null)
+							EditorUtility.SetDirty(other);
 					}
 
 					if (elevator.connected[i] != null && GUILayout.Button("Connect"))
@@ -220,42 +224,36 @@ namespace AtomosZ.AndroSyn.Editors
 				//Debug.LogError("Cannot connect: Other elevator already has a connection " +
 				//	"to a different elevator on " + oppositeDirection);
 				//return;
-				RemoveShaft(other.GetShaftInDirection(oppositeDirection));
+				var otherConnection = other.GetShaftInDirection(oppositeDirection);
+				RemoveShaftTiles(otherConnection);
+				otherConnection.DestroyConnection();
 			}
 
 			other.connected[(int)oppositeDirection] = elevator;
 
 			// remove old shaft if exists
-			List<Vector3Int> oldShaft = null;
-			switch (direction)
-			{
-				case Elevator.Directions.Up:
-					oldShaft = elevator.upShaft;
-					break;
-				case Elevator.Directions.Down:
-					oldShaft = elevator.downShaft;
-					break;
-				case Elevator.Directions.Left:
-					oldShaft = elevator.leftShaft;
-					break;
-				case Elevator.Directions.Right:
-					oldShaft = elevator.rightShaft;
-					break;
-			}
-
-			RemoveShaft(oldShaft);
+			Elevator.Shaft oldShaft = elevator.connectingShafts[(int)direction];
+			RemoveShaftTiles(oldShaft);
+			oldShaft.DestroyConnection();
 
 			// get tilemap position of elevator entrances
 			bool belowOther = elevator.transform.position.y <= other.transform.position.y;
+			Elevator.Shaft newShaft;
+			Vector3Int startPos;
+			Vector3Int endPos;
+			if (belowOther)
+			{
+				startPos = shaftTilemap.WorldToCell(elevator.transform.position);
+				endPos = shaftTilemap.WorldToCell(other.transform.position);
+				newShaft = new Elevator.Shaft(elevator, other);
+			}
+			else
+			{
+				startPos = shaftTilemap.WorldToCell(other.transform.position);
+				endPos = shaftTilemap.WorldToCell(elevator.transform.position);
+				newShaft = new Elevator.Shaft(other, elevator);
+			}
 
-			Vector3Int startPos = belowOther ?
-				shaftTilemap.WorldToCell(elevator.transform.position) :
-				shaftTilemap.WorldToCell(other.transform.position);
-			Vector3Int endPos = belowOther ?
-				shaftTilemap.WorldToCell(other.transform.position) :
-				shaftTilemap.WorldToCell(elevator.transform.position);
-
-			List<Vector3Int> shaft = new List<Vector3Int>();
 			Vector3Int diff = endPos - startPos;
 
 			bool hasBreakPos = false;
@@ -361,14 +359,19 @@ namespace AtomosZ.AndroSyn.Editors
 					break;
 			}
 
+			newShaft.waypoints.Add(startPos);
+			newShaft.waypoints.Add(midpoints[0]);
+			newShaft.waypoints.Add(midpoints[1]);
+			newShaft.waypoints.Add(endPos);
+
 			int nextTile = 0;
 			while (currentPos != endPos)
 			{
 				shaftTilemap.SetTile(currentPos, currentShaft[nextTile++]);
 				shaftTilemap.SetTile(currentPos + pairOffset, currentShaft[nextTile++]);
 
-				shaft.Add(currentPos);
-				shaft.Add(currentPos + pairOffset);
+				newShaft.tiles.Add(currentPos);
+				newShaft.tiles.Add(currentPos + pairOffset);
 
 				bgTilemap.SetTile(currentPos, internalShaft[0]);
 				bgTilemap.SetTile(currentPos + pairOffset, internalShaft[1]);
@@ -391,13 +394,13 @@ namespace AtomosZ.AndroSyn.Editors
 					{
 						shaftTilemap.SetTile(currentPos, cornerShaftRD[0]);
 						shaftTilemap.SetTile(currentPos + right, cornerShaftRD[1]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + right);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + right);
 						currentPos += up;
 						shaftTilemap.SetTile(currentPos, cornerShaftRD[2]);
 						shaftTilemap.SetTile(currentPos + right, cornerShaftRD[3]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + right);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + right);
 						currentPos += right;
 						currentPos += right;
 						continue;
@@ -407,13 +410,13 @@ namespace AtomosZ.AndroSyn.Editors
 					{
 						shaftTilemap.SetTile(currentPos, cornerShaftLD[0]);
 						shaftTilemap.SetTile(currentPos + right, cornerShaftLD[1]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + right);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + right);
 						currentPos += up;
 						shaftTilemap.SetTile(currentPos, cornerShaftLD[2]);
 						shaftTilemap.SetTile(currentPos + right, cornerShaftLD[3]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + right);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + right);
 						currentPos += left;
 						continue;
 					}
@@ -425,13 +428,13 @@ namespace AtomosZ.AndroSyn.Editors
 					{
 						shaftTilemap.SetTile(currentPos, cornerShaftLU[0]);
 						shaftTilemap.SetTile(currentPos + down, cornerShaftLU[1]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + down);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + down);
 						currentPos += right;
 						shaftTilemap.SetTile(currentPos, cornerShaftLU[2]);
 						shaftTilemap.SetTile(currentPos + down, cornerShaftLU[3]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + down);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + down);
 						currentPos += up;
 						currentPos += left;
 						continue;
@@ -440,13 +443,13 @@ namespace AtomosZ.AndroSyn.Editors
 					{ // last direction was left
 						shaftTilemap.SetTile(currentPos, cornerShaftRU[0]);
 						shaftTilemap.SetTile(currentPos + down, cornerShaftRU[1]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + down);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + down);
 						currentPos += left;
 						shaftTilemap.SetTile(currentPos, cornerShaftRU[2]);
 						shaftTilemap.SetTile(currentPos + down, cornerShaftRU[3]);
-						shaft.Add(currentPos);
-						shaft.Add(currentPos + down);
+						newShaft.tiles.Add(currentPos);
+						newShaft.tiles.Add(currentPos + down);
 						currentPos += up;
 					}
 				}
@@ -464,49 +467,29 @@ namespace AtomosZ.AndroSyn.Editors
 				currentPos += down;
 				shaftTilemap.SetTile(currentPos, verticalShaft[0]);
 				shaftTilemap.SetTile(currentPos + right, verticalShaft[1]);
-				shaft.Add(currentPos);
-				shaft.Add(currentPos + right);
+				newShaft.tiles.Add(currentPos);
+				newShaft.tiles.Add(currentPos + right);
 				currentPos += up;
 			}
 
 			shaftTilemap.SetTile(currentPos, verticalShaftGround[0]);
 			shaftTilemap.SetTile(currentPos + right, verticalShaftGround[1]);
-			shaft.Add(currentPos);
-			shaft.Add(currentPos + right);
+			newShaft.tiles.Add(currentPos);
+			newShaft.tiles.Add(currentPos + right);
 
-
-			switch (direction)
-			{
-				case Elevator.Directions.Up:
-					elevator.upShaft = shaft;
-					other.downShaft = shaft;
-					break;
-				case Elevator.Directions.Down:
-					elevator.downShaft = shaft;
-					other.upShaft = shaft;
-					break;
-				case Elevator.Directions.Left:
-					elevator.leftShaft = shaft;
-					other.rightShaft = shaft;
-					break;
-				case Elevator.Directions.Right:
-					elevator.rightShaft = shaft;
-					other.leftShaft = shaft;
-					break;
-			}
+			elevator.connectingShafts[(int)direction] = newShaft;
+			other.connectingShafts[(int)oppositeDirection] = newShaft;
 		}
 
-		private void RemoveShaft(List<Vector3Int> oldShaft)
+		private void RemoveShaftTiles(Elevator.Shaft oldShaft)
 		{
-			if (oldShaft == null)
+			if (oldShaft == null || oldShaft.tiles == null)
 				return;
-			foreach (var tile in oldShaft)
+			foreach (var tile in oldShaft.tiles)
 			{
 				shaftTilemap.SetTile(tile, null);
 				bgTilemap.SetTile(tile, null);
 			}
-
-			oldShaft = null;
 		}
 
 

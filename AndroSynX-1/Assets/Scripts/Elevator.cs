@@ -24,13 +24,46 @@ namespace AtomosZ.AndroSyn.Gadgets
 			DoorsOpening,
 		}
 
-		public ElevatorPhase phase;
+		[System.Serializable]
+		public class Shaft
+		{
+			public List<Vector3Int> tiles = new List<Vector3Int>();
+			public List<Vector3> waypoints = new List<Vector3>();
+			public Elevator[] elevators = new Elevator[2];
 
+			public Shaft(Elevator start, Elevator end)
+			{
+				elevators[0] = start;
+				elevators[1] = end;
+			}
+
+			public void DestroyConnection()
+			{
+				if (elevators == null)
+					return; // goddamn it unity, why can't you let me have null serialized objects?
+				foreach (var elevator in elevators)
+					elevator.RemoveShaft(this);
+			}
+		}
+
+		private void RemoveShaft(Shaft remove)
+		{
+			for (int i = 0; i < connectingShafts.Length; ++i)
+			{
+				if (connectingShafts[i] == remove)
+				{
+					connectingShafts[i] = null;
+					connected[i] = null;
+					return;
+				}
+			}
+		}
+		public ElevatorPhase phase;
+		/// <summary>
+		/// Use for creating shafts, not for use in-game.
+		/// </summary>
 		public Elevator[] connected = new Elevator[4];
-		public List<Vector3Int> upShaft = new List<Vector3Int>();
-		public List<Vector3Int> downShaft = new List<Vector3Int>();
-		public List<Vector3Int> rightShaft = new List<Vector3Int>();
-		public List<Vector3Int> leftShaft = new List<Vector3Int>();
+		public Shaft[] connectingShafts = new Shaft[4];
 
 		[SerializeField] private SlidingDoor rightDoor = null;
 		[SerializeField] private SlidingDoor leftDoor = null;
@@ -55,15 +88,6 @@ namespace AtomosZ.AndroSyn.Gadgets
 				ShutDoors();
 				collision.GetComponent<Actor>().NearElevator(null);
 			}
-		}
-
-
-		public bool IsConnectedTo(Elevator elevator)
-		{
-			for (int i = 0; i < connected.Length; ++i)
-				if (connected[i] == elevator)
-					return true;
-			return false;
 		}
 
 
@@ -166,6 +190,13 @@ namespace AtomosZ.AndroSyn.Gadgets
 			return MovementStateType.NONE;
 		}
 
+		private void OnDrawGizmosSelected()
+		{
+			if (connectingShafts[0] != null && connectingShafts[0].waypoints != null)
+				foreach (var point in connectingShafts[0].waypoints)
+					Gizmos.DrawSphere(point, .1f);
+		}
+
 		private void OpenDoors()
 		{
 			phase = ElevatorPhase.DoorsOpening;
@@ -193,55 +224,17 @@ namespace AtomosZ.AndroSyn.Gadgets
 #if UNITY_EDITOR
 		public bool HasShaftInDirection(Directions direction)
 		{
-			switch (direction)
-			{
-				case Directions.Up:
-					return upShaft != null && upShaft.Count > 0;
-				case Directions.Down:
-					return downShaft != null && downShaft.Count > 0;
-				case Directions.Left:
-					return leftShaft != null && leftShaft.Count > 0;
-				case Directions.Right:
-					return rightShaft != null && rightShaft.Count > 0;
-			}
-
-			return false;
+			return connectingShafts[(int)direction] != null;
 		}
 
-		public List<Vector3Int> GetShaftInDirection(Directions direction)
+		public Shaft GetShaftInDirection(Directions direction)
 		{
-			switch (direction)
-			{
-				case Directions.Up:
-					return upShaft;
-				case Directions.Down:
-					return downShaft;
-				case Directions.Left:
-					return leftShaft;
-				case Directions.Right:
-					return rightShaft;
-				default:
-					return null;
-			}
+			return connectingShafts[(int)direction];
 		}
 
-		public void ClearShaft(Directions direction)
+		private void ClearShaft(Directions direction)
 		{
-			switch (direction)
-			{
-				case Directions.Up:
-					upShaft = null;
-					break;
-				case Directions.Down:
-					downShaft = null;
-					break;
-				case Directions.Left:
-					leftShaft = null;
-					break;
-				case Directions.Right:
-					rightShaft = null;
-					break;
-			}
+			connectingShafts[(int)direction] = null;
 		}
 
 		public Elevator GetElevatorConnectedTo(Directions direction)

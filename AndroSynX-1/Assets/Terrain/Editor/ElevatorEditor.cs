@@ -152,13 +152,26 @@ namespace AtomosZ.AndroSyn.Editors
 						connectingShaft.DestroyConnection();
 						elevator.connected[i] = newElevator;
 						if (other != null)
+						{
 							EditorUtility.SetDirty(other);
+							if (other.connected[(int)Elevator.GetOpposite((Elevator.Directions)i)] != null)
+							{
+								Debug.Log("SRSLY WTF");
+							}
+						}
 					}
 
 					if (elevator.connected[i] != null && GUILayout.Button("Connect"))
 					{
-						ConnectElevatorDoors(elevator.connected[i], (Elevator.Directions)i);
-						EditorUtility.SetDirty(elevator.connected[i]);
+						var other = elevator.connected[i];
+						ConnectElevatorDoors(other, (Elevator.Directions)i);
+
+						elevator.connected[i] = other;
+						other.connected[(int)Elevator.GetOpposite((Elevator.Directions)i)] = elevator;
+						EditorUtility.SetDirty(other);
+						EditorUtility.SetDirty(elevator);
+						if (elevator.connected[i] == null)
+							Debug.Log("WTF");
 					}
 				}
 				EditorGUILayout.EndHorizontal();
@@ -223,7 +236,6 @@ namespace AtomosZ.AndroSyn.Editors
 			{
 				//Debug.LogError("Cannot connect: Other elevator already has a connection " +
 				//	"to a different elevator on " + oppositeDirection);
-				//return;
 				var otherConnection = other.GetShaftInDirection(oppositeDirection);
 				RemoveShaftTiles(otherConnection);
 				otherConnection.DestroyConnection();
@@ -338,7 +350,8 @@ namespace AtomosZ.AndroSyn.Editors
 				case Elevator.Directions.Right:
 					if (belowOther)
 					{
-						midpoints[1] += down;
+						midpoints[0] += left;
+						midpoints[1] += down + left;
 					}
 					else
 					{
@@ -354,15 +367,33 @@ namespace AtomosZ.AndroSyn.Editors
 					}
 					else
 					{
-						midpoints[1] += down;
+						midpoints[0] += left;
+						midpoints[1] += down + left;
 					}
 					break;
 			}
 
 			newShaft.waypoints.Add(startPos);
-			newShaft.waypoints.Add(midpoints[0]);
-			newShaft.waypoints.Add(midpoints[1]);
-			newShaft.waypoints.Add(endPos);
+
+			switch (direction)
+			{
+				case Elevator.Directions.Up:
+				case Elevator.Directions.Down:
+					newShaft.waypoints.Add(midpoints[0] + right + up);
+					newShaft.waypoints.Add(midpoints[1]);
+					newShaft.waypoints.Add(endPos + right + up);
+					break;
+				case Elevator.Directions.Right:
+					newShaft.waypoints.Add(midpoints[0] + right);
+					newShaft.waypoints.Add(midpoints[1] + right + up);
+					newShaft.waypoints.Add(endPos);
+					break;
+				case Elevator.Directions.Left:
+					newShaft.waypoints.Add(midpoints[0] + right);
+					newShaft.waypoints.Add(midpoints[1] + right + up);
+					newShaft.waypoints.Add(endPos);
+					break;
+			}
 
 			int nextTile = 0;
 			while (currentPos != endPos)
@@ -456,26 +487,29 @@ namespace AtomosZ.AndroSyn.Editors
 
 				if (Mathf.Abs(currentPos.x) > 50 || Mathf.Abs(currentPos.y) > 50)
 				{
-					Debug.LogWarning("dun fk'd up");
-					break;
+					throw new System.Exception("dun fk'd up");
 				}
 			}
 
-			currentPos += down;
-			if (nextTile == 0)
-			{ // make sure we don't have any cut off windows
+			if (direction == Elevator.Directions.Down
+				|| direction == Elevator.Directions.Up)
+			{
 				currentPos += down;
-				shaftTilemap.SetTile(currentPos, verticalShaft[0]);
-				shaftTilemap.SetTile(currentPos + right, verticalShaft[1]);
+				if (nextTile == 0)
+				{ // make sure we don't have any cut off windows
+					currentPos += down;
+					shaftTilemap.SetTile(currentPos, verticalShaft[0]);
+					shaftTilemap.SetTile(currentPos + right, verticalShaft[1]);
+					newShaft.tiles.Add(currentPos);
+					newShaft.tiles.Add(currentPos + right);
+					currentPos += up;
+				}
+
+				shaftTilemap.SetTile(currentPos, verticalShaftGround[0]);
+				shaftTilemap.SetTile(currentPos + right, verticalShaftGround[1]);
 				newShaft.tiles.Add(currentPos);
 				newShaft.tiles.Add(currentPos + right);
-				currentPos += up;
 			}
-
-			shaftTilemap.SetTile(currentPos, verticalShaftGround[0]);
-			shaftTilemap.SetTile(currentPos + right, verticalShaftGround[1]);
-			newShaft.tiles.Add(currentPos);
-			newShaft.tiles.Add(currentPos + right);
 
 			elevator.connectingShafts[(int)direction] = newShaft;
 			other.connectingShafts[(int)oppositeDirection] = newShaft;

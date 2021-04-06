@@ -58,6 +58,9 @@ namespace AtomosZ.AndroSyn.Gadgets
 				}
 			}
 		}
+
+		public Transform carriage;
+		public float carriageSpeed = 10;
 		public ElevatorPhase phase;
 		/// <summary>
 		/// Use for creating shafts, not for use in-game.
@@ -70,6 +73,8 @@ namespace AtomosZ.AndroSyn.Gadgets
 		private float timeDoorsOpen;
 		private bool cancelPressed;
 		private bool exitingElevator;
+		private Shaft currentShaft;
+		private int currentWaypoint;
 
 
 		void OnTriggerEnter2D(Collider2D collision)
@@ -163,38 +168,66 @@ namespace AtomosZ.AndroSyn.Gadgets
 					}
 					else if (commandList[CommandType.Kneel])
 					{
-						if (connected[(int)Directions.Down] != null)
-						{
-							Debug.Log("can go down");
-						}
-						else
-							Debug.Log("can't go down");
+						GetShaftAndGo(Directions.Down);
 					}
 					else if (commandList[CommandType.Jetpack])
 					{
-						if (connected[(int)Directions.Up] != null)
-						{
-							Debug.Log("can go up");
-						}
-						else
-							Debug.Log("can't go up");
+						GetShaftAndGo(Directions.Up);
 					}
+					else if (commandList[CommandType.MoveLeft])
+					{
+						GetShaftAndGo(Directions.Left);
+					}
+					else if (commandList[CommandType.MoveRight])
+						GetShaftAndGo(Directions.Right);
 
 					break;
 
 				case ElevatorPhase.ElevatorMoving:
-					throw new System.Exception("NYI");
+					carriage.position = Vector2.MoveTowards(
+						carriage.position, currentShaft.waypoints[currentWaypoint], carriageSpeed * Time.deltaTime);
+					if (Mathf.Approximately(carriage.position.x, currentShaft.waypoints[currentWaypoint].x)
+						&& Mathf.Approximately(carriage.position.y, currentShaft.waypoints[currentWaypoint].y))
+					{
+						if (++currentWaypoint >= currentShaft.waypoints.Count)
+						{   // arrived
+							phase = ElevatorPhase.DoorsOpening;
+						}
+					}
+					break;
 			}
 
 			cancelPressed = false;
 			return MovementStateType.NONE;
 		}
 
+		Color[] rgb = new Color[4] {
+			new Color(0, 1, 0),
+			new Color(1, 0, 0),
+			new Color(0, 1, 1),
+			new Color(1, 0, 1),
+		};
 		private void OnDrawGizmosSelected()
 		{
-			if (connectingShafts[0] != null && connectingShafts[0].waypoints != null)
-				foreach (var point in connectingShafts[0].waypoints)
-					Gizmos.DrawSphere(point, .1f);
+
+			for (int i = 0; i < 4; ++i)
+			{
+				Gizmos.color = rgb[i];
+				if (connectingShafts[i] != null && connectingShafts[i].waypoints != null)
+					foreach (var point in connectingShafts[i].waypoints)
+						Gizmos.DrawSphere(point, .1f);
+			}
+		}
+
+		
+		private void GetShaftAndGo(Directions direction)
+		{
+			currentShaft = connectingShafts[(int)direction];
+
+			if (currentShaft == null || currentShaft.waypoints.Count == 0)
+				Debug.Log("No shaft detected in direction " + direction);
+			phase = ElevatorPhase.ElevatorMoving;
+			currentWaypoint = 0;
 		}
 
 		private void OpenDoors()
@@ -240,19 +273,6 @@ namespace AtomosZ.AndroSyn.Gadgets
 		public Elevator GetElevatorConnectedTo(Directions direction)
 		{
 			return connected[(int)direction];
-		}
-
-		public List<Vector3Int> RemoveConnection(Directions direction)
-		{
-			if (connected[(int)direction] == null)
-				return null;
-			var opp = GetOpposite(direction);
-			List<Vector3Int> otherShaft = connected[(int)direction].GetShaftInDirection(opp);
-			ClearShaft(direction);
-			connected[(int)direction].ClearShaft(opp);
-			connected[(int)direction].connected[(int)opp] = null;
-			connected[(int)direction] = null;
-			return otherShaft;
 		}
 
 		public static Directions GetOpposite(Directions direction)

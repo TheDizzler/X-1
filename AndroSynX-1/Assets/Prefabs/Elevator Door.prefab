@@ -63,7 +63,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -111,7 +110,7 @@ GameObject:
   - component: {fileID: 4948794744201593291}
   - component: {fileID: 4948794744201593290}
   m_Layer: 0
-  m_Name: internal
+  m_Name: carriage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +145,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -170,7 +168,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -20
+  m_SortingOrder: -14
   m_Sprite: {fileID: 1666625303233742273, guid: 27dc8c3ebe5f0ac4ca3df14c20796a68,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -230,8 +228,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0240bcf31be5e74f90bcf74c0845797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directions: 0
+  carriage: {fileID: 4948794744201593291}
+  carriageSpeed: 10
   phase: 0
+  connected:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  upShaft: []
+  downShaft: []
+  rightShaft: []
+  leftShaft: []
   rightDoor: {fileID: 4948794743875273149}
   leftDoor: {fileID: 4948794745188365718}
 --- !u!61 &6053824785524865023
@@ -323,7 +331,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -438,7 +445,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
